@@ -1,0 +1,11 @@
+resources:
+- ns.yaml
+- cnpg-summitdb.yaml
+- summitdb-service.yaml
+
+secretGenerator:
+- name: source-db-replicauser
+  options:
+    disableNameSuffixHash: true
+  files:
+  - etc/.secrets/password

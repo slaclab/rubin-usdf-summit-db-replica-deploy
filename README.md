@@ -22,3 +22,11 @@ Below is the configuration to point at the cluster on the summit as a replicatio
 ```
 
 Users log at the usdf with a user called `usdf` that has SELECT only permissions to the exposurelog and narrativelog databases.
+
+## Rebuild cluster
+
+When the cluster falls out of sync with the summit database instance it needs to be rebuilt.  Below are instructions to rebuild.
+
+* Delete cluster with `kubectl delete cluster summit-db-replica -n summit-db-replica`
+* Rebuild the cluster by navigating to overlays/prod and apply the manifest with `kubectl apply -f cnpg-summitdb.yaml` or `make apply`
+*  The rebuild will use pgbasebackup to restore data from the summit databse instance and takes a couple minutes to finish.  After replication is complete the pgbasebackup pod terminates and normal database pods are started.

@@ -1,0 +1,22 @@
+resources:
+  - ns.yaml
+  - cnpg-summitdb.yaml
+  - summitdb-logical-service.yaml
+
+configMapGenerator:
+  - name: exposurelog-init-sql
+    options:
+      disableNameSuffixHash: true
+    files:
+      - sql/grants.sql
+      - sql/exposure_log_all_tables_schemas.sql
+
+secretGenerator:
+  - name: usdf-summitdb-logical-replication-creds
+    options:
+      disableNameSuffixHash: true
+    files:
+      - etc/.secrets/username
+      - etc/.secrets/password
+
+namespace: summit-db-logical-replica

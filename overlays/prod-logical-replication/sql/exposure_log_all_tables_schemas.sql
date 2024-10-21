@@ -91,6 +91,7 @@ SET default_table_access_method = heap;
 -- Name: cdb_latiss_version; Type: TABLE; Schema: cdb; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb.cdb_latiss_version;
 CREATE TABLE cdb.cdb_latiss_version (
     version_num character varying(32) NOT NULL
 );
@@ -102,6 +103,7 @@ ALTER TABLE cdb.cdb_latiss_version OWNER TO oods;
 -- Name: cdb_lsstcomcam_version; Type: TABLE; Schema: cdb; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb.cdb_lsstcomcam_version;
 CREATE TABLE cdb.cdb_lsstcomcam_version (
     version_num character varying(32) NOT NULL
 );
@@ -113,6 +115,7 @@ ALTER TABLE cdb.cdb_lsstcomcam_version OWNER TO oods;
 -- Name: cdb_lsstcomcamsim_version; Type: TABLE; Schema: cdb; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb.cdb_lsstcomcamsim_version;
 CREATE TABLE cdb.cdb_lsstcomcamsim_version (
     version_num character varying(32) NOT NULL
 );
@@ -124,6 +127,7 @@ ALTER TABLE cdb.cdb_lsstcomcamsim_version OWNER TO oods;
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.ccdexposure;
 CREATE TABLE cdb_latiss.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
@@ -181,7 +185,7 @@ COMMENT ON COLUMN cdb_latiss.ccdexposure.seq_num IS 'Sequence number.';
 --
 -- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
-
+DROP TABLE IF EXISTS cdb_latiss.ccdexposure_camera;
 CREATE TABLE cdb_latiss.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -236,7 +240,7 @@ ALTER SEQUENCE cdb_latiss.ccdexposure_ccdexposure_id_seq OWNED BY cdb_latiss.ccd
 --
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
-
+DROP TABLE IF EXISTS cdb_latiss.ccdexposure_flexdata;
 CREATE TABLE cdb_latiss.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -271,6 +275,7 @@ COMMENT ON COLUMN cdb_latiss.ccdexposure_flexdata.value IS 'Content of value as 
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_latiss.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -335,6 +340,7 @@ ALTER TABLE cdb_latiss.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.ccdvisit1_quicklook;
 CREATE TABLE cdb_latiss.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -593,6 +599,7 @@ COMMENT ON COLUMN cdb_latiss.ccdvisit1_quicklook.max_dist_to_nearest_psf IS 'Max
 -- Name: exposure; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.exposure;
 CREATE TABLE cdb_latiss.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -1032,6 +1039,7 @@ ALTER SEQUENCE cdb_latiss.exposure_exposure_id_seq OWNED BY cdb_latiss.exposure.
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.exposure_flexdata;
 CREATE TABLE cdb_latiss.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -1082,6 +1090,7 @@ COMMENT ON COLUMN cdb_latiss.exposure_flexdata.seq_num IS 'Sequence number.';
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.exposure_flexdata_schema;
 CREATE TABLE cdb_latiss.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -1191,6 +1200,7 @@ ALTER TABLE cdb_latiss.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.visit1_quicklook;
 CREATE TABLE cdb_latiss.visit1_quicklook (
     visit_id bigint NOT NULL,
     n_inputs integer,
@@ -1465,6 +1475,7 @@ COMMENT ON COLUMN cdb_latiss.visit1_quicklook.postisr_pixel_median IS 'Median po
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure;
 CREATE TABLE cdb_lsstcomcam.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
@@ -1523,6 +1534,7 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure.seq_num IS 'Sequence number.';
 -- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_camera;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -1578,6 +1590,7 @@ ALTER SEQUENCE cdb_lsstcomcam.ccdexposure_ccdexposure_id_seq OWNED BY cdb_lsstco
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_flexdata;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -1612,6 +1625,7 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure_flexdata.value IS 'Content of value
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -1676,6 +1690,7 @@ ALTER TABLE cdb_lsstcomcam.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdvisit1_quicklook;
 CREATE TABLE cdb_lsstcomcam.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -1942,6 +1957,7 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.postisr_pixel_median IS 'Me
 -- Name: exposure; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.exposure;
 CREATE TABLE cdb_lsstcomcam.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -2357,6 +2373,7 @@ ALTER SEQUENCE cdb_lsstcomcam.exposure_exposure_id_seq OWNED BY cdb_lsstcomcam.e
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.exposure_flexdata;
 CREATE TABLE cdb_lsstcomcam.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -2407,6 +2424,7 @@ COMMENT ON COLUMN cdb_lsstcomcam.exposure_flexdata.seq_num IS 'Sequence number.'
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.exposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcam.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -2513,6 +2531,7 @@ ALTER TABLE cdb_lsstcomcam.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.visit1_quicklook;
 CREATE TABLE cdb_lsstcomcam.visit1_quicklook (
     visit_id bigint NOT NULL,
     n_inputs integer,
@@ -3275,6 +3294,7 @@ COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.postisr_pixel_median_max IS 'M
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
@@ -3333,6 +3353,7 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure.seq_num IS 'Sequence number.';
 -- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_camera;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -3388,6 +3409,7 @@ ALTER SEQUENCE cdb_lsstcomcamsim.ccdexposure_ccdexposure_id_seq OWNED BY cdb_lss
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_flexdata;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -3422,6 +3444,7 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure_flexdata.value IS 'Content of va
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -3486,6 +3509,7 @@ ALTER TABLE cdb_lsstcomcamsim.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdvisit1_quicklook;
 CREATE TABLE cdb_lsstcomcamsim.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -3752,6 +3776,7 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdvisit1_quicklook.postisr_pixel_median IS 
 -- Name: exposure; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure;
 CREATE TABLE cdb_lsstcomcamsim.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -4167,6 +4192,7 @@ ALTER SEQUENCE cdb_lsstcomcamsim.exposure_exposure_id_seq OWNED BY cdb_lsstcomca
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure_flexdata;
 CREATE TABLE cdb_lsstcomcamsim.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -4217,6 +4243,7 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.exposure_flexdata.seq_num IS 'Sequence numbe
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcamsim.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -4323,6 +4350,7 @@ ALTER TABLE cdb_lsstcomcamsim.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.visit1_quicklook;
 CREATE TABLE cdb_lsstcomcamsim.visit1_quicklook (
     visit_id bigint NOT NULL,
     astrom_offset_mean_min double precision,
@@ -5085,6 +5113,7 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.postisr_pixel_median_max IS
 -- Name: alembic_version; Type: TABLE; Schema: public; Owner: exposurelog
 --
 
+DROP TABLE IF EXISTS public.alembic_version; 
 CREATE TABLE public.alembic_version (
     version_num character varying(32) NOT NULL
 );
@@ -5096,6 +5125,7 @@ ALTER TABLE public.alembic_version OWNER TO exposurelog;
 -- Name: message; Type: TABLE; Schema: public; Owner: exposurelog
 --
 
+DROP TABLE IF EXISTS public.message; 
 CREATE TABLE public.message (
     id uuid NOT NULL,
     site_id character varying(16),
@@ -5888,256 +5918,6 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.visit1_quicklook
 
 ALTER TABLE ONLY public.message
     ADD CONSTRAINT message_parent_id_fkey FOREIGN KEY (parent_id) REFERENCES public.message(id);
-
-
---
--- Name: usdf; Type: PUBLICATION; Schema: -; Owner: postgres
---
-
-CREATE PUBLICATION usdf WITH (publish = 'insert, update, delete, truncate');
-
-
-ALTER PUBLICATION usdf OWNER TO postgres;
-
---
--- Name: usdfpub; Type: PUBLICATION; Schema: -; Owner: postgres
---
-
-CREATE PUBLICATION usdfpub WITH (publish = 'insert, update, delete, truncate');
-
-
-ALTER PUBLICATION usdfpub OWNER TO postgres;
-
---
--- Name: usdfpub cdb_latiss_version; Type: PUBLICATION TABLE; Schema: cdb; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb.cdb_latiss_version;
-
-
---
--- Name: usdfpub cdb_lsstcomcam_version; Type: PUBLICATION TABLE; Schema: cdb; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb.cdb_lsstcomcam_version;
-
-
---
--- Name: usdfpub cdb_lsstcomcamsim_version; Type: PUBLICATION TABLE; Schema: cdb; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb.cdb_lsstcomcamsim_version;
-
-
---
--- Name: usdfpub ccdexposure; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.ccdexposure;
-
-
---
--- Name: usdfpub ccdexposure_camera; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.ccdexposure_camera;
-
-
---
--- Name: usdfpub ccdexposure_flexdata; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.ccdexposure_flexdata;
-
-
---
--- Name: usdfpub ccdexposure_flexdata_schema; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.ccdexposure_flexdata_schema;
-
-
---
--- Name: usdfpub ccdvisit1_quicklook; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.ccdvisit1_quicklook;
-
-
---
--- Name: usdfpub exposure; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.exposure;
-
-
---
--- Name: usdfpub exposure_flexdata; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.exposure_flexdata;
-
-
---
--- Name: usdfpub exposure_flexdata_schema; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.exposure_flexdata_schema;
-
-
---
--- Name: usdfpub visit1_quicklook; Type: PUBLICATION TABLE; Schema: cdb_latiss; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_latiss.visit1_quicklook;
-
-
---
--- Name: usdfpub ccdexposure; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.ccdexposure;
-
-
---
--- Name: usdfpub ccdexposure_camera; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.ccdexposure_camera;
-
-
---
--- Name: usdfpub ccdexposure_flexdata; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.ccdexposure_flexdata;
-
-
---
--- Name: usdfpub ccdexposure_flexdata_schema; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.ccdexposure_flexdata_schema;
-
-
---
--- Name: usdfpub ccdvisit1_quicklook; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.ccdvisit1_quicklook;
-
-
---
--- Name: usdfpub exposure; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.exposure;
-
-
---
--- Name: usdfpub exposure_flexdata; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.exposure_flexdata;
-
-
---
--- Name: usdfpub exposure_flexdata_schema; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.exposure_flexdata_schema;
-
-
---
--- Name: usdfpub visit1_quicklook; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcam; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcam.visit1_quicklook;
-
-
---
--- Name: usdfpub ccdexposure; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.ccdexposure;
-
-
---
--- Name: usdfpub ccdexposure_camera; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.ccdexposure_camera;
-
-
---
--- Name: usdfpub ccdexposure_flexdata; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.ccdexposure_flexdata;
-
-
---
--- Name: usdfpub ccdexposure_flexdata_schema; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.ccdexposure_flexdata_schema;
-
-
---
--- Name: usdfpub ccdvisit1_quicklook; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.ccdvisit1_quicklook;
-
-
---
--- Name: usdfpub exposure; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.exposure;
-
-
---
--- Name: usdfpub exposure_flexdata; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.exposure_flexdata;
-
-
---
--- Name: usdfpub exposure_flexdata_schema; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.exposure_flexdata_schema;
-
-
---
--- Name: usdfpub visit1_quicklook; Type: PUBLICATION TABLE; Schema: cdb_lsstcomcamsim; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY cdb_lsstcomcamsim.visit1_quicklook;
-
-
---
--- Name: usdfpub alembic_version; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY public.alembic_version;
-
-
---
--- Name: usdf message; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
---
-
-ALTER PUBLICATION usdf ADD TABLE ONLY public.message;
-
-
---
--- Name: usdfpub message; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
---
-
-ALTER PUBLICATION usdfpub ADD TABLE ONLY public.message;
-
 
 --
 -- Name: SCHEMA cdb; Type: ACL; Schema: -; Owner: oods

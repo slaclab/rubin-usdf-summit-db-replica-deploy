@@ -13,13 +13,9 @@ spec:
       owner: rubin
       secret:
         name: usdf-summitdb-logical-replication-creds
-      postInitApplicationSQLRefs:
-        configMapRefs:
-          - name: exposurelog-init-sql
-            key: exposure_log_all_tables_schemas.sql
   enableSuperuserAccess: true
   failoverDelay: 0
-  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:14.5
+  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:16.3
   imagePullPolicy: Always
   inheritedMetadata:
     annotations:
@@ -63,4 +59,4 @@ spec:
       - host all all 140.252.146.0/23 md5
   storage:
     resizeInUseVolumes: true
-    size: 100Gi
+    size: 200Gi

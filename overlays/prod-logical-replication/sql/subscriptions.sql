@@ -1,3 +1,3 @@
-CREATE SUBSCRIPTION usdfsub CONNECTION 'host=db-lhn.cp.lsst.org port=5432 dbname=exposurelog user=replicauser password=<removed>' PUBLICATION usdfpub WITH (connect=true, slot_name='usdfslot1');
-CREATE SUBSCRIPTION usdfsub_narrativelog CONNECTION 'host=db-lhn.cp.lsst.org port=5432 dbname=narrativelog user=replicauser password=<removed>' PUBLICATION usdfpubnarrativelog WITH (connect=true, slot_name='usdf_narrativelog_slot1');
-CREATE SUBSCRIPTION usdfsub_nightreport CONNECTION 'host=db-lhn.cp.lsst.org port=5432 dbname=nightreport user=replicauser password=<removed>' PUBLICATION usdfpubnightreport WITH (connect=true, slot_name='usdf_nightreport_slot1');
+CREATE SUBSCRIPTION usdfsub CONNECTION 'host=db-lhn.cp.lsst.org port=5432 dbname=exposurelog user=replicauser password=<removed>' PUBLICATION usdfpub WITH (connect=true);
+CREATE SUBSCRIPTION usdfsub_narrativelog CONNECTION 'host=db-lhn.cp.lsst.org port=5432 dbname=narrativelog user=replicauser password=<removed>' PUBLICATION usdfpubnarrativelog WITH (connect=true);
+CREATE SUBSCRIPTION usdfsub_nightreport CONNECTION 'host=db-lhn.cp.lsst.org port=5432 dbname=nightreport user=replicauser password=<removed>' PUBLICATION usdfpubnightreport WITH (connect=true);

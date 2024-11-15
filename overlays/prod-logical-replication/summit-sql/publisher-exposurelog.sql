@@ -1,11 +1,5 @@
 -- public schema exposurelog table
-CREATE PUBLICATION usdfpub FOR TABLE alembic_version, message;
-
--- cdb schema
-ALTER PUBLICATION usdfpub ADD TABLE cdb.cdb_latiss_version;
-ALTER PUBLICATION usdfpub ADD TABLE cdb.cdb_lsstcomcam_version;
-ALTER PUBLICATION usdfpub ADD TABLE cdb.cdb_lsstcomcamsim_version;
-
+CREATE PUBLICATION usdfpub FOR TABLE message, alembic_version;
 
 -- cdb_latiss schema
 ALTER PUBLICATION usdfpub ADD TABLE cdb_latiss.ccdexposure;

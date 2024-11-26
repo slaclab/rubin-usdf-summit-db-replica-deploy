@@ -28,10 +28,13 @@ GRANT SELECT ON ALL TABLES in SCHEMA PUBLIC to rubin;
 -- rubinadmin
 \c exposurelog
 ALTER DEFAULT PRIVILEGES FOR USER rubinadmin in SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES to rubinadmin; 
-grant all privileges on database exposurelog to rubinadmin;
-grant all privileges on database narrativelog to rubinadmin;
-grant all privileges on database nightreport to rubinadmin;
-grant all privileges on database postgres to rubinadmin;
+GRANT all privileges on database exposurelog to rubinadmin;
+GRANT all privileges on database narrativelog to rubinadmin;
+GRANT all privileges on database nightreport to rubinadmin;
+GRANT all privileges on database postgres to rubinadmin;
+GRANT pg_create_subscription to rubinadmin;
+GRANT pg_read_all_data to rubinadmin;
+ALTER USER rubinadmin WITH SUPERUSER;
 
 
 -- summit_ro_usdf_rw
@@ -53,3 +56,6 @@ GRANT SELECT ON ALL TABLES IN SCHEMA cdb_lsstcomcam TO summit_ro_usdf_rw;
 GRANT SELECT ON ALL TABLES IN SCHEMA cdb_lsstcomcamsim TO summit_ro_usdf_rw;
 -- rw
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA cdb TO summit_ro_usdf_rw;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA cdb_startrackerwide TO summit_ro_usdf_rw;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA cdb_startrackernarrow TO summit_ro_usdf_rw;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA cdb_startrackerfast TO summit_ro_usdf_rw;

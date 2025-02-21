@@ -42,8 +42,8 @@ DROP SUBSCRIPTION usdfsub;
 
 Apply the config with
 ```
-cat exposure_log_all_tables_schemas.sql | kubectl exec -it summit-db-logical-replica-1 -n summit-db-logical-replica -- psql -d exposurelog
-cat narrative_log_all_tables_schemas.sql | kubectl exec -it summit-db-logical-replica-1 -n summit-db-logical-replica -- psql -d narrativelog
+cat exposurelog_all_tables_schemas.sql | kubectl exec -it summit-db-logical-replica-1 -n summit-db-logical-replica -- psql -d exposurelog
+cat narrativelog_all_tables_schemas.sql | kubectl exec -it summit-db-logical-replica-1 -n summit-db-logical-replica -- psql -d narrativelog
 cat nightreport_all_tables_schemas.sql | kubectl exec -it summit-db-logical-replica-1 -n summit-db-logical-replica -- psql -d nightreport
 ```
 

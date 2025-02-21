@@ -17,7 +17,7 @@ SET default_table_access_method = heap;
 --
 -- Name: alembic_version; Type: TABLE; Schema: public; Owner: nightreport
 --
-
+DROP TABLE IF EXISTS public.alembic_version;
 CREATE TABLE public.alembic_version (
     version_num character varying(32) NOT NULL
 );
@@ -28,7 +28,7 @@ ALTER TABLE public.alembic_version OWNER TO nightreport;
 --
 -- Name: nightreport; Type: TABLE; Schema: public; Owner: nightreport
 --
-
+DROP TABLE IF EXISTS public.nightreport;
 CREATE TABLE public.nightreport (
     id uuid NOT NULL,
     site_id character varying(16),

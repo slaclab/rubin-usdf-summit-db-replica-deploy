@@ -1,7 +1,28 @@
 --
--- Name: alembic_version; Type: TABLE; Schema: public; Owner: narrativelog
+-- PostgreSQL database dump
 --
 
+-- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
+-- Dumped by pg_dump version 14.13
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: alembic_version; Type: TABLE; Schema: public; Owner: narrativelog
+--
 DROP TABLE IF EXISTS public.alembic_version;
 CREATE TABLE public.alembic_version (
     version_num character varying(32) NOT NULL
@@ -19,7 +40,8 @@ CREATE TABLE public.jira_fields (
     components text[],
     primary_software_components text[],
     primary_hardware_components text[],
-    message_id uuid NOT NULL
+    message_id uuid NOT NULL,
+    components_json json
 );
 
 
@@ -28,7 +50,6 @@ ALTER TABLE public.jira_fields OWNER TO narrativelog;
 --
 -- Name: message; Type: TABLE; Schema: public; Owner: narrativelog
 --
-
 DROP TABLE IF EXISTS public.message;
 CREATE TABLE public.message (
     id uuid NOT NULL,
@@ -143,9 +164,8 @@ ALTER TABLE ONLY public.message
 -- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
 
-REVOKE USAGE ON SCHEMA public FROM PUBLIC;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 GRANT USAGE ON SCHEMA public TO usdf;
+GRANT USAGE ON SCHEMA public TO replicauser;
 
 
 --
@@ -153,6 +173,7 @@ GRANT USAGE ON SCHEMA public TO usdf;
 --
 
 GRANT SELECT ON TABLE public.alembic_version TO usdf;
+GRANT SELECT ON TABLE public.alembic_version TO replicauser;
 
 
 --
@@ -160,6 +181,7 @@ GRANT SELECT ON TABLE public.alembic_version TO usdf;
 --
 
 GRANT SELECT ON TABLE public.jira_fields TO usdf;
+GRANT SELECT ON TABLE public.jira_fields TO replicauser;
 
 
 --
@@ -167,6 +189,7 @@ GRANT SELECT ON TABLE public.jira_fields TO usdf;
 --
 
 GRANT SELECT ON TABLE public.message TO usdf;
+GRANT SELECT ON TABLE public.message TO replicauser;
 
 
 --

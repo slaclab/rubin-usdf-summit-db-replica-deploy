@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 14.12
+-- Dumped by pg_dump version 14.13
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -26,6 +26,16 @@ DROP VIEW IF EXISTS cdb_lsstcomcam.visit1;
 DROP VIEW IF EXISTS cdb_lsstcomcamsim.ccdvisit1;
 DROP VIEW IF EXISTS cdb_lsstcomcamsim.visit1;
 
+
+--
+-- Name: cdb; Type: SCHEMA; Schema: -; Owner: oods
+--
+DROP SCHEMA cdb CASCADE;
+CREATE SCHEMA cdb;
+
+
+ALTER SCHEMA cdb OWNER TO oods;
+
 --
 -- Name: cdb_latiss; Type: SCHEMA; Schema: -; Owner: oods
 --
@@ -47,7 +57,6 @@ ALTER SCHEMA cdb_lsstcam OWNER TO oods;
 --
 -- Name: cdb_lsstcamsim; Type: SCHEMA; Schema: -; Owner: oods
 --
-
 DROP SCHEMA cdb_lsstcamsim CASCADE;
 CREATE SCHEMA cdb_lsstcamsim;
 
@@ -57,7 +66,6 @@ ALTER SCHEMA cdb_lsstcamsim OWNER TO oods;
 --
 -- Name: cdb_lsstcomcam; Type: SCHEMA; Schema: -; Owner: oods
 --
-
 DROP SCHEMA cdb_lsstcomcam CASCADE;
 CREATE SCHEMA cdb_lsstcomcam;
 
@@ -67,7 +75,6 @@ ALTER SCHEMA cdb_lsstcomcam OWNER TO oods;
 --
 -- Name: cdb_lsstcomcamsim; Type: SCHEMA; Schema: -; Owner: oods
 --
-
 DROP SCHEMA cdb_lsstcomcamsim CASCADE;
 CREATE SCHEMA cdb_lsstcomcamsim;
 
@@ -75,9 +82,36 @@ CREATE SCHEMA cdb_lsstcomcamsim;
 ALTER SCHEMA cdb_lsstcomcamsim OWNER TO oods;
 
 --
+-- Name: cdb_startrackerfast; Type: SCHEMA; Schema: -; Owner: oods
+--
+DROP SCHEMA cdb_startrackerfast CASCADE;
+CREATE SCHEMA cdb_startrackerfast;
+
+
+ALTER SCHEMA cdb_startrackerfast OWNER TO oods;
+
+--
+-- Name: cdb_startrackernarrow; Type: SCHEMA; Schema: -; Owner: oods
+--
+DROP SCHEMA cdb_startrackernarrow CASCADE;
+CREATE SCHEMA cdb_startrackernarrow;
+
+
+ALTER SCHEMA cdb_startrackernarrow OWNER TO oods;
+
+--
+-- Name: cdb_startrackerwide; Type: SCHEMA; Schema: -; Owner: oods
+--
+DROP SCHEMA cdb_startrackerwide CASCADE;
+CREATE SCHEMA cdb_startrackerwide;
+
+
+ALTER SCHEMA cdb_startrackerwide OWNER TO oods;
+
+--
 -- Name: exposure_flag_enum; Type: TYPE; Schema: public; Owner: exposurelog
 --
-
+DELETE TYPE IF EXISTS public.exposure_flag_enum;
 CREATE TYPE public.exposure_flag_enum AS ENUM (
     'none',
     'junk',
@@ -92,10 +126,75 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: cdb_latiss_version; Type: TABLE; Schema: cdb; Owner: oods
+--
+
+CREATE TABLE cdb.cdb_latiss_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE cdb.cdb_latiss_version OWNER TO oods;
+
+--
+-- Name: cdb_lsstcomcam_version; Type: TABLE; Schema: cdb; Owner: oods
+--
+
+CREATE TABLE cdb.cdb_lsstcomcam_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE cdb.cdb_lsstcomcam_version OWNER TO oods;
+
+--
+-- Name: cdb_lsstcomcamsim_version; Type: TABLE; Schema: cdb; Owner: oods
+--
+
+CREATE TABLE cdb.cdb_lsstcomcamsim_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE cdb.cdb_lsstcomcamsim_version OWNER TO oods;
+
+--
+-- Name: cdb_startrackerfast_version; Type: TABLE; Schema: cdb; Owner: oods
+--
+
+CREATE TABLE cdb.cdb_startrackerfast_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE cdb.cdb_startrackerfast_version OWNER TO oods;
+
+--
+-- Name: cdb_startrackernarrow_version; Type: TABLE; Schema: cdb; Owner: oods
+--
+
+CREATE TABLE cdb.cdb_startrackernarrow_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE cdb.cdb_startrackernarrow_version OWNER TO oods;
+
+--
+-- Name: cdb_startrackerwide_version; Type: TABLE; Schema: cdb; Owner: oods
+--
+
+CREATE TABLE cdb.cdb_startrackerwide_version (
+    version_num character varying(32) NOT NULL
+);
+
+
+ALTER TABLE cdb.cdb_startrackerwide_version OWNER TO oods;
+
+--
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_latiss.ccdexposure;
 CREATE TABLE cdb_latiss.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
@@ -153,7 +252,7 @@ COMMENT ON COLUMN cdb_latiss.ccdexposure.seq_num IS 'Sequence number.';
 --
 -- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
-DROP TABLE IF EXISTS cdb_latiss.ccdexposure_camera;
+
 CREATE TABLE cdb_latiss.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -208,7 +307,7 @@ ALTER SEQUENCE cdb_latiss.ccdexposure_ccdexposure_id_seq OWNED BY cdb_latiss.ccd
 --
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
-DROP TABLE IF EXISTS cdb_latiss.ccdexposure_flexdata;
+
 CREATE TABLE cdb_latiss.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -243,7 +342,6 @@ COMMENT ON COLUMN cdb_latiss.ccdexposure_flexdata.value IS 'Content of value as 
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_latiss.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_latiss.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -296,7 +394,7 @@ COMMENT ON COLUMN cdb_latiss.ccdexposure_flexdata_schema.ucd IS 'IVOA Unified Co
 
 CREATE VIEW cdb_latiss.ccdvisit1 AS
  SELECT ccdexposure.ccdexposure_id AS ccdvisit_id,
-    ccdexposure.exposure_id,
+    ccdexposure.exposure_id AS visit_id,
     ccdexposure.detector,
     ccdexposure.s_region
    FROM cdb_latiss.ccdexposure;
@@ -308,7 +406,6 @@ ALTER TABLE cdb_latiss.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_latiss.ccdvisit1_quicklook;
 CREATE TABLE cdb_latiss.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -340,7 +437,10 @@ CREATE TABLE cdb_latiss.ccdvisit1_quicklook (
     psf_star_delta_size_scatter double precision,
     psf_star_scaled_delta_size_scatter double precision,
     psf_trace_radius_delta double precision,
-    max_dist_to_nearest_psf double precision
+    max_dist_to_nearest_psf double precision,
+    pixel_scale double precision,
+    psf_ap_flux_delta double precision,
+    psf_ap_corr_sigma_scaled_delta double precision
 );
 
 
@@ -564,10 +664,30 @@ COMMENT ON COLUMN cdb_latiss.ccdvisit1_quicklook.max_dist_to_nearest_psf IS 'Max
 
 
 --
+-- Name: COLUMN ccdvisit1_quicklook.pixel_scale; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.ccdvisit1_quicklook.pixel_scale IS 'Measured detector pixel scale.';
+
+
+--
+-- Name: COLUMN ccdvisit1_quicklook.psf_ap_flux_delta; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.ccdvisit1_quicklook.psf_ap_flux_delta IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels.';
+
+
+--
+-- Name: COLUMN ccdvisit1_quicklook.psf_ap_corr_sigma_scaled_delta; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.ccdvisit1_quicklook.psf_ap_corr_sigma_scaled_delta IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels.';
+
+
+--
 -- Name: exposure; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_latiss.exposure;
 CREATE TABLE cdb_latiss.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -1007,7 +1127,6 @@ ALTER SEQUENCE cdb_latiss.exposure_exposure_id_seq OWNED BY cdb_latiss.exposure.
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_latiss.exposure_flexdata;
 CREATE TABLE cdb_latiss.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -1058,7 +1177,6 @@ COMMENT ON COLUMN cdb_latiss.exposure_flexdata.seq_num IS 'Sequence number.';
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_latiss.exposure_flexdata_schema;
 CREATE TABLE cdb_latiss.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -1106,9 +1224,106 @@ COMMENT ON COLUMN cdb_latiss.exposure_flexdata_schema.ucd IS 'IVOA Unified Conte
 
 
 --
--- Name: visit1; Type: VIEW; Schema: cdb_latiss; Owner: oods
+-- Name: exposure_quicklook; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+CREATE TABLE cdb_latiss.exposure_quicklook (
+    exposure_id bigint NOT NULL,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL,
+    postisr_pixel_median double precision,
+    mount_motion_image_degradation double precision,
+    mount_motion_image_degradation_az double precision,
+    mount_motion_image_degradation_el double precision,
+    mount_jitter_rms double precision,
+    mount_jitter_rms_az double precision,
+    mount_jitter_rms_el double precision,
+    mount_jitter_rms_rot double precision
+);
+
+
+ALTER TABLE cdb_latiss.exposure_quicklook OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_quicklook.exposure_id; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.exposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.day_obs; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.seq_num; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.postisr_pixel_median; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.postisr_pixel_median IS 'Median postISR pixel value.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_motion_image_degradation; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.mount_motion_image_degradation IS 'Image degradation due to mount motion.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_motion_image_degradation_az; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.mount_motion_image_degradation_az IS 'Image degradation due to mount motion in azimuth.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_motion_image_degradation_el; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.mount_motion_image_degradation_el IS 'Image degradation due to mount motion in elevation.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_jitter_rms; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.mount_jitter_rms IS 'RMS mount jitter.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_jitter_rms_az; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.mount_jitter_rms_az IS 'Azimuth RMS mount jitter.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_jitter_rms_el; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.mount_jitter_rms_el IS 'Elevation RMS mount jitter.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_jitter_rms_rot; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_quicklook.mount_jitter_rms_rot IS 'Rotator RMS mount jitter.';
+
+
+--
+-- Name: visit1; Type: VIEW; Schema: cdb_latiss; Owner: oods
+--
 
 CREATE VIEW cdb_latiss.visit1 AS
  SELECT exposure.exposure_id AS visit_id,
@@ -1169,7 +1384,6 @@ ALTER TABLE cdb_latiss.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_latiss.visit1_quicklook;
 CREATE TABLE cdb_latiss.visit1_quicklook (
     visit_id bigint NOT NULL,
     n_inputs integer,
@@ -1203,7 +1417,10 @@ CREATE TABLE cdb_latiss.visit1_quicklook (
     high_snr_source_count integer,
     day_obs integer NOT NULL,
     seq_num integer NOT NULL,
-    postisr_pixel_median double precision
+    pixel_scale double precision,
+    stats_mag_lim double precision,
+    psf_ap_flux_delta double precision,
+    psf_ap_corr_sigma_scaled_delta double precision
 );
 
 
@@ -1434,17 +1651,37 @@ COMMENT ON COLUMN cdb_latiss.visit1_quicklook.seq_num IS 'Sequence number.';
 
 
 --
--- Name: COLUMN visit1_quicklook.postisr_pixel_median; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+-- Name: COLUMN visit1_quicklook.pixel_scale; Type: COMMENT; Schema: cdb_latiss; Owner: oods
 --
 
-COMMENT ON COLUMN cdb_latiss.visit1_quicklook.postisr_pixel_median IS 'Median postISR pixel value.';
+COMMENT ON COLUMN cdb_latiss.visit1_quicklook.pixel_scale IS 'Measured detector pixel scale.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.stats_mag_lim; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.visit1_quicklook.stats_mag_lim IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_flux_delta; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.visit1_quicklook.psf_ap_flux_delta IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_corr_sigma_scaled_delta; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.visit1_quicklook.psf_ap_corr_sigma_scaled_delta IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels.';
 
 
 --
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure;
 CREATE TABLE cdb_lsstcomcam.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
@@ -1503,7 +1740,6 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure.seq_num IS 'Sequence number.';
 -- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_camera;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -1559,7 +1795,6 @@ ALTER SEQUENCE cdb_lsstcomcam.ccdexposure_ccdexposure_id_seq OWNED BY cdb_lsstco
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_flexdata;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -1594,7 +1829,6 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure_flexdata.value IS 'Content of value
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -1642,12 +1876,38 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure_flexdata_schema.ucd IS 'IVOA Unifie
 
 
 --
+-- Name: ccdexposure_quicklook; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+CREATE TABLE cdb_lsstcomcam.ccdexposure_quicklook (
+    ccdexposure_id bigint NOT NULL,
+    postisr_pixel_median double precision
+);
+
+
+ALTER TABLE cdb_lsstcomcam.ccdexposure_quicklook OWNER TO oods;
+
+--
+-- Name: COLUMN ccdexposure_quicklook.ccdexposure_id; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure_quicklook.ccdexposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN ccdexposure_quicklook.postisr_pixel_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure_quicklook.postisr_pixel_median IS 'Median postISR pixel value.';
+
+
+--
 -- Name: ccdvisit1; Type: VIEW; Schema: cdb_lsstcomcam; Owner: oods
 --
 
 CREATE VIEW cdb_lsstcomcam.ccdvisit1 AS
  SELECT ccdexposure.ccdexposure_id AS ccdvisit_id,
-    ccdexposure.exposure_id,
+    ccdexposure.exposure_id AS visit_id,
     ccdexposure.detector,
     ccdexposure.s_region
    FROM cdb_lsstcomcam.ccdexposure;
@@ -1659,7 +1919,6 @@ ALTER TABLE cdb_lsstcomcam.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.ccdvisit1_quicklook;
 CREATE TABLE cdb_lsstcomcam.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -1692,7 +1951,10 @@ CREATE TABLE cdb_lsstcomcam.ccdvisit1_quicklook (
     psf_star_scaled_delta_size_scatter double precision,
     psf_trace_radius_delta double precision,
     max_dist_to_nearest_psf double precision,
-    postisr_pixel_median double precision
+    pixel_scale double precision,
+    stats_mag_lim double precision,
+    psf_ap_flux_delta double precision,
+    psf_ap_corr_sigma_scaled_delta double precision
 );
 
 
@@ -1916,17 +2178,37 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.max_dist_to_nearest_psf IS 
 
 
 --
--- Name: COLUMN ccdvisit1_quicklook.postisr_pixel_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+-- Name: COLUMN ccdvisit1_quicklook.pixel_scale; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.postisr_pixel_median IS 'Median postISR pixel value.';
+COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.pixel_scale IS 'Measured detector pixel scale.';
+
+
+--
+-- Name: COLUMN ccdvisit1_quicklook.stats_mag_lim; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.stats_mag_lim IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats.';
+
+
+--
+-- Name: COLUMN ccdvisit1_quicklook.psf_ap_flux_delta; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.psf_ap_flux_delta IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels.';
+
+
+--
+-- Name: COLUMN ccdvisit1_quicklook.psf_ap_corr_sigma_scaled_delta; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.psf_ap_corr_sigma_scaled_delta IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels.';
 
 
 --
 -- Name: exposure; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.exposure;
 CREATE TABLE cdb_lsstcomcam.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -2342,7 +2624,6 @@ ALTER SEQUENCE cdb_lsstcomcam.exposure_exposure_id_seq OWNED BY cdb_lsstcomcam.e
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.exposure_flexdata;
 CREATE TABLE cdb_lsstcomcam.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -2393,7 +2674,6 @@ COMMENT ON COLUMN cdb_lsstcomcam.exposure_flexdata.seq_num IS 'Sequence number.'
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.exposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcam.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -2438,6 +2718,120 @@ COMMENT ON COLUMN cdb_lsstcomcam.exposure_flexdata_schema.unit IS 'Unit for the 
 --
 
 COMMENT ON COLUMN cdb_lsstcomcam.exposure_flexdata_schema.ucd IS 'IVOA Unified Content Descriptor (https://www.ivoa.net/documents/UCD1+/).';
+
+
+--
+-- Name: exposure_quicklook; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+CREATE TABLE cdb_lsstcomcam.exposure_quicklook (
+    exposure_id bigint NOT NULL,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL,
+    postisr_pixel_median_median double precision,
+    postisr_pixel_median_mean double precision,
+    postisr_pixel_median_max double precision,
+    mount_motion_image_degradation double precision,
+    mount_motion_image_degradation_az double precision,
+    mount_motion_image_degradation_rot double precision,
+    mount_jitter_rms double precision,
+    mount_jitter_rms_az double precision,
+    mount_jitter_rms_el double precision,
+    mount_jitter_rms_rot double precision
+);
+
+
+ALTER TABLE cdb_lsstcomcam.exposure_quicklook OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_quicklook.exposure_id; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.exposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.day_obs; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.seq_num; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.postisr_pixel_median_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.postisr_pixel_median_median IS 'Median postISR pixel value (median across all detectors).';
+
+
+--
+-- Name: COLUMN exposure_quicklook.postisr_pixel_median_mean; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.postisr_pixel_median_mean IS 'Median postISR pixel value (mean across all detectors).';
+
+
+--
+-- Name: COLUMN exposure_quicklook.postisr_pixel_median_max; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.postisr_pixel_median_max IS 'Median postISR pixel value (max across all detectors).';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_motion_image_degradation; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.mount_motion_image_degradation IS 'Image degradation due to mount motion.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_motion_image_degradation_az; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.mount_motion_image_degradation_az IS 'Image degradation due to mount motion in azimuth.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_motion_image_degradation_rot; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.mount_motion_image_degradation_rot IS 'Image degradation due to rotator jitter.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_jitter_rms; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.mount_jitter_rms IS 'RMS mount jitter.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_jitter_rms_az; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.mount_jitter_rms_az IS 'Azimuth RMS mount jitter.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_jitter_rms_el; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.mount_jitter_rms_el IS 'Elevation RMS mount jitter.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mount_jitter_rms_rot; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_quicklook.mount_jitter_rms_rot IS 'Rotator RMS mount jitter.';
 
 
 --
@@ -2500,7 +2894,6 @@ ALTER TABLE cdb_lsstcomcam.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcam.visit1_quicklook;
 CREATE TABLE cdb_lsstcomcam.visit1_quicklook (
     visit_id bigint NOT NULL,
     n_inputs integer,
@@ -2593,9 +2986,18 @@ CREATE TABLE cdb_lsstcomcam.visit1_quicklook (
     high_snr_source_count_total integer,
     day_obs integer NOT NULL,
     seq_num integer NOT NULL,
-    postisr_pixel_median_median double precision,
-    postisr_pixel_median_mean double precision,
-    postisr_pixel_median_max double precision
+    pixel_scale_min double precision,
+    pixel_scale_max double precision,
+    pixel_scale_median double precision,
+    stats_mag_lim_min double precision,
+    stats_mag_lim_max double precision,
+    stats_mag_lim_median double precision,
+    psf_ap_flux_delta_min double precision,
+    psf_ap_flux_delta_max double precision,
+    psf_ap_flux_delta_median double precision,
+    psf_ap_corr_sigma_scaled_delta_min double precision,
+    psf_ap_corr_sigma_scaled_delta_max double precision,
+    psf_ap_corr_sigma_scaled_delta_median double precision
 );
 
 
@@ -3239,31 +3641,93 @@ COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.seq_num IS 'Sequence number.';
 
 
 --
--- Name: COLUMN visit1_quicklook.postisr_pixel_median_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+-- Name: COLUMN visit1_quicklook.pixel_scale_min; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.postisr_pixel_median_median IS 'Median postISR pixel value (median across all detectors).';
-
-
---
--- Name: COLUMN visit1_quicklook.postisr_pixel_median_mean; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
---
-
-COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.postisr_pixel_median_mean IS 'Median postISR pixel value (mean across all detectors).';
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.pixel_scale_min IS 'Measured detector pixel scale (minimum across all detectors).';
 
 
 --
--- Name: COLUMN visit1_quicklook.postisr_pixel_median_max; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+-- Name: COLUMN visit1_quicklook.pixel_scale_max; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.postisr_pixel_median_max IS 'Median postISR pixel value (max across all detectors).';
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.pixel_scale_max IS 'Measured detector pixel scale (maximum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.pixel_scale_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.pixel_scale_median IS 'Measured detector pixel scale (median across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.stats_mag_lim_min; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.stats_mag_lim_min IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats (minimum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.stats_mag_lim_max; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.stats_mag_lim_max IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats (maximum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.stats_mag_lim_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.stats_mag_lim_median IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats (median across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_flux_delta_min; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.psf_ap_flux_delta_min IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels (minimum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_flux_delta_max; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.psf_ap_flux_delta_max IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels (maximum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_flux_delta_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.psf_ap_flux_delta_median IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels (median across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_corr_sigma_scaled_delta_min; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.psf_ap_corr_sigma_scaled_delta_min IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels (minimum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_corr_sigma_scaled_delta_max; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.psf_ap_corr_sigma_scaled_delta_max IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels (maximum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_corr_sigma_scaled_delta_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.psf_ap_corr_sigma_scaled_delta_median IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels (median across all detectors).';
 
 
 --
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
@@ -3322,7 +3786,6 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure.seq_num IS 'Sequence number.';
 -- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_camera;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -3378,7 +3841,6 @@ ALTER SEQUENCE cdb_lsstcomcamsim.ccdexposure_ccdexposure_id_seq OWNED BY cdb_lss
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_flexdata;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -3413,7 +3875,6 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure_flexdata.value IS 'Content of va
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -3466,7 +3927,7 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure_flexdata_schema.ucd IS 'IVOA Uni
 
 CREATE VIEW cdb_lsstcomcamsim.ccdvisit1 AS
  SELECT ccdexposure.ccdexposure_id AS ccdvisit_id,
-    ccdexposure.exposure_id,
+    ccdexposure.exposure_id AS visit_id,
     ccdexposure.detector,
     ccdexposure.s_region
    FROM cdb_lsstcomcamsim.ccdexposure;
@@ -3478,7 +3939,6 @@ ALTER TABLE cdb_lsstcomcamsim.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdvisit1_quicklook;
 CREATE TABLE cdb_lsstcomcamsim.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -3511,7 +3971,11 @@ CREATE TABLE cdb_lsstcomcamsim.ccdvisit1_quicklook (
     psf_ixx double precision,
     psf_ixy double precision,
     psf_iyy double precision,
-    postisr_pixel_median double precision
+    postisr_pixel_median double precision,
+    pixel_scale double precision,
+    stats_mag_lim double precision,
+    psf_ap_flux_delta double precision,
+    psf_ap_corr_sigma_scaled_delta double precision
 );
 
 
@@ -3742,10 +4206,37 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdvisit1_quicklook.postisr_pixel_median IS 
 
 
 --
+-- Name: COLUMN ccdvisit1_quicklook.pixel_scale; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.ccdvisit1_quicklook.pixel_scale IS 'Measured detector pixel scale.';
+
+
+--
+-- Name: COLUMN ccdvisit1_quicklook.stats_mag_lim; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.ccdvisit1_quicklook.stats_mag_lim IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats.';
+
+
+--
+-- Name: COLUMN ccdvisit1_quicklook.psf_ap_flux_delta; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.ccdvisit1_quicklook.psf_ap_flux_delta IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels.';
+
+
+--
+-- Name: COLUMN ccdvisit1_quicklook.psf_ap_corr_sigma_scaled_delta; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.ccdvisit1_quicklook.psf_ap_corr_sigma_scaled_delta IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels.';
+
+
+--
 -- Name: exposure; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure;
 CREATE TABLE cdb_lsstcomcamsim.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -4161,7 +4652,6 @@ ALTER SEQUENCE cdb_lsstcomcamsim.exposure_exposure_id_seq OWNED BY cdb_lsstcomca
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure_flexdata;
 CREATE TABLE cdb_lsstcomcamsim.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -4212,7 +4702,6 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.exposure_flexdata.seq_num IS 'Sequence numbe
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcamsim.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -4319,7 +4808,6 @@ ALTER TABLE cdb_lsstcomcamsim.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-DROP TABLE IF EXISTS cdb_lsstcomcamsim.visit1_quicklook;
 CREATE TABLE cdb_lsstcomcamsim.visit1_quicklook (
     visit_id bigint NOT NULL,
     astrom_offset_mean_min double precision,
@@ -4414,7 +4902,19 @@ CREATE TABLE cdb_lsstcomcamsim.visit1_quicklook (
     seq_num integer NOT NULL,
     postisr_pixel_median_median double precision,
     postisr_pixel_median_mean double precision,
-    postisr_pixel_median_max double precision
+    postisr_pixel_median_max double precision,
+    pixel_scale_min double precision,
+    pixel_scale_max double precision,
+    pixel_scale_median double precision,
+    stats_mag_lim_min double precision,
+    stats_mag_lim_max double precision,
+    stats_mag_lim_median double precision,
+    psf_ap_flux_delta_min double precision,
+    psf_ap_flux_delta_max double precision,
+    psf_ap_flux_delta_median double precision,
+    psf_ap_corr_sigma_scaled_delta_min double precision,
+    psf_ap_corr_sigma_scaled_delta_max double precision,
+    psf_ap_corr_sigma_scaled_delta_median double precision
 );
 
 
@@ -5079,9 +5579,1835 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.postisr_pixel_median_max IS
 
 
 --
--- Name: alembic_version; Type: TABLE; Schema: public; Owner: exposurelog
+-- Name: COLUMN visit1_quicklook.pixel_scale_min; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.pixel_scale_min IS 'Measured detector pixel scale (minimum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.pixel_scale_max; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.pixel_scale_max IS 'Measured detector pixel scale (maximum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.pixel_scale_median; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.pixel_scale_median IS 'Measured detector pixel scale (median across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.stats_mag_lim_min; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.stats_mag_lim_min IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats (minimum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.stats_mag_lim_max; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.stats_mag_lim_max IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats (maximum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.stats_mag_lim_median; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.stats_mag_lim_median IS 'Magnitude limit at fixed SNR (default SNR=5) calculated from exposure summary stats (median across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_flux_delta_min; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.psf_ap_flux_delta_min IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels (minimum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_flux_delta_max; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.psf_ap_flux_delta_max IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels (maximum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_flux_delta_median; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.psf_ap_flux_delta_median IS 'Delta (max - min) of model psf aperture flux (with aperture radius of max(2, 3*psfSigma)) values evaluated on a grid of unmasked pixels (median across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_corr_sigma_scaled_delta_min; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.psf_ap_corr_sigma_scaled_delta_min IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels (minimum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_corr_sigma_scaled_delta_max; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.psf_ap_corr_sigma_scaled_delta_max IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels (maximum across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.psf_ap_corr_sigma_scaled_delta_median; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.psf_ap_corr_sigma_scaled_delta_median IS 'Delta (max - min) of psf flux aperture correction factors scaled (divided) by the psfSigma evaluated on a grid of unmasked pixels (median across all detectors).';
+
+
+--
+-- Name: exposure; Type: TABLE; Schema: cdb_startrackerfast; Owner: oods
+--
+
+CREATE TABLE cdb_startrackerfast.exposure (
+    exposure_id bigint NOT NULL,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL,
+    s_ra double precision,
+    s_dec double precision,
+    sky_rotation double precision,
+    azimuth_start double precision,
+    azimuth_end double precision,
+    azimuth double precision,
+    altitude_start double precision,
+    altitude_end double precision,
+    altitude double precision,
+    zenith_distance_start double precision,
+    zenith_distance_end double precision,
+    zenith_distance double precision,
+    airmass double precision,
+    exp_midpt timestamp(6) without time zone,
+    exp_midpt_mjd double precision,
+    obs_start timestamp(6) without time zone,
+    obs_start_mjd double precision,
+    obs_end timestamp(6) without time zone,
+    obs_end_mjd double precision,
+    exp_time double precision,
+    img_type character varying(64),
+    target_name character varying(64),
+    air_temp double precision,
+    pressure double precision,
+    humidity double precision,
+    wind_speed double precision,
+    wind_dir double precision,
+    dimm_seeing double precision,
+    dome_azimuth double precision,
+    vignette character varying(10),
+    vignette_min character varying(10)
+);
+
+
+ALTER TABLE cdb_startrackerfast.exposure OWNER TO oods;
+
+--
+-- Name: COLUMN exposure.exposure_id; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.exposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure.day_obs; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN exposure.seq_num; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: COLUMN exposure.s_ra; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.s_ra IS 'Central Spatial Position in ICRS; Right ascension of targeted focal plane center.';
+
+
+--
+-- Name: COLUMN exposure.s_dec; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.s_dec IS 'Central Spatial Position in ICRS; Declination of targeted focal plane center.';
+
+
+--
+-- Name: COLUMN exposure.sky_rotation; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.sky_rotation IS 'Targeted sky rotation angle.';
+
+
+--
+-- Name: COLUMN exposure.azimuth_start; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.azimuth_start IS 'Azimuth of focal plane center at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.azimuth_end; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.azimuth_end IS 'Azimuth of focal plane center at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.azimuth; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.azimuth IS 'Azimuth of focal plane center at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude_start; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.altitude_start IS 'Altitude of focal plane center at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude_end; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.altitude_end IS 'Altitude of focal plane center at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.altitude IS 'Altitude of focal plane center at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance_start; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.zenith_distance_start IS 'Zenith distance at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance_end; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.zenith_distance_end IS 'Zenith distance at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.zenith_distance IS 'Zenith distance at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.airmass; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.airmass IS 'Airmass of the observed line of sight at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.exp_midpt; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.exp_midpt IS 'Midpoint time for exposure at the fiducial center of the focal plane. array. TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.exp_midpt_mjd; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.exp_midpt_mjd IS 'Midpoint time for exposure at the fiducial center of the focal plane. array in MJD. TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_start; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.obs_start IS 'Start time of the exposure at the fiducial center of the focal plane. array, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_start_mjd; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.obs_start_mjd IS 'Start of the exposure in MJD, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_end; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.obs_end IS 'End time of the exposure at the fiducial center of the focal plane. array, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_end_mjd; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.obs_end_mjd IS 'End of the exposure in MJD, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.exp_time; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.exp_time IS 'Spatially-averaged duration of exposure, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.img_type; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.img_type IS 'Type of exposure taken.';
+
+
+--
+-- Name: COLUMN exposure.target_name; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.target_name IS 'Target of the observation.';
+
+
+--
+-- Name: COLUMN exposure.air_temp; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.air_temp IS 'Outside air temperature in degC.';
+
+
+--
+-- Name: COLUMN exposure.pressure; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.pressure IS 'Outside air pressure.';
+
+
+--
+-- Name: COLUMN exposure.humidity; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.humidity IS 'Outside relative humidity.';
+
+
+--
+-- Name: COLUMN exposure.wind_speed; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.wind_speed IS 'Outside wind speed.';
+
+
+--
+-- Name: COLUMN exposure.wind_dir; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.wind_dir IS 'Wind direction.';
+
+
+--
+-- Name: COLUMN exposure.dimm_seeing; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.dimm_seeing IS 'Seeing as measured by external DIMM (FWHM).';
+
+
+--
+-- Name: COLUMN exposure.dome_azimuth; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.dome_azimuth IS 'Dome azimuth.';
+
+
+--
+-- Name: COLUMN exposure.vignette; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.vignette IS 'Instrument blocked from the sky: UNKNOWN, NO, PARTIALLY, FULLY.';
+
+
+--
+-- Name: COLUMN exposure.vignette_min; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure.vignette_min IS 'Lowest amount of instrument vignetting detected during the exposure: UNKNOWN, NO, PARTIALLY, FULLY.';
+
+
+--
+-- Name: exposure_exposure_id_seq; Type: SEQUENCE; Schema: cdb_startrackerfast; Owner: oods
+--
+
+CREATE SEQUENCE cdb_startrackerfast.exposure_exposure_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cdb_startrackerfast.exposure_exposure_id_seq OWNER TO oods;
+
+--
+-- Name: exposure_exposure_id_seq; Type: SEQUENCE OWNED BY; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER SEQUENCE cdb_startrackerfast.exposure_exposure_id_seq OWNED BY cdb_startrackerfast.exposure.exposure_id;
+
+
+--
+-- Name: exposure_flexdata; Type: TABLE; Schema: cdb_startrackerfast; Owner: oods
+--
+
+CREATE TABLE cdb_startrackerfast.exposure_flexdata (
+    obs_id bigint NOT NULL,
+    key character varying(128) NOT NULL,
+    value text
+);
+
+
+ALTER TABLE cdb_startrackerfast.exposure_flexdata OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_flexdata.obs_id; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_flexdata.obs_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.key; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_flexdata.key IS 'Name of key.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.value; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_flexdata.value IS 'Content of value as a string.';
+
+
+--
+-- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_startrackerfast; Owner: oods
+--
+
+CREATE TABLE cdb_startrackerfast.exposure_flexdata_schema (
+    key character varying(128) NOT NULL,
+    dtype character varying(64) NOT NULL,
+    doc text NOT NULL,
+    unit character varying(128),
+    ucd character varying(128)
+);
+
+
+ALTER TABLE cdb_startrackerfast.exposure_flexdata_schema OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_flexdata_schema.key; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_flexdata_schema.key IS 'Name of key.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.dtype; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_flexdata_schema.dtype IS 'Name of the data type of the value, one of bool, int, float, str.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.doc; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_flexdata_schema.doc IS 'Documentation string.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.unit; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_flexdata_schema.unit IS 'Unit for the value. Should be from the IVOA (https://www.ivoa.net/documents/VOUnits/) or astropy.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.ucd; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_flexdata_schema.ucd IS 'IVOA Unified Content Descriptor (https://www.ivoa.net/documents/UCD1+/).';
+
+
+--
+-- Name: exposure_quicklook; Type: TABLE; Schema: cdb_startrackerfast; Owner: oods
+--
+
+CREATE TABLE cdb_startrackerfast.exposure_quicklook (
+    exposure_id bigint NOT NULL,
+    ra double precision,
+    "dec" double precision,
+    astrom_offset_mean double precision,
+    astrom_offset_std double precision,
+    mean_var double precision,
+    n_psf_star integer,
+    psf_area double precision,
+    psf_ixx double precision,
+    psf_ixy double precision,
+    psf_iyy double precision,
+    psf_sigma double precision,
+    psf_star_delta_e1_median double precision,
+    psf_star_delta_e1_scatter double precision,
+    psf_star_delta_e2_median double precision,
+    psf_star_delta_e2_scatter double precision,
+    psf_star_delta_size_median double precision,
+    psf_star_delta_size_scatter double precision,
+    psf_star_scaled_delta_size_scatter double precision,
+    psf_trace_radius_delta double precision,
+    sky_bg double precision,
+    sky_noise double precision,
+    source_count integer
+);
+
+
+ALTER TABLE cdb_startrackerfast.exposure_quicklook OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_quicklook.exposure_id; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.exposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.ra; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.ra IS 'Central Spatial Position in ICRS; Right ascension of fitted WCS.';
+
+
+--
+-- Name: COLUMN exposure_quicklook."dec"; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook."dec" IS 'Central Spatial Position in ICRS; Declination of fitted WCS.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.astrom_offset_mean; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.astrom_offset_mean IS 'Mean offset of astrometric calibration matches.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.astrom_offset_std; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.astrom_offset_std IS 'Standard deviation of offsets of astrometric calibration matches.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mean_var; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.mean_var IS 'Mean of the variance plane.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.n_psf_star; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.n_psf_star IS 'Number of stars used for PSF model.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_area; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_area IS 'PSF area.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_ixx; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_ixx IS 'PSF Ixx moment.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_ixy; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_ixy IS 'PSF Ixy moment.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_iyy; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_iyy IS 'PSF Iyy moment';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_sigma; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_sigma IS 'PSF sigma.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e1_median; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_star_delta_e1_median IS 'Median E1 residual (starE1 - psfE1) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e1_scatter; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_star_delta_e1_scatter IS 'Scatter (via MAD) of E1 residual (starE1 - psfE1) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e2_median; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_star_delta_e2_median IS 'Median E2 residual (starE2 - psfE2) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e2_scatter; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_star_delta_e2_scatter IS 'Scatter (via MAD) of E2 residual (starE2 - psfE2) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_size_median; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_star_delta_size_median IS 'Median size residual (starSize - psfSize) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_size_scatter; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_star_delta_size_scatter IS 'Scatter (via MAD) of size residual (starSize - psfSize) for stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_scaled_delta_size_scatter; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_star_scaled_delta_size_scatter IS 'Scatter (via MAD) of size residual scaled by median size squared.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_trace_radius_delta; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.psf_trace_radius_delta IS 'Delta (max - min) of model PSF trace radius values evaluated on a grid of unmasked pixels.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.sky_bg; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.sky_bg IS 'Average sky background.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.sky_noise; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.sky_noise IS 'RMS noise of the sky background.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.source_count; Type: COMMENT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerfast.exposure_quicklook.source_count IS 'Count of sources.';
+
+
+--
+-- Name: exposure; Type: TABLE; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+CREATE TABLE cdb_startrackernarrow.exposure (
+    exposure_id bigint NOT NULL,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL,
+    s_ra double precision,
+    s_dec double precision,
+    sky_rotation double precision,
+    azimuth_start double precision,
+    azimuth_end double precision,
+    azimuth double precision,
+    altitude_start double precision,
+    altitude_end double precision,
+    altitude double precision,
+    zenith_distance_start double precision,
+    zenith_distance_end double precision,
+    zenith_distance double precision,
+    airmass double precision,
+    exp_midpt timestamp(6) without time zone,
+    exp_midpt_mjd double precision,
+    obs_start timestamp(6) without time zone,
+    obs_start_mjd double precision,
+    obs_end timestamp(6) without time zone,
+    obs_end_mjd double precision,
+    exp_time double precision,
+    img_type character varying(64),
+    target_name character varying(64),
+    air_temp double precision,
+    pressure double precision,
+    humidity double precision,
+    wind_speed double precision,
+    wind_dir double precision,
+    dimm_seeing double precision,
+    dome_azimuth double precision,
+    vignette character varying(10),
+    vignette_min character varying(10)
+);
+
+
+ALTER TABLE cdb_startrackernarrow.exposure OWNER TO oods;
+
+--
+-- Name: COLUMN exposure.exposure_id; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.exposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure.day_obs; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN exposure.seq_num; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: COLUMN exposure.s_ra; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.s_ra IS 'Central Spatial Position in ICRS; Right ascension of targeted focal plane center.';
+
+
+--
+-- Name: COLUMN exposure.s_dec; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.s_dec IS 'Central Spatial Position in ICRS; Declination of targeted focal plane center.';
+
+
+--
+-- Name: COLUMN exposure.sky_rotation; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.sky_rotation IS 'Targeted sky rotation angle.';
+
+
+--
+-- Name: COLUMN exposure.azimuth_start; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.azimuth_start IS 'Azimuth of focal plane center at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.azimuth_end; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.azimuth_end IS 'Azimuth of focal plane center at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.azimuth; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.azimuth IS 'Azimuth of focal plane center at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude_start; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.altitude_start IS 'Altitude of focal plane center at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude_end; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.altitude_end IS 'Altitude of focal plane center at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.altitude IS 'Altitude of focal plane center at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance_start; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.zenith_distance_start IS 'Zenith distance at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance_end; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.zenith_distance_end IS 'Zenith distance at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.zenith_distance IS 'Zenith distance at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.airmass; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.airmass IS 'Airmass of the observed line of sight at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.exp_midpt; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.exp_midpt IS 'Midpoint time for exposure at the fiducial center of the focal plane. array. TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.exp_midpt_mjd; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.exp_midpt_mjd IS 'Midpoint time for exposure at the fiducial center of the focal plane. array in MJD. TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_start; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.obs_start IS 'Start time of the exposure at the fiducial center of the focal plane. array, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_start_mjd; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.obs_start_mjd IS 'Start of the exposure in MJD, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_end; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.obs_end IS 'End time of the exposure at the fiducial center of the focal plane. array, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_end_mjd; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.obs_end_mjd IS 'End of the exposure in MJD, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.exp_time; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.exp_time IS 'Spatially-averaged duration of exposure, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.img_type; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.img_type IS 'Type of exposure taken.';
+
+
+--
+-- Name: COLUMN exposure.target_name; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.target_name IS 'Target of the observation.';
+
+
+--
+-- Name: COLUMN exposure.air_temp; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.air_temp IS 'Outside air temperature in degC.';
+
+
+--
+-- Name: COLUMN exposure.pressure; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.pressure IS 'Outside air pressure.';
+
+
+--
+-- Name: COLUMN exposure.humidity; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.humidity IS 'Outside relative humidity.';
+
+
+--
+-- Name: COLUMN exposure.wind_speed; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.wind_speed IS 'Outside wind speed.';
+
+
+--
+-- Name: COLUMN exposure.wind_dir; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.wind_dir IS 'Wind direction.';
+
+
+--
+-- Name: COLUMN exposure.dimm_seeing; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.dimm_seeing IS 'Seeing as measured by external DIMM (FWHM).';
+
+
+--
+-- Name: COLUMN exposure.dome_azimuth; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.dome_azimuth IS 'Dome azimuth.';
+
+
+--
+-- Name: COLUMN exposure.vignette; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.vignette IS 'Instrument blocked from the sky: UNKNOWN, NO, PARTIALLY, FULLY.';
+
+
+--
+-- Name: COLUMN exposure.vignette_min; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure.vignette_min IS 'Lowest amount of instrument vignetting detected during the exposure: UNKNOWN, NO, PARTIALLY, FULLY.';
+
+
+--
+-- Name: exposure_exposure_id_seq; Type: SEQUENCE; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+CREATE SEQUENCE cdb_startrackernarrow.exposure_exposure_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cdb_startrackernarrow.exposure_exposure_id_seq OWNER TO oods;
+
+--
+-- Name: exposure_exposure_id_seq; Type: SEQUENCE OWNED BY; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER SEQUENCE cdb_startrackernarrow.exposure_exposure_id_seq OWNED BY cdb_startrackernarrow.exposure.exposure_id;
+
+
+--
+-- Name: exposure_flexdata; Type: TABLE; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+CREATE TABLE cdb_startrackernarrow.exposure_flexdata (
+    obs_id bigint NOT NULL,
+    key character varying(128) NOT NULL,
+    value text
+);
+
+
+ALTER TABLE cdb_startrackernarrow.exposure_flexdata OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_flexdata.obs_id; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_flexdata.obs_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.key; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_flexdata.key IS 'Name of key.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.value; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_flexdata.value IS 'Content of value as a string.';
+
+
+--
+-- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+CREATE TABLE cdb_startrackernarrow.exposure_flexdata_schema (
+    key character varying(128) NOT NULL,
+    dtype character varying(64) NOT NULL,
+    doc text NOT NULL,
+    unit character varying(128),
+    ucd character varying(128)
+);
+
+
+ALTER TABLE cdb_startrackernarrow.exposure_flexdata_schema OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_flexdata_schema.key; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_flexdata_schema.key IS 'Name of key.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.dtype; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_flexdata_schema.dtype IS 'Name of the data type of the value, one of bool, int, float, str.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.doc; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_flexdata_schema.doc IS 'Documentation string.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.unit; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_flexdata_schema.unit IS 'Unit for the value. Should be from the IVOA (https://www.ivoa.net/documents/VOUnits/) or astropy.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.ucd; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_flexdata_schema.ucd IS 'IVOA Unified Content Descriptor (https://www.ivoa.net/documents/UCD1+/).';
+
+
+--
+-- Name: exposure_quicklook; Type: TABLE; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+CREATE TABLE cdb_startrackernarrow.exposure_quicklook (
+    exposure_id bigint NOT NULL,
+    ra double precision,
+    "dec" double precision,
+    astrom_offset_mean double precision,
+    astrom_offset_std double precision,
+    mean_var double precision,
+    n_psf_star integer,
+    psf_area double precision,
+    psf_ixx double precision,
+    psf_ixy double precision,
+    psf_iyy double precision,
+    psf_sigma double precision,
+    psf_star_delta_e1_median double precision,
+    psf_star_delta_e1_scatter double precision,
+    psf_star_delta_e2_median double precision,
+    psf_star_delta_e2_scatter double precision,
+    psf_star_delta_size_median double precision,
+    psf_star_delta_size_scatter double precision,
+    psf_star_scaled_delta_size_scatter double precision,
+    psf_trace_radius_delta double precision,
+    sky_bg double precision,
+    sky_noise double precision,
+    source_count integer
+);
+
+
+ALTER TABLE cdb_startrackernarrow.exposure_quicklook OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_quicklook.exposure_id; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.exposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.ra; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.ra IS 'Central Spatial Position in ICRS; Right ascension of fitted WCS.';
+
+
+--
+-- Name: COLUMN exposure_quicklook."dec"; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook."dec" IS 'Central Spatial Position in ICRS; Declination of fitted WCS.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.astrom_offset_mean; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.astrom_offset_mean IS 'Mean offset of astrometric calibration matches.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.astrom_offset_std; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.astrom_offset_std IS 'Standard deviation of offsets of astrometric calibration matches.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mean_var; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.mean_var IS 'Mean of the variance plane.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.n_psf_star; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.n_psf_star IS 'Number of stars used for PSF model.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_area; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_area IS 'PSF area.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_ixx; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_ixx IS 'PSF Ixx moment.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_ixy; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_ixy IS 'PSF Ixy moment.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_iyy; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_iyy IS 'PSF Iyy moment';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_sigma; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_sigma IS 'PSF sigma.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e1_median; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_star_delta_e1_median IS 'Median E1 residual (starE1 - psfE1) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e1_scatter; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_star_delta_e1_scatter IS 'Scatter (via MAD) of E1 residual (starE1 - psfE1) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e2_median; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_star_delta_e2_median IS 'Median E2 residual (starE2 - psfE2) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e2_scatter; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_star_delta_e2_scatter IS 'Scatter (via MAD) of E2 residual (starE2 - psfE2) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_size_median; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_star_delta_size_median IS 'Median size residual (starSize - psfSize) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_size_scatter; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_star_delta_size_scatter IS 'Scatter (via MAD) of size residual (starSize - psfSize) for stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_scaled_delta_size_scatter; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_star_scaled_delta_size_scatter IS 'Scatter (via MAD) of size residual scaled by median size squared.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_trace_radius_delta; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.psf_trace_radius_delta IS 'Delta (max - min) of model PSF trace radius values evaluated on a grid of unmasked pixels.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.sky_bg; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.sky_bg IS 'Average sky background.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.sky_noise; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.sky_noise IS 'RMS noise of the sky background.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.source_count; Type: COMMENT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackernarrow.exposure_quicklook.source_count IS 'Count of sources.';
+
+
+--
+-- Name: exposure; Type: TABLE; Schema: cdb_startrackerwide; Owner: oods
+--
+
+CREATE TABLE cdb_startrackerwide.exposure (
+    exposure_id bigint NOT NULL,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL,
+    s_ra double precision,
+    s_dec double precision,
+    sky_rotation double precision,
+    azimuth_start double precision,
+    azimuth_end double precision,
+    azimuth double precision,
+    altitude_start double precision,
+    altitude_end double precision,
+    altitude double precision,
+    zenith_distance_start double precision,
+    zenith_distance_end double precision,
+    zenith_distance double precision,
+    airmass double precision,
+    exp_midpt timestamp(6) without time zone,
+    exp_midpt_mjd double precision,
+    obs_start timestamp(6) without time zone,
+    obs_start_mjd double precision,
+    obs_end timestamp(6) without time zone,
+    obs_end_mjd double precision,
+    exp_time double precision,
+    img_type character varying(64),
+    target_name character varying(64),
+    air_temp double precision,
+    pressure double precision,
+    humidity double precision,
+    wind_speed double precision,
+    wind_dir double precision,
+    dimm_seeing double precision,
+    dome_azimuth double precision,
+    vignette character varying(10),
+    vignette_min character varying(10)
+);
+
+
+ALTER TABLE cdb_startrackerwide.exposure OWNER TO oods;
+
+--
+-- Name: COLUMN exposure.exposure_id; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.exposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure.day_obs; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN exposure.seq_num; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: COLUMN exposure.s_ra; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.s_ra IS 'Central Spatial Position in ICRS; Right ascension of targeted focal plane center.';
+
+
+--
+-- Name: COLUMN exposure.s_dec; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.s_dec IS 'Central Spatial Position in ICRS; Declination of targeted focal plane center.';
+
+
+--
+-- Name: COLUMN exposure.sky_rotation; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.sky_rotation IS 'Targeted sky rotation angle.';
+
+
+--
+-- Name: COLUMN exposure.azimuth_start; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.azimuth_start IS 'Azimuth of focal plane center at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.azimuth_end; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.azimuth_end IS 'Azimuth of focal plane center at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.azimuth; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.azimuth IS 'Azimuth of focal plane center at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude_start; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.altitude_start IS 'Altitude of focal plane center at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude_end; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.altitude_end IS 'Altitude of focal plane center at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.altitude; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.altitude IS 'Altitude of focal plane center at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance_start; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.zenith_distance_start IS 'Zenith distance at the start of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance_end; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.zenith_distance_end IS 'Zenith distance at the end of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.zenith_distance; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.zenith_distance IS 'Zenith distance at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.airmass; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.airmass IS 'Airmass of the observed line of sight at the middle of the exposure.';
+
+
+--
+-- Name: COLUMN exposure.exp_midpt; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.exp_midpt IS 'Midpoint time for exposure at the fiducial center of the focal plane. array. TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.exp_midpt_mjd; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.exp_midpt_mjd IS 'Midpoint time for exposure at the fiducial center of the focal plane. array in MJD. TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_start; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.obs_start IS 'Start time of the exposure at the fiducial center of the focal plane. array, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_start_mjd; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.obs_start_mjd IS 'Start of the exposure in MJD, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_end; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.obs_end IS 'End time of the exposure at the fiducial center of the focal plane. array, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.obs_end_mjd; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.obs_end_mjd IS 'End of the exposure in MJD, TAI, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.exp_time; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.exp_time IS 'Spatially-averaged duration of exposure, accurate to 10ms.';
+
+
+--
+-- Name: COLUMN exposure.img_type; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.img_type IS 'Type of exposure taken.';
+
+
+--
+-- Name: COLUMN exposure.target_name; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.target_name IS 'Target of the observation.';
+
+
+--
+-- Name: COLUMN exposure.air_temp; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.air_temp IS 'Outside air temperature in degC.';
+
+
+--
+-- Name: COLUMN exposure.pressure; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.pressure IS 'Outside air pressure.';
+
+
+--
+-- Name: COLUMN exposure.humidity; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.humidity IS 'Outside relative humidity.';
+
+
+--
+-- Name: COLUMN exposure.wind_speed; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.wind_speed IS 'Outside wind speed.';
+
+
+--
+-- Name: COLUMN exposure.wind_dir; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.wind_dir IS 'Wind direction.';
+
+
+--
+-- Name: COLUMN exposure.dimm_seeing; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.dimm_seeing IS 'Seeing as measured by external DIMM (FWHM).';
+
+
+--
+-- Name: COLUMN exposure.dome_azimuth; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.dome_azimuth IS 'Dome azimuth.';
+
+
+--
+-- Name: COLUMN exposure.vignette; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.vignette IS 'Instrument blocked from the sky: UNKNOWN, NO, PARTIALLY, FULLY.';
+
+
+--
+-- Name: COLUMN exposure.vignette_min; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure.vignette_min IS 'Lowest amount of instrument vignetting detected during the exposure: UNKNOWN, NO, PARTIALLY, FULLY.';
+
+
+--
+-- Name: exposure_exposure_id_seq; Type: SEQUENCE; Schema: cdb_startrackerwide; Owner: oods
+--
+
+CREATE SEQUENCE cdb_startrackerwide.exposure_exposure_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE cdb_startrackerwide.exposure_exposure_id_seq OWNER TO oods;
+
+--
+-- Name: exposure_exposure_id_seq; Type: SEQUENCE OWNED BY; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER SEQUENCE cdb_startrackerwide.exposure_exposure_id_seq OWNED BY cdb_startrackerwide.exposure.exposure_id;
+
+
+--
+-- Name: exposure_flexdata; Type: TABLE; Schema: cdb_startrackerwide; Owner: oods
+--
+
+CREATE TABLE cdb_startrackerwide.exposure_flexdata (
+    obs_id bigint NOT NULL,
+    key character varying(128) NOT NULL,
+    value text
+);
+
+
+ALTER TABLE cdb_startrackerwide.exposure_flexdata OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_flexdata.obs_id; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_flexdata.obs_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.key; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_flexdata.key IS 'Name of key.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.value; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_flexdata.value IS 'Content of value as a string.';
+
+
+--
+-- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_startrackerwide; Owner: oods
+--
+
+CREATE TABLE cdb_startrackerwide.exposure_flexdata_schema (
+    key character varying(128) NOT NULL,
+    dtype character varying(64) NOT NULL,
+    doc text NOT NULL,
+    unit character varying(128),
+    ucd character varying(128)
+);
+
+
+ALTER TABLE cdb_startrackerwide.exposure_flexdata_schema OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_flexdata_schema.key; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_flexdata_schema.key IS 'Name of key.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.dtype; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_flexdata_schema.dtype IS 'Name of the data type of the value, one of bool, int, float, str.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.doc; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_flexdata_schema.doc IS 'Documentation string.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.unit; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_flexdata_schema.unit IS 'Unit for the value. Should be from the IVOA (https://www.ivoa.net/documents/VOUnits/) or astropy.';
+
+
+--
+-- Name: COLUMN exposure_flexdata_schema.ucd; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_flexdata_schema.ucd IS 'IVOA Unified Content Descriptor (https://www.ivoa.net/documents/UCD1+/).';
+
+
+--
+-- Name: exposure_quicklook; Type: TABLE; Schema: cdb_startrackerwide; Owner: oods
+--
+
+CREATE TABLE cdb_startrackerwide.exposure_quicklook (
+    exposure_id bigint NOT NULL,
+    ra double precision,
+    "dec" double precision,
+    astrom_offset_mean double precision,
+    astrom_offset_std double precision,
+    mean_var double precision,
+    n_psf_star integer,
+    psf_area double precision,
+    psf_ixx double precision,
+    psf_ixy double precision,
+    psf_iyy double precision,
+    psf_sigma double precision,
+    psf_star_delta_e1_median double precision,
+    psf_star_delta_e1_scatter double precision,
+    psf_star_delta_e2_median double precision,
+    psf_star_delta_e2_scatter double precision,
+    psf_star_delta_size_median double precision,
+    psf_star_delta_size_scatter double precision,
+    psf_star_scaled_delta_size_scatter double precision,
+    psf_trace_radius_delta double precision,
+    sky_bg double precision,
+    sky_noise double precision,
+    source_count integer
+);
+
+
+ALTER TABLE cdb_startrackerwide.exposure_quicklook OWNER TO oods;
+
+--
+-- Name: COLUMN exposure_quicklook.exposure_id; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.exposure_id IS 'Unique identifier.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.ra; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.ra IS 'Central Spatial Position in ICRS; Right ascension of fitted WCS.';
+
+
+--
+-- Name: COLUMN exposure_quicklook."dec"; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook."dec" IS 'Central Spatial Position in ICRS; Declination of fitted WCS.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.astrom_offset_mean; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.astrom_offset_mean IS 'Mean offset of astrometric calibration matches.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.astrom_offset_std; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.astrom_offset_std IS 'Standard deviation of offsets of astrometric calibration matches.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.mean_var; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.mean_var IS 'Mean of the variance plane.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.n_psf_star; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.n_psf_star IS 'Number of stars used for PSF model.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_area; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_area IS 'PSF area.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_ixx; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_ixx IS 'PSF Ixx moment.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_ixy; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_ixy IS 'PSF Ixy moment.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_iyy; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_iyy IS 'PSF Iyy moment';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_sigma; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_sigma IS 'PSF sigma.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e1_median; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_star_delta_e1_median IS 'Median E1 residual (starE1 - psfE1) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e1_scatter; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_star_delta_e1_scatter IS 'Scatter (via MAD) of E1 residual (starE1 - psfE1) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e2_median; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_star_delta_e2_median IS 'Median E2 residual (starE2 - psfE2) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_e2_scatter; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_star_delta_e2_scatter IS 'Scatter (via MAD) of E2 residual (starE2 - psfE2) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_size_median; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_star_delta_size_median IS 'Median size residual (starSize - psfSize) for PSF stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_delta_size_scatter; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_star_delta_size_scatter IS 'Scatter (via MAD) of size residual (starSize - psfSize) for stars.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_star_scaled_delta_size_scatter; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_star_scaled_delta_size_scatter IS 'Scatter (via MAD) of size residual scaled by median size squared.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.psf_trace_radius_delta; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.psf_trace_radius_delta IS 'Delta (max - min) of model PSF trace radius values evaluated on a grid of unmasked pixels.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.sky_bg; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.sky_bg IS 'Average sky background.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.sky_noise; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.sky_noise IS 'RMS noise of the sky background.';
+
+
+--
+-- Name: COLUMN exposure_quicklook.source_count; Type: COMMENT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_startrackerwide.exposure_quicklook.source_count IS 'Count of sources.';
+
+
+--
+-- Name: alembic_version; Type: TABLE; Schema: public; Owner: exposurelog
+--
 DROP TABLE IF EXISTS public.alembic_version; 
 CREATE TABLE public.alembic_version (
     version_num character varying(32) NOT NULL
@@ -5093,7 +7419,6 @@ ALTER TABLE public.alembic_version OWNER TO exposurelog;
 --
 -- Name: message; Type: TABLE; Schema: public; Owner: exposurelog
 --
-
 DROP TABLE IF EXISTS public.message; 
 CREATE TABLE public.message (
     id uuid NOT NULL,
@@ -5160,6 +7485,76 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure ALTER COLUMN ccdexposure_id SET D
 
 ALTER TABLE ONLY cdb_lsstcomcamsim.exposure ALTER COLUMN exposure_id SET DEFAULT nextval('cdb_lsstcomcamsim.exposure_exposure_id_seq'::regclass);
 
+
+--
+-- Name: exposure exposure_id; Type: DEFAULT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure ALTER COLUMN exposure_id SET DEFAULT nextval('cdb_startrackerfast.exposure_exposure_id_seq'::regclass);
+
+
+--
+-- Name: exposure exposure_id; Type: DEFAULT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure ALTER COLUMN exposure_id SET DEFAULT nextval('cdb_startrackernarrow.exposure_exposure_id_seq'::regclass);
+
+
+--
+-- Name: exposure exposure_id; Type: DEFAULT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure ALTER COLUMN exposure_id SET DEFAULT nextval('cdb_startrackerwide.exposure_exposure_id_seq'::regclass);
+
+
+--
+-- Name: cdb_latiss_version cdb_latiss_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
+--
+
+ALTER TABLE ONLY cdb.cdb_latiss_version
+    ADD CONSTRAINT cdb_latiss_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: cdb_lsstcomcam_version cdb_lsstcomcam_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
+--
+
+ALTER TABLE ONLY cdb.cdb_lsstcomcam_version
+    ADD CONSTRAINT cdb_lsstcomcam_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: cdb_lsstcomcamsim_version cdb_lsstcomcamsim_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
+--
+
+ALTER TABLE ONLY cdb.cdb_lsstcomcamsim_version
+    ADD CONSTRAINT cdb_lsstcomcamsim_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: cdb_startrackerfast_version cdb_startrackerfast_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
+--
+
+ALTER TABLE ONLY cdb.cdb_startrackerfast_version
+    ADD CONSTRAINT cdb_startrackerfast_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: cdb_startrackernarrow_version cdb_startrackernarrow_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
+--
+
+ALTER TABLE ONLY cdb.cdb_startrackernarrow_version
+    ADD CONSTRAINT cdb_startrackernarrow_version_pkc PRIMARY KEY (version_num);
+
+
+--
+-- Name: cdb_startrackerwide_version cdb_startrackerwide_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
+--
+
+ALTER TABLE ONLY cdb.cdb_startrackerwide_version
+    ADD CONSTRAINT cdb_startrackerwide_version_pkc PRIMARY KEY (version_num);
+
+
 --
 -- Name: ccdexposure_camera ccdexposure_camera_pkey; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
 --
@@ -5222,6 +7617,14 @@ ALTER TABLE ONLY cdb_latiss.exposure_flexdata_schema
 
 ALTER TABLE ONLY cdb_latiss.exposure
     ADD CONSTRAINT exposure_pkey1 PRIMARY KEY (exposure_id);
+
+
+--
+-- Name: exposure_quicklook exposure_quicklook_pkey; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.exposure_quicklook
+    ADD CONSTRAINT exposure_quicklook_pkey PRIMARY KEY (day_obs, seq_num);
 
 
 --
@@ -5313,6 +7716,14 @@ ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure
 
 
 --
+-- Name: ccdexposure_quicklook ccdexposure_quicklook_pkey; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure_quicklook
+    ADD CONSTRAINT ccdexposure_quicklook_pkey PRIMARY KEY (ccdexposure_id);
+
+
+--
 -- Name: ccdvisit1_quicklook ccdvisit1_quicklook_pkey; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
 --
 
@@ -5342,6 +7753,14 @@ ALTER TABLE ONLY cdb_lsstcomcam.exposure_flexdata_schema
 
 ALTER TABLE ONLY cdb_lsstcomcam.exposure
     ADD CONSTRAINT exposure_pkey PRIMARY KEY (exposure_id);
+
+
+--
+-- Name: exposure_quicklook exposure_quicklook_pkey; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.exposure_quicklook
+    ADD CONSTRAINT exposure_quicklook_pkey PRIMARY KEY (day_obs, seq_num);
 
 
 --
@@ -5521,6 +7940,126 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.visit1_quicklook
 
 
 --
+-- Name: exposure_flexdata exposure_flexdata_pkey; Type: CONSTRAINT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure_flexdata
+    ADD CONSTRAINT exposure_flexdata_pkey PRIMARY KEY (obs_id, key);
+
+
+--
+-- Name: exposure_flexdata_schema exposure_flexdata_schema_pkey; Type: CONSTRAINT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure_flexdata_schema
+    ADD CONSTRAINT exposure_flexdata_schema_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: exposure exposure_pkey; Type: CONSTRAINT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure
+    ADD CONSTRAINT exposure_pkey PRIMARY KEY (exposure_id);
+
+
+--
+-- Name: exposure_quicklook exposure_quicklook_pkey; Type: CONSTRAINT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure_quicklook
+    ADD CONSTRAINT exposure_quicklook_pkey PRIMARY KEY (exposure_id);
+
+
+--
+-- Name: exposure un_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure
+    ADD CONSTRAINT un_day_obs_seq_num UNIQUE (day_obs, seq_num);
+
+
+--
+-- Name: exposure_flexdata exposure_flexdata_pkey; Type: CONSTRAINT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure_flexdata
+    ADD CONSTRAINT exposure_flexdata_pkey PRIMARY KEY (obs_id, key);
+
+
+--
+-- Name: exposure_flexdata_schema exposure_flexdata_schema_pkey; Type: CONSTRAINT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure_flexdata_schema
+    ADD CONSTRAINT exposure_flexdata_schema_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: exposure exposure_pkey; Type: CONSTRAINT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure
+    ADD CONSTRAINT exposure_pkey PRIMARY KEY (exposure_id);
+
+
+--
+-- Name: exposure_quicklook exposure_quicklook_pkey; Type: CONSTRAINT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure_quicklook
+    ADD CONSTRAINT exposure_quicklook_pkey PRIMARY KEY (exposure_id);
+
+
+--
+-- Name: exposure un_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure
+    ADD CONSTRAINT un_day_obs_seq_num UNIQUE (day_obs, seq_num);
+
+
+--
+-- Name: exposure_flexdata exposure_flexdata_pkey; Type: CONSTRAINT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure_flexdata
+    ADD CONSTRAINT exposure_flexdata_pkey PRIMARY KEY (obs_id, key);
+
+
+--
+-- Name: exposure_flexdata_schema exposure_flexdata_schema_pkey; Type: CONSTRAINT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure_flexdata_schema
+    ADD CONSTRAINT exposure_flexdata_schema_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: exposure exposure_pkey; Type: CONSTRAINT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure
+    ADD CONSTRAINT exposure_pkey PRIMARY KEY (exposure_id);
+
+
+--
+-- Name: exposure_quicklook exposure_quicklook_pkey; Type: CONSTRAINT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure_quicklook
+    ADD CONSTRAINT exposure_quicklook_pkey PRIMARY KEY (exposure_id);
+
+
+--
+-- Name: exposure un_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure
+    ADD CONSTRAINT un_day_obs_seq_num UNIQUE (day_obs, seq_num);
+
+
+--
 -- Name: alembic_version alembic_version_pkc; Type: CONSTRAINT; Schema: public; Owner: exposurelog
 --
 
@@ -5633,6 +8172,22 @@ ALTER TABLE ONLY cdb_latiss.exposure_flexdata
 
 
 --
+-- Name: exposure_quicklook fk_exposure_quicklook_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.exposure_quicklook
+    ADD CONSTRAINT fk_exposure_quicklook_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_latiss.exposure(day_obs, seq_num);
+
+
+--
+-- Name: exposure_quicklook fk_exposure_quicklook_obs_id; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.exposure_quicklook
+    ADD CONSTRAINT fk_exposure_quicklook_obs_id FOREIGN KEY (exposure_id) REFERENCES cdb_latiss.exposure(exposure_id);
+
+
+--
 -- Name: exposure_flexdata fk_key; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
 --
 
@@ -5705,6 +8260,14 @@ ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure_camera
 
 
 --
+-- Name: ccdexposure_quicklook fk_ccdexposure_quicklook_obs_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure_quicklook
+    ADD CONSTRAINT fk_ccdexposure_quicklook_obs_id FOREIGN KEY (ccdexposure_id) REFERENCES cdb_lsstcomcam.ccdexposure(ccdexposure_id);
+
+
+--
 -- Name: exposure_flexdata fk_exposure_flexdata_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
 --
 
@@ -5718,6 +8281,22 @@ ALTER TABLE ONLY cdb_lsstcomcam.exposure_flexdata
 
 ALTER TABLE ONLY cdb_lsstcomcam.exposure_flexdata
     ADD CONSTRAINT fk_exposure_flexdata_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_lsstcomcam.exposure(exposure_id);
+
+
+--
+-- Name: exposure_quicklook fk_exposure_quicklook_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.exposure_quicklook
+    ADD CONSTRAINT fk_exposure_quicklook_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_lsstcomcam.exposure(day_obs, seq_num);
+
+
+--
+-- Name: exposure_quicklook fk_exposure_quicklook_obs_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.exposure_quicklook
+    ADD CONSTRAINT fk_exposure_quicklook_obs_id FOREIGN KEY (exposure_id) REFERENCES cdb_lsstcomcam.exposure(exposure_id);
 
 
 --
@@ -5857,6 +8436,78 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.visit1_quicklook
 
 
 --
+-- Name: exposure_flexdata fk_exposure_flexdata_key; Type: FK CONSTRAINT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_key FOREIGN KEY (key) REFERENCES cdb_startrackerfast.exposure_flexdata_schema(key);
+
+
+--
+-- Name: exposure_flexdata fk_exposure_flexdata_obs_id; Type: FK CONSTRAINT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_startrackerfast.exposure(exposure_id);
+
+
+--
+-- Name: exposure_quicklook fk_exposure_quicklook_obs_id; Type: FK CONSTRAINT; Schema: cdb_startrackerfast; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerfast.exposure_quicklook
+    ADD CONSTRAINT fk_exposure_quicklook_obs_id FOREIGN KEY (exposure_id) REFERENCES cdb_startrackerfast.exposure(exposure_id);
+
+
+--
+-- Name: exposure_flexdata fk_exposure_flexdata_key; Type: FK CONSTRAINT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_key FOREIGN KEY (key) REFERENCES cdb_startrackernarrow.exposure_flexdata_schema(key);
+
+
+--
+-- Name: exposure_flexdata fk_exposure_flexdata_obs_id; Type: FK CONSTRAINT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_startrackernarrow.exposure(exposure_id);
+
+
+--
+-- Name: exposure_quicklook fk_exposure_quicklook_obs_id; Type: FK CONSTRAINT; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackernarrow.exposure_quicklook
+    ADD CONSTRAINT fk_exposure_quicklook_obs_id FOREIGN KEY (exposure_id) REFERENCES cdb_startrackernarrow.exposure(exposure_id);
+
+
+--
+-- Name: exposure_flexdata fk_exposure_flexdata_key; Type: FK CONSTRAINT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_key FOREIGN KEY (key) REFERENCES cdb_startrackerwide.exposure_flexdata_schema(key);
+
+
+--
+-- Name: exposure_flexdata fk_exposure_flexdata_obs_id; Type: FK CONSTRAINT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_startrackerwide.exposure(exposure_id);
+
+
+--
+-- Name: exposure_quicklook fk_exposure_quicklook_obs_id; Type: FK CONSTRAINT; Schema: cdb_startrackerwide; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_startrackerwide.exposure_quicklook
+    ADD CONSTRAINT fk_exposure_quicklook_obs_id FOREIGN KEY (exposure_id) REFERENCES cdb_startrackerwide.exposure(exposure_id);
+
+
+--
 -- Name: message message_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: exposurelog
 --
 
@@ -5880,6 +8531,22 @@ GRANT USAGE ON SCHEMA cdb_latiss TO replicauser;
 
 
 --
+-- Name: SCHEMA cdb_lsstcam; Type: ACL; Schema: -; Owner: oods
+--
+
+GRANT USAGE ON SCHEMA cdb_lsstcam TO usdf;
+GRANT USAGE ON SCHEMA cdb_lsstcam TO replicauser;
+
+
+--
+-- Name: SCHEMA cdb_lsstcamsim; Type: ACL; Schema: -; Owner: oods
+--
+
+GRANT USAGE ON SCHEMA cdb_lsstcamsim TO usdf;
+GRANT USAGE ON SCHEMA cdb_lsstcamsim TO replicauser;
+
+
+--
 -- Name: SCHEMA cdb_lsstcomcam; Type: ACL; Schema: -; Owner: oods
 --
 
@@ -5896,10 +8563,83 @@ GRANT USAGE ON SCHEMA cdb_lsstcomcamsim TO replicauser;
 
 
 --
+-- Name: SCHEMA cdb_startrackerfast; Type: ACL; Schema: -; Owner: oods
+--
+
+GRANT USAGE ON SCHEMA cdb_startrackerfast TO usdf;
+GRANT USAGE ON SCHEMA cdb_startrackerfast TO replicauser;
+
+
+--
+-- Name: SCHEMA cdb_startrackernarrow; Type: ACL; Schema: -; Owner: oods
+--
+
+GRANT USAGE ON SCHEMA cdb_startrackernarrow TO usdf;
+GRANT USAGE ON SCHEMA cdb_startrackernarrow TO replicauser;
+
+
+--
+-- Name: SCHEMA cdb_startrackerwide; Type: ACL; Schema: -; Owner: oods
+--
+
+GRANT USAGE ON SCHEMA cdb_startrackerwide TO usdf;
+GRANT USAGE ON SCHEMA cdb_startrackerwide TO replicauser;
+
+
+--
 -- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
 --
 
 GRANT USAGE ON SCHEMA public TO usdf;
+
+
+--
+-- Name: TABLE cdb_latiss_version; Type: ACL; Schema: cdb; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb.cdb_latiss_version TO usdf;
+GRANT SELECT ON TABLE cdb.cdb_latiss_version TO replicauser;
+
+
+--
+-- Name: TABLE cdb_lsstcomcam_version; Type: ACL; Schema: cdb; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb.cdb_lsstcomcam_version TO usdf;
+GRANT SELECT ON TABLE cdb.cdb_lsstcomcam_version TO replicauser;
+
+
+--
+-- Name: TABLE cdb_lsstcomcamsim_version; Type: ACL; Schema: cdb; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb.cdb_lsstcomcamsim_version TO usdf;
+GRANT SELECT ON TABLE cdb.cdb_lsstcomcamsim_version TO replicauser;
+
+
+--
+-- Name: TABLE cdb_startrackerfast_version; Type: ACL; Schema: cdb; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb.cdb_startrackerfast_version TO replicauser;
+GRANT SELECT ON TABLE cdb.cdb_startrackerfast_version TO usdf;
+
+
+--
+-- Name: TABLE cdb_startrackernarrow_version; Type: ACL; Schema: cdb; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb.cdb_startrackernarrow_version TO usdf;
+GRANT SELECT ON TABLE cdb.cdb_startrackernarrow_version TO replicauser;
+
+
+--
+-- Name: TABLE cdb_startrackerwide_version; Type: ACL; Schema: cdb; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb.cdb_startrackerwide_version TO usdf;
+GRANT SELECT ON TABLE cdb.cdb_startrackerwide_version TO replicauser;
+
 
 --
 -- Name: TABLE ccdexposure; Type: ACL; Schema: cdb_latiss; Owner: oods
@@ -5938,6 +8678,7 @@ GRANT SELECT ON TABLE cdb_latiss.ccdexposure_flexdata_schema TO replicauser;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.ccdvisit1 TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.ccdvisit1 TO replicauser;
 
 
 --
@@ -5973,10 +8714,19 @@ GRANT SELECT ON TABLE cdb_latiss.exposure_flexdata_schema TO replicauser;
 
 
 --
+-- Name: TABLE exposure_quicklook; Type: ACL; Schema: cdb_latiss; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_latiss.exposure_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.exposure_quicklook TO replicauser;
+
+
+--
 -- Name: TABLE visit1; Type: ACL; Schema: cdb_latiss; Owner: oods
 --
 
 GRANT SELECT ON TABLE cdb_latiss.visit1 TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.visit1 TO replicauser;
 
 
 --
@@ -6020,10 +8770,19 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_flexdata_schema TO replicauser;
 
 
 --
+-- Name: TABLE ccdexposure_quicklook; Type: ACL; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_quicklook TO replicauser;
+
+
+--
 -- Name: TABLE ccdvisit1; Type: ACL; Schema: cdb_lsstcomcam; Owner: oods
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.ccdvisit1 TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.ccdvisit1 TO replicauser;
 
 
 --
@@ -6059,10 +8818,19 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.exposure_flexdata_schema TO replicauser;
 
 
 --
+-- Name: TABLE exposure_quicklook; Type: ACL; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_lsstcomcam.exposure_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.exposure_quicklook TO replicauser;
+
+
+--
 -- Name: TABLE visit1; Type: ACL; Schema: cdb_lsstcomcam; Owner: oods
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.visit1 TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.visit1 TO replicauser;
 
 
 --
@@ -6110,6 +8878,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_flexdata_schema TO replicaus
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdvisit1 TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdvisit1 TO replicauser;
 
 
 --
@@ -6149,6 +8918,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure_flexdata_schema TO replicauser;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1 TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1 TO replicauser;
 
 
 --
@@ -6157,6 +8927,102 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1 TO usdf;
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1_quicklook TO usdf;
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1_quicklook TO replicauser;
+
+
+--
+-- Name: TABLE exposure; Type: ACL; Schema: cdb_startrackerfast; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackerfast.exposure TO usdf;
+GRANT SELECT ON TABLE cdb_startrackerfast.exposure TO replicauser;
+
+
+--
+-- Name: TABLE exposure_flexdata; Type: ACL; Schema: cdb_startrackerfast; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackerfast.exposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_startrackerfast.exposure_flexdata TO replicauser;
+
+
+--
+-- Name: TABLE exposure_flexdata_schema; Type: ACL; Schema: cdb_startrackerfast; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackerfast.exposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_startrackerfast.exposure_flexdata_schema TO replicauser;
+
+
+--
+-- Name: TABLE exposure_quicklook; Type: ACL; Schema: cdb_startrackerfast; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackerfast.exposure_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_startrackerfast.exposure_quicklook TO replicauser;
+
+
+--
+-- Name: TABLE exposure; Type: ACL; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackernarrow.exposure TO usdf;
+GRANT SELECT ON TABLE cdb_startrackernarrow.exposure TO replicauser;
+
+
+--
+-- Name: TABLE exposure_flexdata; Type: ACL; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackernarrow.exposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_startrackernarrow.exposure_flexdata TO replicauser;
+
+
+--
+-- Name: TABLE exposure_flexdata_schema; Type: ACL; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackernarrow.exposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_startrackernarrow.exposure_flexdata_schema TO replicauser;
+
+
+--
+-- Name: TABLE exposure_quicklook; Type: ACL; Schema: cdb_startrackernarrow; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackernarrow.exposure_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_startrackernarrow.exposure_quicklook TO replicauser;
+
+
+--
+-- Name: TABLE exposure; Type: ACL; Schema: cdb_startrackerwide; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackerwide.exposure TO usdf;
+GRANT SELECT ON TABLE cdb_startrackerwide.exposure TO replicauser;
+
+
+--
+-- Name: TABLE exposure_flexdata; Type: ACL; Schema: cdb_startrackerwide; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackerwide.exposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_startrackerwide.exposure_flexdata TO replicauser;
+
+
+--
+-- Name: TABLE exposure_flexdata_schema; Type: ACL; Schema: cdb_startrackerwide; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackerwide.exposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_startrackerwide.exposure_flexdata_schema TO replicauser;
+
+
+--
+-- Name: TABLE exposure_quicklook; Type: ACL; Schema: cdb_startrackerwide; Owner: oods
+--
+
+GRANT SELECT ON TABLE cdb_startrackerwide.exposure_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_startrackerwide.exposure_quicklook TO replicauser;
 
 
 --
@@ -6178,4 +9044,3 @@ GRANT SELECT ON TABLE public.message TO replicauser;
 --
 -- PostgreSQL database dump complete
 --
-

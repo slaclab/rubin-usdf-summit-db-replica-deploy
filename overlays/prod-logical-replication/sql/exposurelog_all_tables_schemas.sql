@@ -3,7 +3,7 @@
 --
 
 -- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 14.13
+-- Dumped by pg_dump version 14.12
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -17,18 +17,19 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: cdb; Type: SCHEMA; Schema: -; Owner: oods
+-- DROP existing Views
 --
-
-CREATE SCHEMA cdb;
-
-
-ALTER SCHEMA cdb OWNER TO oods;
+DROP VIEW IF EXISTS cdb_latiss.visit;
+DROP VIEW IF EXISTS cdb_latiss.ccdvisit1;
+DROP VIEW IF EXISTS cdb_lsstcomcam.ccdvisit1;
+DROP VIEW IF EXISTS cdb_lsstcomcam.visit1;
+DROP VIEW IF EXISTS cdb_lsstcomcamsim.ccdvisit1;
+DROP VIEW IF EXISTS cdb_lsstcomcamsim.visit1;
 
 --
 -- Name: cdb_latiss; Type: SCHEMA; Schema: -; Owner: oods
 --
-
+DROP SCHEMA cdb_latiss CASCADE;
 CREATE SCHEMA cdb_latiss;
 
 
@@ -37,7 +38,7 @@ ALTER SCHEMA cdb_latiss OWNER TO oods;
 --
 -- Name: cdb_lsstcam; Type: SCHEMA; Schema: -; Owner: oods
 --
-
+DROP SCHEMA cdb_lsstcam CASCADE;
 CREATE SCHEMA cdb_lsstcam;
 
 
@@ -47,6 +48,7 @@ ALTER SCHEMA cdb_lsstcam OWNER TO oods;
 -- Name: cdb_lsstcamsim; Type: SCHEMA; Schema: -; Owner: oods
 --
 
+DROP SCHEMA cdb_lsstcamsim CASCADE;
 CREATE SCHEMA cdb_lsstcamsim;
 
 
@@ -56,6 +58,7 @@ ALTER SCHEMA cdb_lsstcamsim OWNER TO oods;
 -- Name: cdb_lsstcomcam; Type: SCHEMA; Schema: -; Owner: oods
 --
 
+DROP SCHEMA cdb_lsstcomcam CASCADE;
 CREATE SCHEMA cdb_lsstcomcam;
 
 
@@ -65,6 +68,7 @@ ALTER SCHEMA cdb_lsstcomcam OWNER TO oods;
 -- Name: cdb_lsstcomcamsim; Type: SCHEMA; Schema: -; Owner: oods
 --
 
+DROP SCHEMA cdb_lsstcomcamsim CASCADE;
 CREATE SCHEMA cdb_lsstcomcamsim;
 
 
@@ -88,47 +92,17 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: cdb_latiss_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_latiss_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_latiss_version OWNER TO oods;
-
---
--- Name: cdb_lsstcomcam_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_lsstcomcam_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_lsstcomcam_version OWNER TO oods;
-
---
--- Name: cdb_lsstcomcamsim_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_lsstcomcamsim_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_lsstcomcamsim_version OWNER TO oods;
-
---
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.ccdexposure;
 CREATE TABLE cdb_latiss.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
     detector integer NOT NULL,
-    s_region character varying(1024)
+    s_region character varying(1024),
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL
 );
 
 
@@ -163,9 +137,23 @@ COMMENT ON COLUMN cdb_latiss.ccdexposure.s_region IS 'Sky region in STC-S format
 
 
 --
--- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_latiss; Owner: oods
+-- Name: COLUMN ccdexposure.day_obs; Type: COMMENT; Schema: cdb_latiss; Owner: oods
 --
 
+COMMENT ON COLUMN cdb_latiss.ccdexposure.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN ccdexposure.seq_num; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.ccdexposure.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_latiss; Owner: oods
+--
+DROP TABLE IF EXISTS cdb_latiss.ccdexposure_camera;
 CREATE TABLE cdb_latiss.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -220,7 +208,7 @@ ALTER SEQUENCE cdb_latiss.ccdexposure_ccdexposure_id_seq OWNED BY cdb_latiss.ccd
 --
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
-
+DROP TABLE IF EXISTS cdb_latiss.ccdexposure_flexdata;
 CREATE TABLE cdb_latiss.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -255,6 +243,7 @@ COMMENT ON COLUMN cdb_latiss.ccdexposure_flexdata.value IS 'Content of value as 
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_latiss.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -319,6 +308,7 @@ ALTER TABLE cdb_latiss.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.ccdvisit1_quicklook;
 CREATE TABLE cdb_latiss.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -577,6 +567,7 @@ COMMENT ON COLUMN cdb_latiss.ccdvisit1_quicklook.max_dist_to_nearest_psf IS 'Max
 -- Name: exposure; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.exposure;
 CREATE TABLE cdb_latiss.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -1016,10 +1007,13 @@ ALTER SEQUENCE cdb_latiss.exposure_exposure_id_seq OWNED BY cdb_latiss.exposure.
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.exposure_flexdata;
 CREATE TABLE cdb_latiss.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
-    value text
+    value text,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL
 );
 
 
@@ -1047,9 +1041,24 @@ COMMENT ON COLUMN cdb_latiss.exposure_flexdata.value IS 'Content of value as a s
 
 
 --
+-- Name: COLUMN exposure_flexdata.day_obs; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_flexdata.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.seq_num; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.exposure_flexdata.seq_num IS 'Sequence number.';
+
+
+--
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.exposure_flexdata_schema;
 CREATE TABLE cdb_latiss.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -1099,6 +1108,7 @@ COMMENT ON COLUMN cdb_latiss.exposure_flexdata_schema.ucd IS 'IVOA Unified Conte
 --
 -- Name: visit1; Type: VIEW; Schema: cdb_latiss; Owner: oods
 --
+
 
 CREATE VIEW cdb_latiss.visit1 AS
  SELECT exposure.exposure_id AS visit_id,
@@ -1159,6 +1169,7 @@ ALTER TABLE cdb_latiss.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_latiss; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_latiss.visit1_quicklook;
 CREATE TABLE cdb_latiss.visit1_quicklook (
     visit_id bigint NOT NULL,
     n_inputs integer,
@@ -1189,7 +1200,10 @@ CREATE TABLE cdb_latiss.visit1_quicklook (
     seeing_zenith_500nm double precision,
     zero_point double precision,
     low_snr_source_count integer,
-    high_snr_source_count integer
+    high_snr_source_count integer,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL,
+    postisr_pixel_median double precision
 );
 
 
@@ -1406,14 +1420,38 @@ COMMENT ON COLUMN cdb_latiss.visit1_quicklook.high_snr_source_count IS 'Count of
 
 
 --
+-- Name: COLUMN visit1_quicklook.day_obs; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.visit1_quicklook.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.seq_num; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.visit1_quicklook.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.postisr_pixel_median; Type: COMMENT; Schema: cdb_latiss; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_latiss.visit1_quicklook.postisr_pixel_median IS 'Median postISR pixel value.';
+
+
+--
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure;
 CREATE TABLE cdb_lsstcomcam.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
     detector integer NOT NULL,
-    s_region character varying(1024)
+    s_region character varying(1024),
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL
 );
 
 
@@ -1448,9 +1486,24 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure.s_region IS 'Sky region in STC-S fo
 
 
 --
+-- Name: COLUMN ccdexposure.day_obs; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN ccdexposure.seq_num; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure.seq_num IS 'Sequence number.';
+
+
+--
 -- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_camera;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -1506,6 +1559,7 @@ ALTER SEQUENCE cdb_lsstcomcam.ccdexposure_ccdexposure_id_seq OWNED BY cdb_lsstco
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_flexdata;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -1540,6 +1594,7 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdexposure_flexdata.value IS 'Content of value
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcam.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -1604,6 +1659,7 @@ ALTER TABLE cdb_lsstcomcam.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.ccdvisit1_quicklook;
 CREATE TABLE cdb_lsstcomcam.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -1635,7 +1691,8 @@ CREATE TABLE cdb_lsstcomcam.ccdvisit1_quicklook (
     psf_star_delta_size_scatter double precision,
     psf_star_scaled_delta_size_scatter double precision,
     psf_trace_radius_delta double precision,
-    max_dist_to_nearest_psf double precision
+    max_dist_to_nearest_psf double precision,
+    postisr_pixel_median double precision
 );
 
 
@@ -1859,9 +1916,17 @@ COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.max_dist_to_nearest_psf IS 
 
 
 --
+-- Name: COLUMN ccdvisit1_quicklook.postisr_pixel_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.ccdvisit1_quicklook.postisr_pixel_median IS 'Median postISR pixel value.';
+
+
+--
 -- Name: exposure; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.exposure;
 CREATE TABLE cdb_lsstcomcam.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -2277,10 +2342,13 @@ ALTER SEQUENCE cdb_lsstcomcam.exposure_exposure_id_seq OWNED BY cdb_lsstcomcam.e
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.exposure_flexdata;
 CREATE TABLE cdb_lsstcomcam.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
-    value text
+    value text,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL
 );
 
 
@@ -2308,9 +2376,24 @@ COMMENT ON COLUMN cdb_lsstcomcam.exposure_flexdata.value IS 'Content of value as
 
 
 --
+-- Name: COLUMN exposure_flexdata.day_obs; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_flexdata.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.seq_num; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.exposure_flexdata.seq_num IS 'Sequence number.';
+
+
+--
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.exposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcam.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -2417,6 +2500,7 @@ ALTER TABLE cdb_lsstcomcam.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcam; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcam.visit1_quicklook;
 CREATE TABLE cdb_lsstcomcam.visit1_quicklook (
     visit_id bigint NOT NULL,
     n_inputs integer,
@@ -2506,7 +2590,12 @@ CREATE TABLE cdb_lsstcomcam.visit1_quicklook (
     high_snr_source_count_min integer,
     high_snr_source_count_max integer,
     high_snr_source_count_median integer,
-    high_snr_source_count_total integer
+    high_snr_source_count_total integer,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL,
+    postisr_pixel_median_median double precision,
+    postisr_pixel_median_mean double precision,
+    postisr_pixel_median_max double precision
 );
 
 
@@ -3136,14 +3225,52 @@ COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.high_snr_source_count_total IS
 
 
 --
+-- Name: COLUMN visit1_quicklook.day_obs; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.seq_num; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.postisr_pixel_median_median; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.postisr_pixel_median_median IS 'Median postISR pixel value (median across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.postisr_pixel_median_mean; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.postisr_pixel_median_mean IS 'Median postISR pixel value (mean across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.postisr_pixel_median_max; Type: COMMENT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcam.visit1_quicklook.postisr_pixel_median_max IS 'Median postISR pixel value (max across all detectors).';
+
+
+--
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure (
     ccdexposure_id bigint NOT NULL,
     exposure_id bigint NOT NULL,
     detector integer NOT NULL,
-    s_region character varying(1024)
+    s_region character varying(1024),
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL
 );
 
 
@@ -3178,9 +3305,24 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure.s_region IS 'Sky region in STC-S
 
 
 --
+-- Name: COLUMN ccdexposure.day_obs; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN ccdexposure.seq_num; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure.seq_num IS 'Sequence number.';
+
+
+--
 -- Name: ccdexposure_camera; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_camera;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_camera (
     ccdexposure_id bigint NOT NULL,
     temp_set double precision,
@@ -3236,6 +3378,7 @@ ALTER SEQUENCE cdb_lsstcomcamsim.ccdexposure_ccdexposure_id_seq OWNED BY cdb_lss
 -- Name: ccdexposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_flexdata;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
@@ -3270,6 +3413,7 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdexposure_flexdata.value IS 'Content of va
 -- Name: ccdexposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdexposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcamsim.ccdexposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -3334,6 +3478,7 @@ ALTER TABLE cdb_lsstcomcamsim.ccdvisit1 OWNER TO oods;
 -- Name: ccdvisit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.ccdvisit1_quicklook;
 CREATE TABLE cdb_lsstcomcamsim.ccdvisit1_quicklook (
     ccdvisit_id bigint NOT NULL,
     s_ra double precision,
@@ -3365,7 +3510,8 @@ CREATE TABLE cdb_lsstcomcamsim.ccdvisit1_quicklook (
     psf_area double precision,
     psf_ixx double precision,
     psf_ixy double precision,
-    psf_iyy double precision
+    psf_iyy double precision,
+    postisr_pixel_median double precision
 );
 
 
@@ -3589,9 +3735,17 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.ccdvisit1_quicklook.psf_iyy IS 'PSF Iyy mome
 
 
 --
+-- Name: COLUMN ccdvisit1_quicklook.postisr_pixel_median; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.ccdvisit1_quicklook.postisr_pixel_median IS 'Median postISR pixel value.';
+
+
+--
 -- Name: exposure; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure;
 CREATE TABLE cdb_lsstcomcamsim.exposure (
     exposure_id bigint NOT NULL,
     exposure_name character varying(20) NOT NULL,
@@ -4007,10 +4161,13 @@ ALTER SEQUENCE cdb_lsstcomcamsim.exposure_exposure_id_seq OWNED BY cdb_lsstcomca
 -- Name: exposure_flexdata; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure_flexdata;
 CREATE TABLE cdb_lsstcomcamsim.exposure_flexdata (
     obs_id bigint NOT NULL,
     key character varying(128) NOT NULL,
-    value text
+    value text,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL
 );
 
 
@@ -4038,9 +4195,24 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.exposure_flexdata.value IS 'Content of value
 
 
 --
+-- Name: COLUMN exposure_flexdata.day_obs; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.exposure_flexdata.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN exposure_flexdata.seq_num; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.exposure_flexdata.seq_num IS 'Sequence number.';
+
+
+--
 -- Name: exposure_flexdata_schema; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.exposure_flexdata_schema;
 CREATE TABLE cdb_lsstcomcamsim.exposure_flexdata_schema (
     key character varying(128) NOT NULL,
     dtype character varying(64) NOT NULL,
@@ -4147,6 +4319,7 @@ ALTER TABLE cdb_lsstcomcamsim.visit1 OWNER TO oods;
 -- Name: visit1_quicklook; Type: TABLE; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
+DROP TABLE IF EXISTS cdb_lsstcomcamsim.visit1_quicklook;
 CREATE TABLE cdb_lsstcomcamsim.visit1_quicklook (
     visit_id bigint NOT NULL,
     astrom_offset_mean_min double precision,
@@ -4236,7 +4409,12 @@ CREATE TABLE cdb_lsstcomcamsim.visit1_quicklook (
     seeing_zenith_500nm_min double precision,
     seeing_zenith_500nm_max double precision,
     seeing_zenith_500nm_median double precision,
-    n_inputs integer
+    n_inputs integer,
+    day_obs integer NOT NULL,
+    seq_num integer NOT NULL,
+    postisr_pixel_median_median double precision,
+    postisr_pixel_median_mean double precision,
+    postisr_pixel_median_max double precision
 );
 
 
@@ -4866,9 +5044,45 @@ COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.n_inputs IS 'Number of CCDs
 
 
 --
+-- Name: COLUMN visit1_quicklook.day_obs; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.day_obs IS 'Day of observation.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.seq_num; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.seq_num IS 'Sequence number.';
+
+
+--
+-- Name: COLUMN visit1_quicklook.postisr_pixel_median_median; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.postisr_pixel_median_median IS 'Median postISR pixel value (median across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.postisr_pixel_median_mean; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.postisr_pixel_median_mean IS 'Median postISR pixel value (mean across all detectors).';
+
+
+--
+-- Name: COLUMN visit1_quicklook.postisr_pixel_median_max; Type: COMMENT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+COMMENT ON COLUMN cdb_lsstcomcamsim.visit1_quicklook.postisr_pixel_median_max IS 'Median postISR pixel value (max across all detectors).';
+
+
+--
 -- Name: alembic_version; Type: TABLE; Schema: public; Owner: exposurelog
 --
 
+DROP TABLE IF EXISTS public.alembic_version; 
 CREATE TABLE public.alembic_version (
     version_num character varying(32) NOT NULL
 );
@@ -4880,6 +5094,7 @@ ALTER TABLE public.alembic_version OWNER TO exposurelog;
 -- Name: message; Type: TABLE; Schema: public; Owner: exposurelog
 --
 
+DROP TABLE IF EXISTS public.message; 
 CREATE TABLE public.message (
     id uuid NOT NULL,
     site_id character varying(16),
@@ -4944,31 +5159,6 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure ALTER COLUMN ccdexposure_id SET D
 --
 
 ALTER TABLE ONLY cdb_lsstcomcamsim.exposure ALTER COLUMN exposure_id SET DEFAULT nextval('cdb_lsstcomcamsim.exposure_exposure_id_seq'::regclass);
-
-
---
--- Name: cdb_latiss_version cdb_latiss_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
---
-
-ALTER TABLE ONLY cdb.cdb_latiss_version
-    ADD CONSTRAINT cdb_latiss_version_pkc PRIMARY KEY (version_num);
-
-
---
--- Name: cdb_lsstcomcam_version cdb_lsstcomcam_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
---
-
-ALTER TABLE ONLY cdb.cdb_lsstcomcam_version
-    ADD CONSTRAINT cdb_lsstcomcam_version_pkc PRIMARY KEY (version_num);
-
-
---
--- Name: cdb_lsstcomcamsim_version cdb_lsstcomcamsim_version_pkc; Type: CONSTRAINT; Schema: cdb; Owner: oods
---
-
-ALTER TABLE ONLY cdb.cdb_lsstcomcamsim_version
-    ADD CONSTRAINT cdb_lsstcomcamsim_version_pkc PRIMARY KEY (version_num);
-
 
 --
 -- Name: ccdexposure_camera ccdexposure_camera_pkey; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
@@ -5035,19 +5225,51 @@ ALTER TABLE ONLY cdb_latiss.exposure
 
 
 --
--- Name: exposure un_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
---
-
-ALTER TABLE ONLY cdb_latiss.exposure
-    ADD CONSTRAINT un_day_obs_seq_num UNIQUE (day_obs, seq_num);
-
-
---
--- Name: ccdexposure un_exposure_id_detector; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
+-- Name: ccdexposure un_ccdexposure_ccdexposure_id; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
 --
 
 ALTER TABLE ONLY cdb_latiss.ccdexposure
-    ADD CONSTRAINT un_exposure_id_detector UNIQUE (exposure_id, detector);
+    ADD CONSTRAINT un_ccdexposure_ccdexposure_id UNIQUE (ccdexposure_id);
+
+
+--
+-- Name: ccdexposure un_ccdexposure_day_obs_seq_num_detector; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.ccdexposure
+    ADD CONSTRAINT un_ccdexposure_day_obs_seq_num_detector UNIQUE (day_obs, seq_num, detector);
+
+
+--
+-- Name: ccdexposure un_ccdexposure_exposure_id_detector; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.ccdexposure
+    ADD CONSTRAINT un_ccdexposure_exposure_id_detector UNIQUE (exposure_id, detector);
+
+
+--
+-- Name: exposure un_exposure_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.exposure
+    ADD CONSTRAINT un_exposure_day_obs_seq_num UNIQUE (day_obs, seq_num);
+
+
+--
+-- Name: exposure un_exposure_exposure_id; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.exposure
+    ADD CONSTRAINT un_exposure_exposure_id UNIQUE (exposure_id);
+
+
+--
+-- Name: exposure_flexdata un_exposure_flexdata_day_obs_seq_num_key; Type: CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.exposure_flexdata
+    ADD CONSTRAINT un_exposure_flexdata_day_obs_seq_num_key UNIQUE (day_obs, seq_num, key);
 
 
 --
@@ -5123,19 +5345,51 @@ ALTER TABLE ONLY cdb_lsstcomcam.exposure
 
 
 --
--- Name: exposure un_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
---
-
-ALTER TABLE ONLY cdb_lsstcomcam.exposure
-    ADD CONSTRAINT un_day_obs_seq_num UNIQUE (day_obs, seq_num);
-
-
---
--- Name: ccdexposure un_exposure_id_detector; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+-- Name: ccdexposure un_ccdexposure_ccdexposure_id; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
 --
 
 ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure
-    ADD CONSTRAINT un_exposure_id_detector UNIQUE (exposure_id, detector);
+    ADD CONSTRAINT un_ccdexposure_ccdexposure_id UNIQUE (ccdexposure_id);
+
+
+--
+-- Name: ccdexposure un_ccdexposure_day_obs_seq_num_detector; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure
+    ADD CONSTRAINT un_ccdexposure_day_obs_seq_num_detector UNIQUE (day_obs, seq_num, detector);
+
+
+--
+-- Name: ccdexposure un_ccdexposure_exposure_id_detector; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure
+    ADD CONSTRAINT un_ccdexposure_exposure_id_detector UNIQUE (exposure_id, detector);
+
+
+--
+-- Name: exposure un_exposure_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.exposure
+    ADD CONSTRAINT un_exposure_day_obs_seq_num UNIQUE (day_obs, seq_num);
+
+
+--
+-- Name: exposure un_exposure_exposure_id; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.exposure
+    ADD CONSTRAINT un_exposure_exposure_id UNIQUE (exposure_id);
+
+
+--
+-- Name: exposure_flexdata un_exposure_flexdata_day_obs_seq_num_key; Type: CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.exposure_flexdata
+    ADD CONSTRAINT un_exposure_flexdata_day_obs_seq_num_key UNIQUE (day_obs, seq_num, key);
 
 
 --
@@ -5211,19 +5465,51 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.exposure
 
 
 --
--- Name: exposure un_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
---
-
-ALTER TABLE ONLY cdb_lsstcomcamsim.exposure
-    ADD CONSTRAINT un_day_obs_seq_num UNIQUE (day_obs, seq_num);
-
-
---
--- Name: ccdexposure un_exposure_id_detector; Type: CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+-- Name: ccdexposure un_ccdexposure_ccdexposure_id; Type: CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
 ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure
-    ADD CONSTRAINT un_exposure_id_detector UNIQUE (exposure_id, detector);
+    ADD CONSTRAINT un_ccdexposure_ccdexposure_id UNIQUE (ccdexposure_id);
+
+
+--
+-- Name: ccdexposure un_ccdexposure_day_obs_seq_num_detector; Type: CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure
+    ADD CONSTRAINT un_ccdexposure_day_obs_seq_num_detector UNIQUE (day_obs, seq_num, detector);
+
+
+--
+-- Name: ccdexposure un_ccdexposure_exposure_id_detector; Type: CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure
+    ADD CONSTRAINT un_ccdexposure_exposure_id_detector UNIQUE (exposure_id, detector);
+
+
+--
+-- Name: exposure un_exposure_day_obs_seq_num; Type: CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.exposure
+    ADD CONSTRAINT un_exposure_day_obs_seq_num UNIQUE (day_obs, seq_num);
+
+
+--
+-- Name: exposure un_exposure_exposure_id; Type: CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.exposure
+    ADD CONSTRAINT un_exposure_exposure_id UNIQUE (exposure_id);
+
+
+--
+-- Name: exposure_flexdata un_exposure_flexdata_day_obs_seq_num_key; Type: CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.exposure_flexdata
+    ADD CONSTRAINT un_exposure_flexdata_day_obs_seq_num_key UNIQUE (day_obs, seq_num, key);
 
 
 --
@@ -5307,6 +5593,22 @@ CREATE INDEX idx_user_id ON public.message USING btree (user_id);
 
 
 --
+-- Name: ccdexposure fk_ccdexposure_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.ccdexposure
+    ADD CONSTRAINT fk_ccdexposure_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_latiss.exposure(day_obs, seq_num);
+
+
+--
+-- Name: ccdexposure fk_ccdexposure_exposure_id; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.ccdexposure
+    ADD CONSTRAINT fk_ccdexposure_exposure_id FOREIGN KEY (exposure_id) REFERENCES cdb_latiss.exposure(exposure_id);
+
+
+--
 -- Name: ccdexposure_camera fk_ccdexposure_id; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
 --
 
@@ -5315,11 +5617,19 @@ ALTER TABLE ONLY cdb_latiss.ccdexposure_camera
 
 
 --
--- Name: ccdexposure fk_exposure_id; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
+-- Name: exposure_flexdata fk_exposure_flexdata_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
 --
 
-ALTER TABLE ONLY cdb_latiss.ccdexposure
-    ADD CONSTRAINT fk_exposure_id FOREIGN KEY (exposure_id) REFERENCES cdb_latiss.exposure(exposure_id);
+ALTER TABLE ONLY cdb_latiss.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_latiss.exposure(day_obs, seq_num);
+
+
+--
+-- Name: exposure_flexdata fk_exposure_flexdata_obs_id; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_latiss.exposure(exposure_id);
 
 
 --
@@ -5336,14 +5646,6 @@ ALTER TABLE ONLY cdb_latiss.exposure_flexdata
 
 ALTER TABLE ONLY cdb_latiss.ccdexposure_flexdata
     ADD CONSTRAINT fk_key FOREIGN KEY (key) REFERENCES cdb_latiss.ccdexposure_flexdata_schema(key);
-
-
---
--- Name: exposure_flexdata fk_obs_id; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
---
-
-ALTER TABLE ONLY cdb_latiss.exposure_flexdata
-    ADD CONSTRAINT fk_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_latiss.exposure(exposure_id);
 
 
 --
@@ -5371,6 +5673,30 @@ ALTER TABLE ONLY cdb_latiss.ccdvisit1_quicklook
 
 
 --
+-- Name: visit1_quicklook fk_visit1_quicklook_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_latiss; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_latiss.visit1_quicklook
+    ADD CONSTRAINT fk_visit1_quicklook_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_latiss.exposure(day_obs, seq_num);
+
+
+--
+-- Name: ccdexposure fk_ccdexposure_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure
+    ADD CONSTRAINT fk_ccdexposure_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_lsstcomcam.exposure(day_obs, seq_num);
+
+
+--
+-- Name: ccdexposure fk_ccdexposure_exposure_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure
+    ADD CONSTRAINT fk_ccdexposure_exposure_id FOREIGN KEY (exposure_id) REFERENCES cdb_lsstcomcam.exposure(exposure_id);
+
+
+--
 -- Name: ccdexposure_camera fk_ccdexposure_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
 --
 
@@ -5379,11 +5705,19 @@ ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure_camera
 
 
 --
--- Name: ccdexposure fk_exposure_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+-- Name: exposure_flexdata fk_exposure_flexdata_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
 --
 
-ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure
-    ADD CONSTRAINT fk_exposure_id FOREIGN KEY (exposure_id) REFERENCES cdb_lsstcomcam.exposure(exposure_id);
+ALTER TABLE ONLY cdb_lsstcomcam.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_lsstcomcam.exposure(day_obs, seq_num);
+
+
+--
+-- Name: exposure_flexdata fk_exposure_flexdata_obs_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_lsstcomcam.exposure(exposure_id);
 
 
 --
@@ -5400,14 +5734,6 @@ ALTER TABLE ONLY cdb_lsstcomcam.exposure_flexdata
 
 ALTER TABLE ONLY cdb_lsstcomcam.ccdexposure_flexdata
     ADD CONSTRAINT fk_key FOREIGN KEY (key) REFERENCES cdb_lsstcomcam.ccdexposure_flexdata_schema(key);
-
-
---
--- Name: exposure_flexdata fk_obs_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
---
-
-ALTER TABLE ONLY cdb_lsstcomcam.exposure_flexdata
-    ADD CONSTRAINT fk_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_lsstcomcam.exposure(exposure_id);
 
 
 --
@@ -5435,6 +5761,30 @@ ALTER TABLE ONLY cdb_lsstcomcam.ccdvisit1_quicklook
 
 
 --
+-- Name: visit1_quicklook fk_visit1_quicklook_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_lsstcomcam; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcam.visit1_quicklook
+    ADD CONSTRAINT fk_visit1_quicklook_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_lsstcomcam.exposure(day_obs, seq_num);
+
+
+--
+-- Name: ccdexposure fk_ccdexposure_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure
+    ADD CONSTRAINT fk_ccdexposure_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_lsstcomcamsim.exposure(day_obs, seq_num);
+
+
+--
+-- Name: ccdexposure fk_ccdexposure_exposure_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure
+    ADD CONSTRAINT fk_ccdexposure_exposure_id FOREIGN KEY (exposure_id) REFERENCES cdb_lsstcomcamsim.exposure(exposure_id);
+
+
+--
 -- Name: ccdexposure_camera fk_ccdexposure_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
@@ -5443,11 +5793,19 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure_camera
 
 
 --
--- Name: ccdexposure fk_exposure_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+-- Name: exposure_flexdata fk_exposure_flexdata_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
 --
 
-ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure
-    ADD CONSTRAINT fk_exposure_id FOREIGN KEY (exposure_id) REFERENCES cdb_lsstcomcamsim.exposure(exposure_id);
+ALTER TABLE ONLY cdb_lsstcomcamsim.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_lsstcomcamsim.exposure(day_obs, seq_num);
+
+
+--
+-- Name: exposure_flexdata fk_exposure_flexdata_obs_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.exposure_flexdata
+    ADD CONSTRAINT fk_exposure_flexdata_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_lsstcomcamsim.exposure(exposure_id);
 
 
 --
@@ -5464,14 +5822,6 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.exposure_flexdata
 
 ALTER TABLE ONLY cdb_lsstcomcamsim.ccdexposure_flexdata
     ADD CONSTRAINT fk_key FOREIGN KEY (key) REFERENCES cdb_lsstcomcamsim.ccdexposure_flexdata_schema(key);
-
-
---
--- Name: exposure_flexdata fk_obs_id; Type: FK CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
---
-
-ALTER TABLE ONLY cdb_lsstcomcamsim.exposure_flexdata
-    ADD CONSTRAINT fk_obs_id FOREIGN KEY (obs_id) REFERENCES cdb_lsstcomcamsim.exposure(exposure_id);
 
 
 --
@@ -5499,34 +5849,26 @@ ALTER TABLE ONLY cdb_lsstcomcamsim.ccdvisit1_quicklook
 
 
 --
+-- Name: visit1_quicklook fk_visit1_quicklook_day_obs_seq_num; Type: FK CONSTRAINT; Schema: cdb_lsstcomcamsim; Owner: oods
+--
+
+ALTER TABLE ONLY cdb_lsstcomcamsim.visit1_quicklook
+    ADD CONSTRAINT fk_visit1_quicklook_day_obs_seq_num FOREIGN KEY (day_obs, seq_num) REFERENCES cdb_lsstcomcamsim.exposure(day_obs, seq_num);
+
+
+--
 -- Name: message message_parent_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: exposurelog
 --
 
 ALTER TABLE ONLY public.message
     ADD CONSTRAINT message_parent_id_fkey FOREIGN KEY (parent_id) REFERENCES public.message(id);
 
-
---
--- Name: usdf; Type: PUBLICATION; Schema: -; Owner: postgres
---
-
-CREATE PUBLICATION usdf WITH (publish = 'insert, update, delete, truncate');
-
-
-ALTER PUBLICATION usdf OWNER TO postgres;
-
---
--- Name: usdf message; Type: PUBLICATION TABLE; Schema: public; Owner: postgres
---
-
-ALTER PUBLICATION usdf ADD TABLE ONLY public.message;
-
-
 --
 -- Name: SCHEMA cdb; Type: ACL; Schema: -; Owner: oods
 --
 
 GRANT USAGE ON SCHEMA cdb TO usdf;
+GRANT USAGE ON SCHEMA cdb TO replicauser;
 
 
 --
@@ -5534,6 +5876,7 @@ GRANT USAGE ON SCHEMA cdb TO usdf;
 --
 
 GRANT USAGE ON SCHEMA cdb_latiss TO usdf;
+GRANT USAGE ON SCHEMA cdb_latiss TO replicauser;
 
 
 --
@@ -5541,6 +5884,7 @@ GRANT USAGE ON SCHEMA cdb_latiss TO usdf;
 --
 
 GRANT USAGE ON SCHEMA cdb_lsstcomcam TO usdf;
+GRANT USAGE ON SCHEMA cdb_lsstcomcam TO replicauser;
 
 
 --
@@ -5548,6 +5892,7 @@ GRANT USAGE ON SCHEMA cdb_lsstcomcam TO usdf;
 --
 
 GRANT USAGE ON SCHEMA cdb_lsstcomcamsim TO usdf;
+GRANT USAGE ON SCHEMA cdb_lsstcomcamsim TO replicauser;
 
 
 --
@@ -5556,33 +5901,12 @@ GRANT USAGE ON SCHEMA cdb_lsstcomcamsim TO usdf;
 
 GRANT USAGE ON SCHEMA public TO usdf;
 
-
---
--- Name: TABLE cdb_latiss_version; Type: ACL; Schema: cdb; Owner: oods
---
-
-GRANT SELECT ON TABLE cdb.cdb_latiss_version TO usdf;
-
-
---
--- Name: TABLE cdb_lsstcomcam_version; Type: ACL; Schema: cdb; Owner: oods
---
-
-GRANT SELECT ON TABLE cdb.cdb_lsstcomcam_version TO usdf;
-
-
---
--- Name: TABLE cdb_lsstcomcamsim_version; Type: ACL; Schema: cdb; Owner: oods
---
-
-GRANT SELECT ON TABLE cdb.cdb_lsstcomcamsim_version TO usdf;
-
-
 --
 -- Name: TABLE ccdexposure; Type: ACL; Schema: cdb_latiss; Owner: oods
 --
 
 GRANT SELECT ON TABLE cdb_latiss.ccdexposure TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.ccdexposure TO replicauser;
 
 
 --
@@ -5590,6 +5914,7 @@ GRANT SELECT ON TABLE cdb_latiss.ccdexposure TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.ccdexposure_camera TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.ccdexposure_camera TO replicauser;
 
 
 --
@@ -5597,6 +5922,7 @@ GRANT SELECT ON TABLE cdb_latiss.ccdexposure_camera TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.ccdexposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.ccdexposure_flexdata TO replicauser;
 
 
 --
@@ -5604,6 +5930,7 @@ GRANT SELECT ON TABLE cdb_latiss.ccdexposure_flexdata TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.ccdexposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.ccdexposure_flexdata_schema TO replicauser;
 
 
 --
@@ -5618,6 +5945,7 @@ GRANT SELECT ON TABLE cdb_latiss.ccdvisit1 TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.ccdvisit1_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.ccdvisit1_quicklook TO replicauser;
 
 
 --
@@ -5625,6 +5953,7 @@ GRANT SELECT ON TABLE cdb_latiss.ccdvisit1_quicklook TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.exposure TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.exposure TO replicauser;
 
 
 --
@@ -5632,6 +5961,7 @@ GRANT SELECT ON TABLE cdb_latiss.exposure TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.exposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.exposure_flexdata TO replicauser;
 
 
 --
@@ -5639,6 +5969,7 @@ GRANT SELECT ON TABLE cdb_latiss.exposure_flexdata TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.exposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.exposure_flexdata_schema TO replicauser;
 
 
 --
@@ -5653,6 +5984,7 @@ GRANT SELECT ON TABLE cdb_latiss.visit1 TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_latiss.visit1_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_latiss.visit1_quicklook TO replicauser;
 
 
 --
@@ -5660,6 +5992,7 @@ GRANT SELECT ON TABLE cdb_latiss.visit1_quicklook TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure TO replicauser;
 
 
 --
@@ -5667,6 +6000,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_camera TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_camera TO replicauser;
 
 
 --
@@ -5674,6 +6008,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_camera TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_flexdata TO replicauser;
 
 
 --
@@ -5681,6 +6016,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_flexdata TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.ccdexposure_flexdata_schema TO replicauser;
 
 
 --
@@ -5695,6 +6031,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.ccdvisit1 TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.ccdvisit1_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.ccdvisit1_quicklook TO replicauser;
 
 
 --
@@ -5702,6 +6039,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.ccdvisit1_quicklook TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.exposure TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.exposure TO replicauser;
 
 
 --
@@ -5709,6 +6047,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.exposure TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.exposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.exposure_flexdata TO replicauser;
 
 
 --
@@ -5716,6 +6055,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.exposure_flexdata TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.exposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.exposure_flexdata_schema TO replicauser;
 
 
 --
@@ -5730,6 +6070,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.visit1 TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcam.visit1_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcam.visit1_quicklook TO replicauser;
 
 
 --
@@ -5737,6 +6078,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcam.visit1_quicklook TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure TO replicauser;
 
 
 --
@@ -5744,6 +6086,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_camera TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_camera TO replicauser;
 
 
 --
@@ -5751,6 +6094,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_camera TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_flexdata TO replicauser;
 
 
 --
@@ -5758,6 +6102,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_flexdata TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdexposure_flexdata_schema TO replicauser;
 
 
 --
@@ -5772,6 +6117,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdvisit1 TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdvisit1_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdvisit1_quicklook TO replicauser;
 
 
 --
@@ -5779,6 +6125,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.ccdvisit1_quicklook TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure TO replicauser;
 
 
 --
@@ -5786,6 +6133,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure_flexdata TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure_flexdata TO replicauser;
 
 
 --
@@ -5793,6 +6141,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure_flexdata TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure_flexdata_schema TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.exposure_flexdata_schema TO replicauser;
 
 
 --
@@ -5807,6 +6156,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1 TO usdf;
 --
 
 GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1_quicklook TO usdf;
+GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1_quicklook TO replicauser;
 
 
 --
@@ -5814,6 +6164,7 @@ GRANT SELECT ON TABLE cdb_lsstcomcamsim.visit1_quicklook TO usdf;
 --
 
 GRANT SELECT ON TABLE public.alembic_version TO usdf;
+GRANT SELECT ON TABLE public.alembic_version TO replicauser;
 
 
 --

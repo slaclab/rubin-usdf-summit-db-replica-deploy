@@ -1,38 +1,8 @@
 --
--- PostgreSQL database dump
---
-
--- Dumped from database version 14.5 (Debian 14.5-2.pgdg110+2)
--- Dumped by pg_dump version 16.3
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SELECT pg_catalog.set_config('search_path', '', false);
-SET check_function_bodies = false;
-SET xmloption = content;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
---
-
--- *not* creating schema, since initdb creates it
-
-
-ALTER SCHEMA public OWNER TO postgres;
-
-SET default_tablespace = '';
-
-SET default_table_access_method = heap;
-
---
 -- Name: alembic_version; Type: TABLE; Schema: public; Owner: narrativelog
 --
 
+DROP TABLE IF EXISTS public.alembic_version;
 CREATE TABLE public.alembic_version (
     version_num character varying(32) NOT NULL
 );
@@ -43,7 +13,7 @@ ALTER TABLE public.alembic_version OWNER TO narrativelog;
 --
 -- Name: jira_fields; Type: TABLE; Schema: public; Owner: narrativelog
 --
-
+DROP TABLE IF EXISTS public.jira_fields;
 CREATE TABLE public.jira_fields (
     id uuid NOT NULL,
     components text[],
@@ -59,6 +29,7 @@ ALTER TABLE public.jira_fields OWNER TO narrativelog;
 -- Name: message; Type: TABLE; Schema: public; Owner: narrativelog
 --
 
+DROP TABLE IF EXISTS public.message;
 CREATE TABLE public.message (
     id uuid NOT NULL,
     site_id character varying(16),
@@ -201,4 +172,3 @@ GRANT SELECT ON TABLE public.message TO usdf;
 --
 -- PostgreSQL database dump complete
 --
-

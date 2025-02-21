@@ -28,15 +28,6 @@ DROP VIEW IF EXISTS cdb_lsstcomcamsim.visit1;
 
 
 --
--- Name: cdb; Type: SCHEMA; Schema: -; Owner: oods
---
-DROP SCHEMA cdb CASCADE;
-CREATE SCHEMA cdb;
-
-
-ALTER SCHEMA cdb OWNER TO oods;
-
---
 -- Name: cdb_latiss; Type: SCHEMA; Schema: -; Owner: oods
 --
 DROP SCHEMA cdb_latiss CASCADE;
@@ -124,72 +115,6 @@ ALTER TYPE public.exposure_flag_enum OWNER TO exposurelog;
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
-
---
--- Name: cdb_latiss_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_latiss_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_latiss_version OWNER TO oods;
-
---
--- Name: cdb_lsstcomcam_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_lsstcomcam_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_lsstcomcam_version OWNER TO oods;
-
---
--- Name: cdb_lsstcomcamsim_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_lsstcomcamsim_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_lsstcomcamsim_version OWNER TO oods;
-
---
--- Name: cdb_startrackerfast_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_startrackerfast_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_startrackerfast_version OWNER TO oods;
-
---
--- Name: cdb_startrackernarrow_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_startrackernarrow_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_startrackernarrow_version OWNER TO oods;
-
---
--- Name: cdb_startrackerwide_version; Type: TABLE; Schema: cdb; Owner: oods
---
-
-CREATE TABLE cdb.cdb_startrackerwide_version (
-    version_num character varying(32) NOT NULL
-);
-
-
-ALTER TABLE cdb.cdb_startrackerwide_version OWNER TO oods;
 
 --
 -- Name: ccdexposure; Type: TABLE; Schema: cdb_latiss; Owner: oods

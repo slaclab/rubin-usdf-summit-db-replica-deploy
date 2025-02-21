@@ -8,7 +8,7 @@ GRANT USAGE ON SCHEMA cdb TO replicauser;
 GRANT SELECT ON cdb.cdb_latiss_version TO replicauser;
 GRANT SELECT ON cdb.cdb_lsstcomcam_version TO replicauser;
 GRANT SELECT ON cdb.cdb_lsstcomcamsim_version TO replicauser;
-
+GRANT SELECT ON cdb.cdb_startrackerfast_version TO replicauser;
 
 -- cdb_latiss schema
 GRANT USAGE ON SCHEMA cdb_latiss TO replicauser;
@@ -20,6 +20,7 @@ GRANT SELECT ON cdb_latiss.ccdvisit1_quicklook TO replicauser;
 GRANT SELECT ON cdb_latiss.exposure TO replicauser;
 GRANT SELECT ON cdb_latiss.exposure_flexdata TO replicauser;
 GRANT SELECT ON cdb_latiss.exposure_flexdata_schema TO replicauser;
+GRANT SELECT ON cdb_latiss.exposure_quicklook TO replicauser;
 GRANT SELECT ON cdb_latiss.visit1_quicklook TO replicauser;
 
 -- cdb_lsstcam 

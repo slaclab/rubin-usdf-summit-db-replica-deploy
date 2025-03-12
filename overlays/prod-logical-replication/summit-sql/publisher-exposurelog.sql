@@ -1,5 +1,6 @@
 -- public schema exposurelog table
 CREATE PUBLICATION usdfpub FOR TABLE message, alembic_version;
+ALTER PUBLICATION DROP TABLE alembic_version;
 
 -- cdb_latiss schema
 ALTER PUBLICATION usdfpub ADD TABLE cdb_latiss.ccdexposure;
@@ -38,3 +39,21 @@ ALTER PUBLICATION usdfpub ADD TABLE cdb_lsstcomcamsim.exposure;
 ALTER PUBLICATION usdfpub ADD TABLE cdb_lsstcomcamsim.exposure_flexdata;
 ALTER PUBLICATION usdfpub ADD TABLE cdb_lsstcomcamsim.exposure_flexdata_schema;
 ALTER PUBLICATION usdfpub ADD TABLE cdb_lsstcomcamsim.visit1_quicklook;
+
+--- cdb_startrackerfast
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackerfast.exposure;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackerfast.exposure_flexdata;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackerfast.exposure_flexdata_schema;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackerfast.exposure_quicklook
+
+--- cdb_startrackernarrow
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackernarrow.exposure;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackernarrow.exposure_flexdata;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackernarrow.exposure_flexdata_schema;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackernarrow.exposure_quicklook
+
+--- cdb_startrackerwide
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackerwide.exposure;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackerwide.exposure_flexdata;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackerwide.exposure_flexdata_schema;
+ALTER PUBLICATION usdfpub ADD TABLE cdb_startrackerwide.exposure_quicklook

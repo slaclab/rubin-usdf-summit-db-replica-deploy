@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: summit-db-replica
+  name: summit-db-replica-2
   namespace: summit-db-replica
 spec:
   affinity:
@@ -81,5 +81,5 @@ spec:
   stopDelay: 30
   storage:
     resizeInUseVolumes: true
-    size: 5Gi
+    size: 500Gi
   switchoverDelay: 40000000

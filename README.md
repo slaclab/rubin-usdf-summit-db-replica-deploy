@@ -30,3 +30,7 @@ When the cluster falls out of sync with the summit database instance it needs to
 * Delete cluster with `kubectl delete cluster summit-db-replica -n summit-db-replica`
 * Rebuild the cluster by navigating to overlays/prod and apply the manifest with `kubectl apply -f cnpg-summitdb.yaml` or `make apply`
 *  The rebuild will use pgbasebackup to restore data from the summit databse instance and takes a couple minutes to finish.  After replication is complete the pgbasebackup pod terminates and normal database pods are started.
+
+## Logical Replication
+
+Instructions for setting up logical replication are in the [runbook](https://rubinobs.atlassian.net/wiki/spaces/LSSTOps/pages/268795922/Exposurelog+Narrativelog+Postgres+Replica)

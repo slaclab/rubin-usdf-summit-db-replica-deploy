@@ -32,7 +32,7 @@ spec:
   inheritedMetadata:
     annotations:
       prometheus.io/scrape: "true"
-  instances: 1
+  instances: 2
   logLevel: info
   monitoring:
     customQueriesConfigMap:
@@ -62,6 +62,8 @@ spec:
       wal_keep_size: 512MB
       wal_receiver_timeout: 5s
       wal_sender_timeout: 5s
+      max_logical_replication_workers: "10"
+      checkpoint_timeout: "3600"  
     pg_hba:
       - host all all 139.229.134.0/23 md5
       - host all all 139.229.136.0/21 md5

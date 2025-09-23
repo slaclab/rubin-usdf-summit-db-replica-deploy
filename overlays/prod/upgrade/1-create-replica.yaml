@@ -1,33 +1,45 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: summit-db-replica-2
-  namespace: summit-db-replica
+  name: summit-db-logical-replica-test
+  namespace: summit-db-logical-replica
 spec:
   affinity:
     podAntiAffinityType: preferred
     topologyKey: ""
   bootstrap:
-    pg_basebackup:
-      database: ""
-      owner: ""
-      source: cnpg-cluster
-  enableSuperuserAccess: true
+    pg_basebackup:         # “clone” via pg_basebackup + stream
+      source: old-primary  # must match externalClusters[].name
+
+  replica:
+    enabled: true
+    source: old-primary 
+
   externalClusters:
-  - connectionParameters:
-      host: db-lhn.cp.lsst.org
-      user: replicauser
-    name: cnpg-cluster
-    password:
-      key: password
-      name: source-db-replicauser
+  - name: old-primary      
+    connectionParameters:
+      host: summit-db-logical-replica-rw   
+      user: streaming_replica              
+    sslKey:
+      name: summit-db-logical-replica-replication
+      key: tls.key
+    sslCert:
+      name: summit-db-logical-replica-replication
+      key: tls.crt
+    sslRootCert:
+      name: summit-db-logical-replica-ca
+      key: ca.crt
+
+  enablePDB: true
+  enableSuperuserAccess: true
+
   failoverDelay: 0
-  imageName: docker.io/cbarria/cnpgsphere:14.5
+  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:16.3
   imagePullPolicy: Always
   inheritedMetadata:
     annotations:
-      prometheus.io/scrape: 'true'
-  instances: 2
+      prometheus.io/scrape: "true"
+  instances: 1
   logLevel: info
   maxSyncReplicas: 0
   minSyncReplicas: 0
@@ -41,9 +53,11 @@ spec:
   postgresUID: 26
   postgresql:
     parameters:
-      archive_mode: always
+      archive_mode: "on"
       archive_timeout: 5min
+      checkpoint_timeout: "3600"
       dynamic_shared_memory_type: posix
+      full_page_writes: "on"
       idle_session_timeout: 4h
       log_destination: csvlog
       log_directory: /controller/log
@@ -53,13 +67,18 @@ spec:
       log_truncate_on_rotation: "false"
       logging_collector: "on"
       max_connections: "500"
+      max_logical_replication_workers: "10"
       max_parallel_workers: "32"
       max_replication_slots: "32"
       max_worker_processes: "32"
       shared_buffers: 256MB
       shared_memory_type: mmap
       shared_preload_libraries: ""
+      ssl_max_protocol_version: TLSv1.3
+      ssl_min_protocol_version: TLSv1.3
       wal_keep_size: 512MB
+      wal_level: logical
+      wal_log_hints: "on"
       wal_receiver_timeout: 5s
       wal_sender_timeout: 5s
     pg_hba:
@@ -71,15 +90,19 @@ spec:
     - host all all 140.252.146.0/23 md5
     syncReplicaElectionConstraint:
       enabled: false
-  primaryUpdateMethod: switchover
+  primaryUpdateMethod: restart
   primaryUpdateStrategy: unsupervised
-  replica:
-    enabled: true
-    source: cnpg-cluster
-  resources: {}
+  replicationSlots:
+    highAvailability:
+      enabled: true
+      slotPrefix: _cnpg_
+    synchronizeReplicas:
+      enabled: true
+    updateInterval: 30
+  smartShutdownTimeout: 180
   startDelay: 30
   stopDelay: 30
   storage:
     resizeInUseVolumes: true
-    size: 500Gi
+    size: 200Gi
   switchoverDelay: 40000000

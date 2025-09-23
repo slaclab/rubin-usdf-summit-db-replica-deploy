@@ -1,6 +1,6 @@
 resources:
 - ns.yaml
-- cnpg-summitdb.yaml
+- database.yaml
 - summitdb-service.yaml
 
 secretGenerator:

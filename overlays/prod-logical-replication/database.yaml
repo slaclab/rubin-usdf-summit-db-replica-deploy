@@ -49,9 +49,9 @@ spec:
       shared_memory_type: mmap
       shared_preload_libraries: ""
       wal_keep_size: 8GB
-      wal_receiver_timeout: 5s
+      wal_receiver_timeout: 60s
       wal_sender_timeout: 5s
-      max_logical_replication_workers: "10"
+      max_logical_replication_workers: "16"
       checkpoint_timeout: "3600s"
       jit: "on"
       pg_stat_statements.track: "all"
@@ -71,6 +71,10 @@ spec:
         secretAccessKey:
           name: s3-creds
           key: ACCESS_SECRET_KEY
+  smartShutdownTimeout: 1
+  stopDelay: 180
+  switchoverDelay: 179
+  primaryUpdateMethod: switchover
   resources:
     limits:
       cpu: 8

@@ -4,24 +4,20 @@ metadata:
   name: summit-logical-replica
   namespace: summit-db-logical-replica
 spec:
-  bootstrap:
-    initdb:
-      database: exposurelog
-      encoding: UTF8
-      localeCType: C
-      localeCollate: C
-      owner: rubin
   affinity:
     podAntiAffinityType: preferred
     topologyKey: ""
+  bootstrap:
+    pg_basebackup:
+      source: old-primary
   enableSuperuserAccess: true
   failoverDelay: 0
-  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:17.5
+  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:16.3
   imagePullPolicy: Always
   inheritedMetadata:
     annotations:
       prometheus.io/scrape: "true"
-  instances: 2
+  instances: 1
   logLevel: info
   monitoring:
     customQueriesConfigMap:
@@ -45,36 +41,38 @@ spec:
       max_parallel_workers: "32"
       max_replication_slots: "32"
       max_worker_processes: "32"
-      shared_buffers: 32GB
+      shared_buffers: 256MB
       shared_memory_type: mmap
       shared_preload_libraries: ""
-      wal_keep_size: 8GB
+      wal_keep_size: 512MB
       wal_receiver_timeout: 5s
       wal_sender_timeout: 5s
       max_logical_replication_workers: "10"
-      checkpoint_timeout: "3600s"
-      jit: "on"
-      pg_stat_statements.track: "all"
-      pg_stat_statements.max: "10000"
+      checkpoint_timeout: "3600"
+    #pg_hba:
+    #  - host all all 139.229.134.0/23 md5
+    #  - host all all 139.229.136.0/21 md5
+    #  - host all all 139.229.144.0/20 md5
+    #  - host all all 139.229.160.0/19 md5
+    #  - host all all 139.229.192.0/18 md5
+    #  - host all all 140.252.146.0/23 md5
   storage:
     resizeInUseVolumes: true
     size: 200Gi
-  backup:
-    retentionPolicy: "15d"
-    barmanObjectStore:
-      destinationPath: s3://rubin-summit-db-logical-replica
-      endpointURL: https://s3dfrgw.slac.stanford.edu
-      s3Credentials:
-        accessKeyId:
-          name: s3-creds
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: s3-creds
-          key: ACCESS_SECRET_KEY
-  resources:
-    limits:
-      cpu: 8
-      memory: 64Gi
-    requests:
-      cpu: 8
-      memory: 64Gi
+  replica:
+    enabled: false
+    source: old-primary
+  externalClusters:
+    - name: old-primary
+      connectionParameters:
+        host: summit-db-logical-replica-rw
+        user: streaming_replica
+      sslKey:
+        name: summit-db-logical-replica-replication
+        key: tls.key
+      sslCert:
+        name: summit-db-logical-replica-replication
+        key: tls.crt
+      sslRootCert:
+        name: summit-db-logical-replica-ca
+        key: ca.crt

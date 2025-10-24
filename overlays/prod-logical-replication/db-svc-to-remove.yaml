@@ -3,23 +3,19 @@ kind: Service
 metadata:
   annotations:
     metallb.io/address-pool: sdf-services
-  labels:
-    cnpg.io/cluster: summit-db-logical-replica
+    metallb.io/ip-allocated-from-pool: sdf-services
+    metallb.io/loadBalancerIP: 172.24.5.86
   name: summit-db-logical-replica-svc
   namespace: summit-db-logical-replica
 spec:
   allocateLoadBalancerNodePorts: false
-  externalTrafficPolicy: Cluster
-  internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
   ipFamilyPolicy: SingleStack
-  loadBalancerIP: 172.24.5.86
   ports:
-  - port: 5432
-    protocol: TCP
-    targetPort: 5432
+  - nodePort: 30552
+    port: 5432
   selector:
-    postgresql: summit-db-logical-replica
-    role: primary
+    cnpg.io/cluster: summit-logical-replica
+    cnpg.io/instanceRole: primary
   type: LoadBalancer

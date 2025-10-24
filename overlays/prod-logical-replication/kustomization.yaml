@@ -1,7 +1,10 @@
 resources:
   - ns.yaml
-  - cnpg-summitdb-logical.yaml
-  - summitdb-svc.yaml
+  - database.yaml
+  - db-svc-to-remove.yaml
+  - db-svc.yaml
+  - pooler-tx-rw-svc.yaml
+  - pooler-ss-rw-svc.yaml
   - backup.yaml
 
 secretGenerator:

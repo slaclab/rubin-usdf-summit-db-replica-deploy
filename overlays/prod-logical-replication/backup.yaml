@@ -1,11 +1,11 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: ScheduledBackup
 metadata:
-  name: summit-db-logical-replica-backup
+  name: summit-logical-replica-backup
   namespace: summit-db-logical-replica
 spec:
   immediate: true
-  schedule: "0 0 4 * * *"
+  schedule: "0 0 15 * * *"
   backupOwnerReference: self
   cluster:
-    name: summit-db-logical-replica
+    name: summit-logical-replica

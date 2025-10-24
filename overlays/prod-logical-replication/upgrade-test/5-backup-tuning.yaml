@@ -1,33 +1,15 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: summit-db-logical-replica
+  name: summit-db-logical-replica-test
   namespace: summit-db-logical-replica
 spec:
-  backup:
-    retentionPolicy: "15d"
-    barmanObjectStore:
-      destinationPath: s3://rubin-summit-db-logical-replica
-      endpointURL: https://s3dfrgw.slac.stanford.edu
-      s3Credentials:
-        accessKeyId:
-          name: s3-creds
-          key: ACCESS_KEY_ID
-        secretAccessKey:
-          name: s3-creds
-          key: ACCESS_SECRET_KEY
   affinity:
     podAntiAffinityType: preferred
     topologyKey: ""
-  bootstrap:
-    initdb:
-      database: exposurelog
-      owner: rubin
-      secret:
-        name: usdf-summitdb-logical-replication-creds
   enableSuperuserAccess: true
   failoverDelay: 0
-  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:16.3
+  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:17.5
   imagePullPolicy: Always
   inheritedMetadata:
     annotations:
@@ -59,11 +41,13 @@ spec:
       shared_buffers: 256MB
       shared_memory_type: mmap
       shared_preload_libraries: ""
-      wal_keep_size: 512MB
+      wal_keep_size: 8GB
       wal_receiver_timeout: 5s
       wal_sender_timeout: 5s
       max_logical_replication_workers: "10"
-      checkpoint_timeout: "3600"  
+      checkpoint_timeout: "3600s"
+      jit: "on"
+      pg_stat_statements.track: "top"
     pg_hba:
       - host all all 139.229.134.0/23 md5
       - host all all 139.229.136.0/21 md5
@@ -74,3 +58,9 @@ spec:
   storage:
     resizeInUseVolumes: true
     size: 200Gi
+  plugins:
+    - name: barman-cloud.cloudnative-pg.io
+      enabled: true
+      isWALArchiver: true
+      parameters:
+        barmanObjectName: summit-db-logical-replica-test-s3-store

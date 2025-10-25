@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "2"
+  labels:
+    app: db-proxy
+    dest: db.cp.lsst.org
+  name: db-proxy
+  namespace: db-lhn-proxy
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: db-proxy
+      dest: db.cp.lsst.org
+      socat-proxy: db-lhn-proxy
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: '[ { "name": "sdf-rubin-pub", "namespace": "multus-system"
+          } ]'
+        kubectl.kubernetes.io/restartedAt: "2025-06-03T13:19:58-07:00"
+      creationTimestamp: null
+      labels:
+        app: db-proxy
+        dest: db.cp.lsst.org
+        socat-proxy: db-lhn-proxy
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: edu.stanford.slac.sdf.networking/vlan857
+                operator: In
+                values:
+                - "true"
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchLabels:
+                socat-proxy: db-lhn-proxy
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - args:
+        - -d
+        - -d
+        - TCP4-LISTEN:$(LISTEN_PORT),fork,reuseaddr,nodelay,sndbuf=262144,rcvbuf=262144
+        - TCP4:$(DEST_ADDRESS):$(DEST_PORT),nodelay,sndbuf=262144,rcvbuf=262144
+        env:
+        - name: LISTEN_PORT
+          value: "5432"
+        - name: DEST_ADDRESS
+          value: 139.229.180.90
+        - name: DEST_PORT
+          value: "5432"
+        image: alpine/socat
+        imagePullPolicy: Always
+        name: socat
+        ports:
+        - containerPort: 5432
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 1
+            memory: 1Gi
+          requests:
+            cpu: 1
+            memory: 1Gi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/ext-load-balancer
+        operator: Exists

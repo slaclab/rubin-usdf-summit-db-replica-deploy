@@ -27,14 +27,15 @@ spec:
         - /manager
         env:
         - name: OPERATOR_IMAGE_NAME
-          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.25.1
+          value: ghcr.io/cloudnative-pg/cloudnative-pg:1.26.1
         - name: OPERATOR_NAMESPACE
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
         - name: MONITORING_QUERIES_CONFIGMAP
           value: cnpg-default-monitoring
-        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.25.1
+        image: ghcr.io/cloudnative-pg/cloudnative-pg:1.26.1
+        imagePullPolicy: Always
         livenessProbe:
           httpGet:
             path: /readyz

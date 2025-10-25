@@ -34,3 +34,6 @@ When the cluster falls out of sync with the summit database instance it needs to
 ## Logical Replication
 
 Instructions for setting up logical replication are in the [runbook](https://rubinobs.atlassian.net/wiki/spaces/LSSTOps/pages/268795922/Exposurelog+Narrativelog+Postgres+Replica)
+
+### connection test with timeout settings to source:
+psql -Atx 'postgres://replicauser@db-lhn.cp.lsst.org:5432/exposurelog?connect_timeout=20&keepalives=1&keepalives_idle=1&keepalives_count=1&tcp_user_timeout=1000' -W

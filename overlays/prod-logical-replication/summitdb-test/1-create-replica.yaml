@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: summit-logical-replica
+  name: summitdb-test
   namespace: summit-db-logical-replica
 spec:
   affinity:
@@ -12,7 +12,7 @@ spec:
       source: old-primary
   enableSuperuserAccess: true
   failoverDelay: 0
-  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:16.3
+  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:17.5
   imagePullPolicy: Always
   inheritedMetadata:
     annotations:
@@ -65,14 +65,14 @@ spec:
   externalClusters:
     - name: old-primary
       connectionParameters:
-        host: summit-db-logical-replica-rw
+        host: summit-logical-replica-rw
         user: streaming_replica
       sslKey:
-        name: summit-db-logical-replica-replication
+        name: summit-logical-replica-replication
         key: tls.key
       sslCert:
-        name: summit-db-logical-replica-replication
+        name: summit-logical-replica-replication
         key: tls.crt
       sslRootCert:
-        name: summit-db-logical-replica-ca
+        name: summit-logical-replica-ca
         key: ca.crt

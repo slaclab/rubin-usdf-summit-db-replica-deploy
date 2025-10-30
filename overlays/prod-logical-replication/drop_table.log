@@ -1,0 +1,138 @@
+drop view cdb_latiss.ccdvisit1;
+drop view cdb_latiss.visit1;
+drop view cdb_lsstcam.ccdvisit1;
+
+
+drop table cdb_latiss.ccdvisit1_quicklook ;
+drop table cdb_latiss.ccdexposure_flexdata ;
+drop table cdb_latiss.ccdexposure_flexdata_schema ;
+drop table cdb_latiss.ccdexposure_camera ;
+drop table cdb_latiss.ccdexposure ;
+
+drop table cdb_latiss.visit1_quicklook ;
+drop table cdb_latiss.exposure_flexdata ;
+drop table cdb_latiss.exposure_flexdata_schema ;
+drop table cdb_latiss.exposure_quicklook ;
+drop table cdb_latiss.exposure ;
+
+drop table cdb_lsstcam.ccdvisit1_quicklook;
+drop table cdb_lsstcam.ccdexposure_camera ;
+drop table cdb_lsstcam.ccdexposure_flexdata ;
+drop table cdb_lsstcam.ccdexposure_flexdata_schema ;
+drop table cdb_lsstcam.ccdexposure ;
+
+drop table cdb_lsstcam.visit1_quicklook ;
+drop table cdb_lsstcam.exposure_flexdata ;
+drop table cdb_lsstcam.exposure_flexdata_schema ;
+drop table cdb_lsstcam.ccdexposure_quicklook;
+drop table cdb_lsstcam.exposure_quicklook ;
+drop table cdb_lsstcam.exposure ;
+DROP TABLE
+DROP TABLE
+drop view cdb_lsstcomcam.ccdvisit1;
+DROP VIEW
+drop table cdb_lsstcomcam.ccdexposure_quicklook;
+DROP TABLE
+drop table cdb_lsstcomcam.ccdexposure;
+psql:drop_table.sql:28: ERROR:  cannot drop table cdb_lsstcomcam.ccdexposure because other objects depend on it
+DETAIL:  constraint fk_ccdexposure_id on table cdb_lsstcomcam.ccdexposure_camera depends on table cdb_lsstcomcam.ccdexposure
+constraint fk_obs_id on table cdb_lsstcomcam.ccdexposure_flexdata depends on table cdb_lsstcomcam.ccdexposure
+constraint fk_obs_id on table cdb_lsstcomcam.ccdvisit1_quicklook depends on table cdb_lsstcomcam.ccdexposure
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+drop table cdb_lsstcomcam.ccdexposure_camera ;
+DROP TABLE
+drop table cdb_lsstcomcam.ccdexposure_flexdata ;
+DROP TABLE
+drop table cdb_lsstcomcam.ccdexposure_flexdata_schema ;
+DROP TABLE
+drop table cdb_lsstcomcam.ccdvisit1_quicklook ;
+DROP TABLE
+drop view cdb_lsstcomcam.visit1;
+DROP VIEW
+drop table cdb_lsstcomcam.exposure ;
+psql:drop_table.sql:34: ERROR:  cannot drop table cdb_lsstcomcam.exposure because other objects depend on it
+DETAIL:  constraint fk_ccdexposure_day_obs_seq_num on table cdb_lsstcomcam.ccdexposure depends on table cdb_lsstcomcam.exposure
+constraint fk_ccdexposure_exposure_id on table cdb_lsstcomcam.ccdexposure depends on table cdb_lsstcomcam.exposure
+constraint fk_exposure_flexdata_day_obs_seq_num on table cdb_lsstcomcam.exposure_flexdata depends on table cdb_lsstcomcam.exposure
+constraint fk_exposure_flexdata_obs_id on table cdb_lsstcomcam.exposure_flexdata depends on table cdb_lsstcomcam.exposure
+constraint fk_exposure_quicklook_day_obs_seq_num on table cdb_lsstcomcam.exposure_quicklook depends on table cdb_lsstcomcam.exposure
+constraint fk_exposure_quicklook_obs_id on table cdb_lsstcomcam.exposure_quicklook depends on table cdb_lsstcomcam.exposure
+constraint fk_obs_id on table cdb_lsstcomcam.visit1_quicklook depends on table cdb_lsstcomcam.exposure
+constraint fk_visit1_quicklook_day_obs_seq_num on table cdb_lsstcomcam.visit1_quicklook depends on table cdb_lsstcomcam.exposure
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+drop table cdb_lsstcomcam.exposure_flexdata ;
+DROP TABLE
+drop table cdb_lsstcomcam.exposure_flexdata_schema ;
+DROP TABLE
+drop table cdb_lsstcomcam.exposure_quicklook ;
+DROP TABLE
+drop table cdb_lsstcomcam.visit1_quicklook ;
+DROP TABLE
+drop view cdb_lsstcomcamsim.ccdvisit1;
+DROP VIEW
+drop table cdb_lsstcomcamsim.ccdexposure ;
+psql:drop_table.sql:40: ERROR:  cannot drop table cdb_lsstcomcamsim.ccdexposure because other objects depend on it
+DETAIL:  constraint fk_ccdexposure_id on table cdb_lsstcomcamsim.ccdexposure_camera depends on table cdb_lsstcomcamsim.ccdexposure
+constraint fk_obs_id on table cdb_lsstcomcamsim.ccdexposure_flexdata depends on table cdb_lsstcomcamsim.ccdexposure
+constraint fk_obs_id on table cdb_lsstcomcamsim.ccdvisit1_quicklook depends on table cdb_lsstcomcamsim.ccdexposure
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+drop table cdb_lsstcomcamsim.ccdexposure_camera ;
+DROP TABLE
+drop table cdb_lsstcomcamsim.ccdexposure_flexdata ;
+DROP TABLE
+drop table cdb_lsstcomcamsim.ccdexposure_flexdata_schema ;
+DROP TABLE
+drop table cdb_lsstcomcamsim.ccdvisit1_quicklook ;
+DROP TABLE
+drop view cdb_lsstcomcamsim.visit1;
+DROP VIEW
+drop table cdb_lsstcomcamsim.exposure ;
+psql:drop_table.sql:46: ERROR:  cannot drop table cdb_lsstcomcamsim.exposure because other objects depend on it
+DETAIL:  constraint fk_ccdexposure_day_obs_seq_num on table cdb_lsstcomcamsim.ccdexposure depends on table cdb_lsstcomcamsim.exposure
+constraint fk_ccdexposure_exposure_id on table cdb_lsstcomcamsim.ccdexposure depends on table cdb_lsstcomcamsim.exposure
+constraint fk_exposure_flexdata_day_obs_seq_num on table cdb_lsstcomcamsim.exposure_flexdata depends on table cdb_lsstcomcamsim.exposure
+constraint fk_exposure_flexdata_obs_id on table cdb_lsstcomcamsim.exposure_flexdata depends on table cdb_lsstcomcamsim.exposure
+constraint fk_obs_id on table cdb_lsstcomcamsim.visit1_quicklook depends on table cdb_lsstcomcamsim.exposure
+constraint fk_visit1_quicklook_day_obs_seq_num on table cdb_lsstcomcamsim.visit1_quicklook depends on table cdb_lsstcomcamsim.exposure
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+drop table cdb_lsstcomcamsim.exposure_flexdata ;
+DROP TABLE
+drop table cdb_lsstcomcamsim.exposure_flexdata_schema ;
+DROP TABLE
+drop table cdb_lsstcomcamsim.visit1_quicklook ;
+DROP TABLE
+drop table cdb_startrackerfast.exposure ;
+psql:drop_table.sql:50: ERROR:  cannot drop table cdb_startrackerfast.exposure because other objects depend on it
+DETAIL:  constraint fk_exposure_flexdata_obs_id on table cdb_startrackerfast.exposure_flexdata depends on table cdb_startrackerfast.exposure
+constraint fk_exposure_quicklook_obs_id on table cdb_startrackerfast.exposure_quicklook depends on table cdb_startrackerfast.exposure
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+drop table cdb_startrackerfast.exposure_flexdata ;
+DROP TABLE
+drop table cdb_startrackerfast.exposure_flexdata_schema ;
+DROP TABLE
+drop table cdb_startrackerfast.exposure_quicklook ;
+DROP TABLE
+drop table cdb_startrackernarrow.exposure ;
+psql:drop_table.sql:54: ERROR:  cannot drop table cdb_startrackernarrow.exposure because other objects depend on it
+DETAIL:  constraint fk_exposure_flexdata_obs_id on table cdb_startrackernarrow.exposure_flexdata depends on table cdb_startrackernarrow.exposure
+constraint fk_exposure_quicklook_obs_id on table cdb_startrackernarrow.exposure_quicklook depends on table cdb_startrackernarrow.exposure
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+drop table cdb_startrackernarrow.exposure_flexdata ;
+DROP TABLE
+drop table cdb_startrackernarrow.exposure_flexdata_schema ;
+DROP TABLE
+drop table cdb_startrackernarrow.exposure_quicklook ;
+DROP TABLE
+drop table cdb_startrackerwide.exposure ;
+psql:drop_table.sql:58: ERROR:  cannot drop table cdb_startrackerwide.exposure because other objects depend on it
+DETAIL:  constraint fk_exposure_flexdata_obs_id on table cdb_startrackerwide.exposure_flexdata depends on table cdb_startrackerwide.exposure
+constraint fk_exposure_quicklook_obs_id on table cdb_startrackerwide.exposure_quicklook depends on table cdb_startrackerwide.exposure
+HINT:  Use DROP ... CASCADE to drop the dependent objects too.
+drop table cdb_startrackerwide.exposure_flexdata ;
+DROP TABLE
+drop table cdb_startrackerwide.exposure_flexdata_schema ;
+DROP TABLE
+drop table cdb_startrackerwide.exposure_quicklook ;
+DROP TABLE
+drop table public.message ;
+DROP TABLE

@@ -1,0 +1,18 @@
+DROP VIEW cdb_latiss.visit1;
+DROP VIEW cdb_lsstcam.visit1;
+DROP VIEW cdb_lsstcomcam.visit1;
+DROP VIEW cdb_lsstcomcamsim.visit1;
+DROP VIEW cdb_latiss.ccdvisit1;
+DROP VIEW cdb_lsstcam.ccdvisit1;
+DROP VIEW cdb_lsstcomcam.ccdvisit1;
+DROP VIEW cdb_lsstcomcamsim.ccdvisit1;
+
+DROP TABLE public.message cascade;
+DROP TABLE cdb_latiss.ccdexposure, cdb_latiss.ccdexposure_camera, cdb_latiss.ccdexposure_flexdata, cdb_latiss.ccdexposure_flexdata_schema, cdb_latiss.ccdvisit1_quicklook, cdb_latiss.exposure, cdb_latiss.exposure_flexdata, cdb_latiss.exposure_flexdata_schema, cdb_latiss.exposure_quicklook, cdb_latiss.visit1_quicklook cascade;
+
+DROP TABLE cdb_lsstcam.ccdexposure, cdb_lsstcam.ccdexposure_camera, cdb_lsstcam.ccdexposure_flexdata, cdb_lsstcam.ccdexposure_flexdata_schema, cdb_lsstcam.ccdexposure_quicklook, cdb_lsstcam.ccdvisit1_quicklook, cdb_lsstcam.exposure, cdb_lsstcam.exposure_flexdata, cdb_lsstcam.exposure_flexdata_schema, cdb_lsstcam.exposure_quicklook, cdb_lsstcam.visit1_quicklook cascade;
+DROP TABLE cdb_lsstcomcam.ccdexposure, cdb_lsstcomcam.ccdexposure_camera, cdb_lsstcomcam.ccdexposure_flexdata, cdb_lsstcomcam.ccdexposure_flexdata_schema, cdb_lsstcomcam.ccdexposure_quicklook, cdb_lsstcomcam.ccdvisit1_quicklook, cdb_lsstcomcam.exposure, cdb_lsstcomcam.exposure_flexdata, cdb_lsstcomcam.exposure_flexdata_schema, cdb_lsstcomcam.exposure_quicklook, cdb_lsstcomcam.visit1_quicklook cascade;
+DROP TABLE cdb_lsstcomcamsim.ccdexposure, cdb_lsstcomcamsim.ccdexposure_camera, cdb_lsstcomcamsim.ccdexposure_flexdata, cdb_lsstcomcamsim.ccdexposure_flexdata_schema, cdb_lsstcomcamsim.ccdvisit1_quicklook, cdb_lsstcomcamsim.exposure, cdb_lsstcomcamsim.exposure_flexdata, cdb_lsstcomcamsim.exposure_flexdata_schema, cdb_lsstcomcamsim.visit1_quicklook cascade;
+DROP TABLE cdb_startrackerfast.exposure, cdb_startrackerfast.exposure_flexdata, cdb_startrackerfast.exposure_flexdata_schema, cdb_startrackerfast.exposure_quicklook cascade;
+DROP TABLE cdb_startrackernarrow.exposure, cdb_startrackernarrow.exposure_flexdata, cdb_startrackernarrow.exposure_flexdata_schema, cdb_startrackernarrow.exposure_quicklook cascade;
+DROP TABLE cdb_startrackerwide.exposure, cdb_startrackerwide.exposure_flexdata, cdb_startrackerwide.exposure_flexdata_schema, cdb_startrackerwide.exposure_quicklook cascade;

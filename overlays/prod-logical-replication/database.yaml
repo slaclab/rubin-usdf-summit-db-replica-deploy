@@ -41,6 +41,8 @@ spec:
       log_rotation_size: "0"
       log_truncate_on_rotation: "false"
       logging_collector: "on"
+      max_wal_size: 32GB
+      min_wal_size: 4GB
       max_connections: "500"
       max_parallel_workers: "32"
       max_replication_slots: "32"
@@ -49,7 +51,7 @@ spec:
       shared_memory_type: mmap
       shared_preload_libraries: ""
       wal_keep_size: 8GB
-      wal_receiver_timeout: 60s
+      wal_receiver_timeout: 5s
       wal_sender_timeout: 5s
       max_logical_replication_workers: "16"
       checkpoint_timeout: "3600s"

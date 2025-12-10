@@ -20,5 +20,12 @@ secretGenerator:
     files:
     - ACCESS_KEY_ID=etc/.secrets/access_key
     - ACCESS_SECRET_KEY=etc/.secrets/secret_key
+  - name: replica-user-creds
+    options:
+      disableNameSuffixHash: true
+    files:
+    - username=etc/.secrets/replica_user
+    - password=etc/.secrets/replica_password
+
 
 namespace: summit-db-logical-replica

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: summit-db-svc
+  namespace: devdb
+  annotations: 
+    metallb.io/address-pool: sdf-rubin-ingest
+    metallb.io/ip-allocated-from-pool: sdf-rubin-ingest
+spec:
+  allocateLoadBalancerNodePorts: false
+  type: LoadBalancer
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: pgbouncer
+    port: 5432
+  selector:
+    cnpg.io/cluster: summit-db
+    cnpg.io/instanceRole: primary

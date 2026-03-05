@@ -1,0 +1,88 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: summit-db
+  namespace: devdb
+spec:
+  affinity:
+    podAntiAffinityType: preferred
+    topologyKey: ""
+  enablePDB: true
+  enableSuperuserAccess: true
+  failoverDelay: 0
+  imageName: ghcr.io/lsst-sqre/cnpg-postgres-images:17.5
+  imagePullPolicy: Always
+  inheritedMetadata:
+    annotations:
+      prometheus.io/scrape: "true"
+  instances: 1
+  logLevel: info
+  maxSyncReplicas: 0
+  minSyncReplicas: 0
+  monitoring:
+    customQueriesConfigMap:
+      - key: queries
+        name: cnpg-default-monitoring
+    disableDefaultQueries: false
+    enablePodMonitor: false
+  postgresGID: 26
+  postgresUID: 26
+  postgresql:
+    parameters:
+      archive_mode: "on"
+      archive_timeout: 5min
+      checkpoint_timeout: 3600s
+      dynamic_shared_memory_type: posix
+      full_page_writes: "on"
+      idle_session_timeout: 4h
+      log_destination: csvlog
+      log_directory: /controller/log
+      log_filename: postgres
+      log_rotation_age: "0"
+      log_rotation_size: "0"
+      log_truncate_on_rotation: "false"
+      logging_collector: "on"
+      max_connections: "500"
+      max_logical_replication_workers: "16"
+      max_parallel_workers: "32"
+      max_replication_slots: "32"
+      max_wal_size: 16GB
+      max_worker_processes: "32"
+      min_wal_size: 4GB
+      pg_stat_statements.max: "10000"
+      pg_stat_statements.track: all
+      shared_buffers: 4GB
+      shared_memory_type: mmap
+      shared_preload_libraries: ""
+      ssl_max_protocol_version: TLSv1.3
+      ssl_min_protocol_version: TLSv1.3
+      wal_keep_size: 4GB
+      wal_level: logical
+      wal_log_hints: "on"
+      wal_receiver_timeout: 5s
+      wal_sender_timeout: 5s
+    syncReplicaElectionConstraint:
+      enabled: false
+  primaryUpdateMethod: switchover
+  primaryUpdateStrategy: unsupervised
+  replicationSlots:
+    highAvailability:
+      enabled: true
+      slotPrefix: _cnpg_
+    synchronizeReplicas:
+      enabled: true
+    updateInterval: 30
+  resources:
+    limits:
+      cpu: "4"
+      memory: 12Gi
+    requests:
+      cpu: "2"
+      memory: 8Gi
+  smartShutdownTimeout: 1
+  startDelay: 3600
+  stopDelay: 180
+  storage:
+    resizeInUseVolumes: true
+    size: 200Gi
+  switchoverDelay: 179

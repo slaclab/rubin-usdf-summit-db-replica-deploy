@@ -60,7 +60,7 @@ spec:
       pg_stat_statements.max: "10000"
   storage:
     resizeInUseVolumes: true
-    size: 200Gi
+    size: 1000Gi
   backup:
     retentionPolicy: "15d"
     barmanObjectStore:

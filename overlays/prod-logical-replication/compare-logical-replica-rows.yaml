@@ -1,0 +1,172 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: compare-rows-script
+  namespace: summit-db-logical-replica
+data:
+  compare.sh: |
+    #!/usr/bin/env bash
+    cd "$(dirname "$0")"
+    ./src.sh; ./tgt.sh; 
+    grep -v 'You are now' /data/src.out >/data/src.out.1
+    grep -v 'You are now' /data/tgt.out >/data/tgt.out.1
+    diff /data/src.out.1 /data/tgt.out.1|grep -v -- ---|egrep -v -- '^[0-9]'
+  src.sh: |
+    psql -h db-lhn.cp.lsst.org -U replicauser -d exposurelog -tAef table_rows.sql  >/data/src.out
+  tgt.sh: |
+    psql -h summit-logical-replica-rw -U replicauser -d exposurelog -tAef table_rows.sql  >/data/tgt.out
+  table_rows.sql: |
+    select 'cdb_latiss.visit1_quicklook:' || count(*) from cdb_latiss.visit1_quicklook;
+    select 'cdb_lsstcam.ccdexposure:' || count(*) from cdb_lsstcam.ccdexposure;
+    select 'cdb_lsstcam.ccdexposure_camera:' || count(*) from cdb_lsstcam.ccdexposure_camera;
+    select 'cdb_lsstcam.ccdexposure_flexdata:' || count(*) from cdb_lsstcam.ccdexposure_flexdata;
+    select 'cdb_lsstcam.ccdexposure_flexdata_schema:' || count(*) from cdb_lsstcam.ccdexposure_flexdata_schema;
+    select 'cdb_lsstcam.ccdexposure_quicklook:' || count(*) from cdb_lsstcam.ccdexposure_quicklook;
+    select 'cdb_lsstcam.ccdvisit1_quicklook:' || count(*) from cdb_lsstcam.ccdvisit1_quicklook;
+    select 'cdb_lsstcam.exposure:' || count(*) from cdb_lsstcam.exposure;
+    select 'cdb_lsstcam.exposure_flexdata:' || count(*) from cdb_lsstcam.exposure_flexdata;
+    select 'cdb_lsstcam.exposure_flexdata_schema:' || count(*) from cdb_lsstcam.exposure_flexdata_schema;
+    select 'cdb_lsstcam.exposure_quicklook:' || count(*) from cdb_lsstcam.exposure_quicklook;
+    select 'cdb_lsstcam.visit1_quicklook:' || count(*) from cdb_lsstcam.visit1_quicklook;
+    select 'cdb_lsstcomcam.ccdexposure:' || count(*) from cdb_lsstcomcam.ccdexposure;
+    select 'cdb_lsstcomcam.ccdexposure_camera:' || count(*) from cdb_lsstcomcam.ccdexposure_camera;
+    select 'cdb_lsstcomcam.ccdexposure_flexdata:' || count(*) from cdb_lsstcomcam.ccdexposure_flexdata;
+    select 'cdb_lsstcomcam.ccdexposure_flexdata_schema:' || count(*) from cdb_lsstcomcam.ccdexposure_flexdata_schema;
+    select 'cdb_lsstcomcam.ccdvisit1_quicklook:' || count(*) from cdb_lsstcomcam.ccdvisit1_quicklook;
+    select 'cdb_lsstcomcam.exposure:' || count(*) from cdb_lsstcomcam.exposure;
+    select 'cdb_lsstcomcam.exposure_flexdata:' || count(*) from cdb_lsstcomcam.exposure_flexdata;
+    select 'cdb_lsstcomcam.exposure_flexdata_schema:' || count(*) from cdb_lsstcomcam.exposure_flexdata_schema;
+    select 'cdb_lsstcomcam.exposure_quicklook:' || count(*) from cdb_lsstcomcam.exposure_quicklook;
+    select 'cdb_lsstcomcam.visit1_quicklook:' || count(*) from cdb_lsstcomcam.visit1_quicklook;
+    select 'cdb_lsstcomcamsim.ccdexposure:' || count(*) from cdb_lsstcomcamsim.ccdexposure;
+    select 'cdb_lsstcomcamsim.ccdexposure_camera:' || count(*) from cdb_lsstcomcamsim.ccdexposure_camera;
+    select 'cdb_lsstcomcamsim.ccdexposure_flexdata:' || count(*) from cdb_lsstcomcamsim.ccdexposure_flexdata;
+    select 'cdb_lsstcomcamsim.ccdexposure_flexdata_schema:' || count(*) from cdb_lsstcomcamsim.ccdexposure_flexdata_schema;
+    select 'cdb_lsstcomcamsim.ccdvisit1_quicklook:' || count(*) from cdb_lsstcomcamsim.ccdvisit1_quicklook;
+    select 'cdb_lsstcomcamsim.exposure:' || count(*) from cdb_lsstcomcamsim.exposure;
+    select 'cdb_lsstcomcamsim.exposure_flexdata:' || count(*) from cdb_lsstcomcamsim.exposure_flexdata;
+    select 'cdb_lsstcomcamsim.exposure_flexdata_schema:' || count(*) from cdb_lsstcomcamsim.exposure_flexdata_schema;
+    select 'cdb_lsstcomcamsim.visit1_quicklook:' || count(*) from cdb_lsstcomcamsim.visit1_quicklook;
+    select 'cdb_startrackerfast.exposure:' || count(*) from cdb_startrackerfast.exposure;
+    select 'cdb_startrackerfast.exposure_flexdata:' || count(*) from cdb_startrackerfast.exposure_flexdata;
+    select 'cdb_startrackerfast.exposure_flexdata_schema:' || count(*) from cdb_startrackerfast.exposure_flexdata_schema;
+    select 'cdb_startrackerfast.exposure_quicklook:' || count(*) from cdb_startrackerfast.exposure_quicklook;
+    select 'cdb_startrackernarrow.exposure:' || count(*) from cdb_startrackernarrow.exposure;
+    select 'cdb_startrackernarrow.exposure_flexdata:' || count(*) from cdb_startrackernarrow.exposure_flexdata;
+    select 'cdb_startrackernarrow.exposure_flexdata_schema:' || count(*) from cdb_startrackernarrow.exposure_flexdata_schema;
+    select 'cdb_startrackernarrow.exposure_quicklook:' || count(*) from cdb_startrackernarrow.exposure_quicklook;
+    select 'cdb_startrackerwide.exposure:' || count(*) from cdb_startrackerwide.exposure;
+    select 'cdb_startrackerwide.exposure_flexdata:' || count(*) from cdb_startrackerwide.exposure_flexdata;
+    select 'cdb_startrackerwide.exposure_flexdata_schema:' || count(*) from cdb_startrackerwide.exposure_flexdata_schema;
+    select 'cdb_startrackerwide.exposure_quicklook:' || count(*) from cdb_startrackerwide.exposure_quicklook;
+    select 'public.message:' || count(*) from public.message;
+    \c narrativelog
+    select 'public.jira_fields:' || count(*) from public.jira_fields;
+    select 'public.message:' || count(*) from public.message;
+    \c nightreport
+    select 'public.nightreport:' || count(*) from public.nightreport;
+
+---
+
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cronjob-compare-replication-rows
+  namespace: summit-db-logical-replica
+spec:
+  schedule: "5 17-23 * * *"   # daily daytime
+  concurrencyPolicy: Forbid   # skip if previous job still running
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      backoffLimit: 1             # retry once on failure
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: psql
+            image: ghcr.io/lsst-sqre/cnpg-postgres-images:17.5
+            resources:
+              requests:
+                memory: 128Mi
+                cpu: 100m
+              limits:
+                memory: 256Mi
+                cpu: 200m
+            env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: replica-user-creds
+                  key: password
+            command: ["/bin/sh", "-c"]
+            args:
+              - |
+                /script/compare.sh
+            volumeMounts:
+              - name: compare-rows-script
+                mountPath: /script
+              - name: data
+                mountPath: /data
+          volumes:
+            - name: compare-rows-script
+              configMap:
+                name: compare-rows-script
+                defaultMode: 0755
+            - name: data
+              emptyDir: {}
+
+---
+
+#apiVersion: apps/v1
+#kind: Deployment
+#metadata:
+#  name: compare-replication-rows
+#  namespace: summit-db-logical-replica
+#spec:
+#  replicas: 1
+#  selector:
+#    matchLabels:
+#      app: compare-replica-rows
+#  template:
+#    metadata:
+#      labels:
+#        app: compare-replica-rows
+#    spec:
+#      restartPolicy: Always
+#      containers:
+#      - name: psql
+#        image: ghcr.io/lsst-sqre/cnpg-postgres-images:17.5
+#        resources:
+#          requests:
+#            memory: 128Mi
+#            cpu: 100m
+#          limits:
+#            memory: 256Mi
+#            cpu: 500m
+#        env:
+#        - name: PGPASSWORD
+#          valueFrom:
+#            secretKeyRef:
+#              name: replica-user-creds
+#              key: password
+#        command: ["/bin/sh", "-c"]
+#        args:
+#          - |
+#            while true; do
+#              /script/compare.sh
+#              sleep 3000
+#            done
+#        volumeMounts:
+#          - name: compare-rows-script
+#            mountPath: /script
+#          - name: data
+#            mountPath: /data
+#      volumes:
+#        - name: compare-rows-script
+#          configMap:
+#            name: compare-rows-script
+#            defaultMode: 0775
+#        - name: data
+#          emptyDir: {}

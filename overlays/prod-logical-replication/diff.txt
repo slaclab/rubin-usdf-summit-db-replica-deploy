@@ -1,0 +1,461 @@
+0a1
+> NAMESPACE                                  NAME                                                              TYPE           CLUSTER-IP       EXTERNAL-IP                                  PORT(S)                                                                            
+65c66
+< monitoring-system                          influxdb-metallb                                                  LoadBalancer   10.111.230.229   172.24.5.203                                 8086:30246/TCP                                                                     
+---
+> monitoring-system                          influxdb-metallb                                                  LoadBalancer   10.111.230.229   172.24.5.203                                 8086/TCP                                                                           
+157,159d157
+< vcluster--accel-webapp-dev                 eed-cluster-broker-node-pool-0-x-kafka-x-vcluster--a-0249dcfe06   LoadBalancer   10.100.247.136   172.24.8.135                                 9094:32170/TCP                                                                     
+< vcluster--accel-webapp-dev                 eed-cluster-broker-node-pool-1-x-kafka-x-vcluster--a-63862e06ae   LoadBalancer   10.107.82.116    172.24.8.138                                 9094:31777/TCP                                                                     
+< vcluster--accel-webapp-dev                 eed-cluster-broker-node-pool-2-x-kafka-x-vcluster--a-b53a40104c   LoadBalancer   10.97.250.191    172.24.8.141                                 9094:31634/TCP                                                                     
+163d160
+< vcluster--accel-webapp-dev                 eed-cluster-kafka-external-bootstrap-x-kafka-x-vclus-07edbdf244   LoadBalancer   10.111.157.66    172.24.8.129                                 9094:31733/TCP                                                                     
+193a191
+> vcluster--accel-webapp-dev                 vcluster--accel-webapp-dev-node-sdfk8sc020                        ClusterIP      10.100.252.252   <none>                                       10250/TCP                                                                          
+197a196
+> vcluster--accel-webapp-dev                 vcluster--accel-webapp-dev-node-sdfk8sc028                        ClusterIP      10.101.161.177   <none>                                       10250/TCP                                                                          
+224,226d222
+< vcluster--accel-webapp                     eed-cluster-broker-node-pool-0-x-kafka-x-vcluster--accel-webapp   LoadBalancer   10.108.99.221    172.24.8.143                                 9094:31535/TCP                                                                     
+< vcluster--accel-webapp                     eed-cluster-broker-node-pool-1-x-kafka-x-vcluster--accel-webapp   LoadBalancer   10.110.5.202     172.24.8.144                                 9094:32669/TCP                                                                     
+< vcluster--accel-webapp                     eed-cluster-broker-node-pool-2-x-kafka-x-vcluster--accel-webapp   LoadBalancer   10.98.2.161      172.24.8.145                                 9094:30836/TCP                                                                     
+230d225
+< vcluster--accel-webapp                     eed-cluster-kafka-external-bootstrap-x-kafka-x-vclus-604113c7f9   LoadBalancer   10.97.229.129    172.24.8.142                                 9094:30347/TCP                                                                     
+256a252
+> vcluster--accel-webapp                     vcluster--accel-webapp-node-sdfk8sc028                            ClusterIP      10.105.4.255     <none>                                       10250/TCP                                                                          
+257a254
+> vcluster--accel-webapp                     vcluster--accel-webapp-node-sdfk8sc030                            ClusterIP      10.97.175.90     <none>                                       10250/TCP                                                                          
+267d263
+< vcluster--accel-webapp                     vcluster--accel-webapp-node-sdfk8sc049                            ClusterIP      10.97.215.111    <none>                                       10250/TCP                                                                          
+274,276c270,272
+< vcluster--acs-nalms                        nalms-kafka-3-x-nalms-dev-x-vcluster--acs-nalms                   LoadBalancer   10.110.12.86     172.24.8.134                                 9094:30394/TCP                                                                     
+< vcluster--acs-nalms                        nalms-kafka-4-x-nalms-dev-x-vcluster--acs-nalms                   LoadBalancer   10.105.195.84    172.24.8.130                                 9094:30560/TCP                                                                     
+< vcluster--acs-nalms                        nalms-kafka-5-x-nalms-dev-x-vcluster--acs-nalms                   LoadBalancer   10.102.115.177   172.24.8.140                                 9094:32377/TCP                                                                     
+---
+> vcluster--acs-nalms                        nalms-kafka-3-x-nalms-dev-x-vcluster--acs-nalms                   LoadBalancer   10.106.184.117   172.24.8.134                                 9094/TCP                                                                           
+> vcluster--acs-nalms                        nalms-kafka-4-x-nalms-dev-x-vcluster--acs-nalms                   LoadBalancer   10.99.253.242    172.24.8.130                                 9094/TCP                                                                           
+> vcluster--acs-nalms                        nalms-kafka-5-x-nalms-dev-x-vcluster--acs-nalms                   LoadBalancer   10.101.204.213   172.24.8.140                                 9094/TCP                                                                           
+279c275
+< vcluster--acs-nalms                        nalms-kafka-external-bootstrap-x-nalms-dev-x-vcluste-b85f239b77   LoadBalancer   10.97.76.150     172.24.8.133                                 9094:32607/TCP                                                                     
+---
+> vcluster--acs-nalms                        nalms-kafka-external-bootstrap-x-nalms-dev-x-vcluste-b85f239b77   LoadBalancer   10.110.247.49    172.24.8.133                                 9094/TCP                                                                           
+307c303,306
+< vcluster--ad-accel-online-ml-dev           istiod-x-istio-system-x-vcluster--ad-accel-online-ml-dev          ClusterIP      10.107.73.85     <none>                                       15010/TCP,15012/TCP,443/TCP,15014/TCP                                              
+---
+> vcluster--ad-accel-online-ml-dev           istio-ingress-x-istio-ingress-x-vcluster--ad-accel-o-c3a52234de   LoadBalancer   10.103.4.253     172.24.5.60                                  15021/TCP,80/TCP,443/TCP                                                           
+> vcluster--ad-accel-online-ml-dev           istiod-x-istio-system-x-vcluster--ad-accel-online-ml-dev          ClusterIP      10.97.50.53      <none>                                       15010/TCP,15012/TCP,443/TCP,15014/TCP                                              
+> vcluster--ad-accel-online-ml-dev           kserve-controller-manager-service-x-kserve-x-vcluste-3c36817b49   ClusterIP      10.101.244.255   <none>                                       8443/TCP                                                                           
+> vcluster--ad-accel-online-ml-dev           kserve-webhook-server-service-x-kserve-x-vcluster--a-d45838ebae   ClusterIP      10.103.209.192   <none>                                       443/TCP                                                                            
+324a324
+> vcluster--ad-accel-online-ml-dev           vcluster--ad-accel-online-ml-dev-node-sdfk8sc030                  ClusterIP      10.106.240.204   <none>                                       10250/TCP                                                                          
+342,343d341
+< vcluster--ad-accel-online-ml               mailbox-service-tcp-x-server-test-x-vcluster--ad-acc-ce46c07035   LoadBalancer   10.106.62.11     <pending>                                    5075:31247/TCP                                                                     
+< vcluster--ad-accel-online-ml               mailbox-service-udp-x-server-test-x-vcluster--ad-acc-c8c6ab81d2   LoadBalancer   10.96.223.201    172.24.5.207                                 5076:32066/UDP                                                                     
+402d399
+< vcluster--ad-build-dev                     deployment-controller-service-x-core-build-system-x--3254169225   LoadBalancer   10.107.31.13     <pending>                                    80:30149/TCP                                                                       
+436d432
+< vcluster--ad-build                         deployment-controller-service-x-core-build-system-x--5177d16dba   LoadBalancer   10.105.141.64    134.79.23.199                                80:32660/TCP                                                                       
+524d519
+< vcluster--atlas                            cmsd-loadbalancer-x-xrdrdr-x-vcluster--atlas                      LoadBalancer   10.99.161.40     172.24.5.248                                 1213:31492/TCP                                                                     
+526d520
+< vcluster--atlas                            frontiersquid-loadbalancer-x-frontiersquid-x-vcluster--atlas      LoadBalancer   10.100.28.171    172.24.5.98                                  13128:32142/TCP                                                                    
+536d529
+< vcluster--atlas                            postgres-loadbalancer-x-postgres-x-vcluster--atlas                LoadBalancer   10.98.40.235     172.24.5.162                                 5432:31449/TCP                                                                     
+543a537
+> vcluster--atlas                            vcluster--atlas-node-sdfk8sc020                                   ClusterIP      10.111.32.101    <none>                                       10250/TCP                                                                          
+544a539,540
+> vcluster--atlas                            vcluster--atlas-node-sdfk8sc028                                   ClusterIP      10.111.160.178   <none>                                       10250/TCP                                                                          
+> vcluster--atlas                            vcluster--atlas-node-sdfk8sc030                                   ClusterIP      10.96.151.4      <none>                                       10250/TCP                                                                          
+550d545
+< vcluster--atlas                            vcluster--atlas-node-sdfk8sc049                                   ClusterIP      10.104.26.162    <none>                                       10250/TCP                                                                          
+553d547
+< vcluster--atlas                            xrootd-loadbalancer-x-xrdrdr-x-vcluster--atlas                    LoadBalancer   10.106.182.19    134.79.23.187                                1094:32415/TCP                                                                     
+634a629
+> vcluster--cryoem-daq                       vcluster--cryoem-daq-node-sdfk8sc020                              ClusterIP      10.109.100.121   <none>                                       10250/TCP                                                                          
+735a731
+> vcluster--desc-ops                         vcluster--desc-ops-node-sdfk8sc028                                ClusterIP      10.101.166.223   <none>                                       10250/TCP                                                                          
+742a739
+> vcluster--desc-ops                         vcluster--desc-ops-node-sdfk8sc051                                ClusterIP      10.96.147.24     <none>                                       10250/TCP                                                                          
+765,766d761
+< vcluster--eed-sw-fw-build                  lb-postgres-x-mongodb-x-vcluster--eed-sw-fw-build                 LoadBalancer   10.108.221.15    172.24.5.220                                 5432:30870/TCP                                                                     
+< vcluster--eed-sw-fw-build                  lb-postgres-x-postgres-x-vcluster--eed-sw-fw-build                LoadBalancer   10.102.52.125    172.24.5.194                                 5432:30207/TCP                                                                     
+853d847
+< vcluster--fermi-glast-ground               james-service-x-mail--dev-x-vcluster--fermi-glast-ground          LoadBalancer   10.105.36.158    172.24.5.160                                 25:30726/TCP,110:32128/TCP                                                         
+862,864d855
+< vcluster--fermi-glast-ground               pipeline-x-default-x-vcluster--fermi-glast-ground                 LoadBalancer   10.102.64.12     <pending>                                    8098:32009/TCP                                                                     
+< vcluster--fermi-glast-ground               pipeline-x-pipeline--dev-x-vcluster--fermi-glast-ground           LoadBalancer   10.98.165.22     172.24.5.193                                 8098:32115/TCP                                                                     
+< vcluster--fermi-glast-ground               pipeline-x-pipeline--prod-x-vcluster--fermi-glast-ground          LoadBalancer   10.103.46.136    172.24.5.149                                 8098:30427/TCP                                                                     
+908a900
+> vcluster--gafaelfawr-dev                   vcluster--gafaelfawr-dev-node-sdfk8sc030                          ClusterIP      10.111.179.117   <none>                                       10250/TCP                                                                          
+910a903
+> vcluster--gafaelfawr-dev                   vcluster--gafaelfawr-dev-node-sdfk8sc051                          ClusterIP      10.97.59.44      <none>                                       10250/TCP                                                                          
+1049,1050c1042
+< vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc012                          ClusterIP      10.104.94.51     <none>                                       10250/TCP                                                                          
+< vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc022                          ClusterIP      10.110.199.172   <none>                                       10250/TCP                                                                          
+---
+> vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc020                          ClusterIP      10.106.76.69     <none>                                       10250/TCP                                                                          
+1054a1047,1048
+> vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc028                          ClusterIP      10.101.22.54     <none>                                       10250/TCP                                                                          
+> vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc030                          ClusterIP      10.99.90.230     <none>                                       10250/TCP                                                                          
+1056d1049
+< vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc033                          ClusterIP      10.105.97.220    <none>                                       10250/TCP                                                                          
+1058a1052
+> vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc042                          ClusterIP      10.107.219.191   <none>                                       10250/TCP                                                                          
+1060,1061c1054
+< vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc049                          ClusterIP      10.102.165.35    <none>                                       10250/TCP                                                                          
+< vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc050                          ClusterIP      10.106.200.95    <none>                                       10250/TCP                                                                          
+---
+> vcluster--lcls-dataminer                   vcluster--lcls-dataminer-node-sdfk8sc051                          ClusterIP      10.104.225.40    <none>                                       10250/TCP                                                                          
+1069,1071d1061
+< vcluster--lcls-k2eg                        lcls-cluster-kafka-0-x-kafka-x-vcluster--lcls-k2eg                LoadBalancer   10.109.63.82     172.24.5.186                                 9094:32199/TCP                                                                     
+< vcluster--lcls-k2eg                        lcls-cluster-kafka-1-x-kafka-x-vcluster--lcls-k2eg                LoadBalancer   10.102.114.14    172.24.5.187                                 9094:30346/TCP                                                                     
+< vcluster--lcls-k2eg                        lcls-cluster-kafka-2-x-kafka-x-vcluster--lcls-k2eg                LoadBalancer   10.111.214.194   172.24.5.188                                 9094:32585/TCP                                                                     
+1074d1063
+< vcluster--lcls-k2eg                        lcls-cluster-kafka-external-bootstrap-x-kafka-x-vclu-661a3dd7d0   LoadBalancer   10.109.81.253    172.24.5.185                                 9094:32603/TCP                                                                     
+1122c1111,1113
+< vcluster--lcls-links                       vcluster--lcls-links-node-sdfk8sc022                              ClusterIP      10.102.109.181   <none>                                       10250/TCP                                                                          
+---
+> vcluster--lcls-links                       vcluster--lcls-links-node-sdfk8sc020                              ClusterIP      10.100.117.229   <none>                                       10250/TCP                                                                          
+> vcluster--lcls-links                       vcluster--lcls-links-node-sdfk8sc028                              ClusterIP      10.101.175.37    <none>                                       10250/TCP                                                                          
+> vcluster--lcls-links                       vcluster--lcls-links-node-sdfk8sc030                              ClusterIP      10.105.81.86     <none>                                       10250/TCP                                                                          
+1127,1128c1118
+< vcluster--lcls-links                       vcluster--lcls-links-node-sdfk8sc049                              ClusterIP      10.99.98.73      <none>                                       10250/TCP                                                                          
+< vcluster--lcls-links                       vcluster--lcls-links-node-sdfk8sc050                              ClusterIP      10.111.65.30     <none>                                       10250/TCP                                                                          
+---
+> vcluster--lcls-links                       vcluster--lcls-links-node-sdfk8sc051                              ClusterIP      10.107.127.14    <none>                                       10250/TCP                                                                          
+1301d1290
+< vcluster--pcds-nalms                       nalms-es-http-x-nalms-dev-x-vcluster--pcds-nalms                  LoadBalancer   10.105.59.73     172.24.5.213                                 9200:32413/TCP                                                                     
+1310c1299
+< vcluster--pcds-nalms                       nalms-kafka-external-bootstrap-x-nalms-dev-x-vcluste-6f8aac883a   LoadBalancer   10.111.155.5     172.24.5.232                                 9094:30897/TCP                                                                     
+---
+> vcluster--pcds-nalms                       nalms-kafka-external-bootstrap-x-nalms-dev-x-vcluste-6f8aac883a   LoadBalancer   10.101.134.227   172.24.5.232                                 9094/TCP                                                                           
+1399c1388
+< vcluster--psdm-datamgr                     datamvr-pgbouncer-x-datamvr-x-vcluster--psdm-datamgr              LoadBalancer   10.103.126.188   172.24.5.171                                 5432:30562/TCP                                                                     
+---
+> vcluster--psdm-datamgr                     datamvr-pgbouncer-x-datamvr-x-vcluster--psdm-datamgr              LoadBalancer   10.110.105.247   172.24.5.171                                 5432/TCP                                                                           
+1428c1417
+< vcluster--psdm-datamgr                     pushgateway-x-monitoring-x-vcluster--psdm-datamgr                 LoadBalancer   10.99.187.110    172.24.5.157                                 9091:32167/TCP                                                                     
+---
+> vcluster--psdm-datamgr                     pushgateway-x-monitoring-x-vcluster--psdm-datamgr                 LoadBalancer   10.99.156.114    172.24.5.157                                 9091/TCP                                                                           
+1450a1440
+> vcluster--psdm-datamgr                     vcluster--psdm-datamgr-node-sdfk8sc020                            ClusterIP      10.107.194.66    <none>                                       10250/TCP                                                                          
+1471d1460
+< vcluster--psdm-datamgr                     vcluster--psdm-datamgr-node-sdfk8sc052                            ClusterIP      10.98.199.235    <none>                                       10250/TCP                                                                          
+1490d1478
+< vcluster--psdm-dev                         librechat-api-x-elog-copilot-x-vcluster--psdm-dev                 LoadBalancer   10.102.110.175   172.24.5.173                                 80:30917/TCP                                                                       
+1534d1521
+< vcluster--psdm-dev                         vcluster--psdm-dev-node-sdfk8sc010                                ClusterIP      10.103.52.153    <none>                                       10250/TCP                                                                          
+1536d1522
+< vcluster--psdm-dev                         vcluster--psdm-dev-node-sdfk8sc012                                ClusterIP      10.96.73.84      <none>                                       10250/TCP                                                                          
+1540c1526
+< vcluster--psdm-dev                         vcluster--psdm-dev-node-sdfk8sc021                                ClusterIP      10.105.58.101    <none>                                       10250/TCP                                                                          
+---
+> vcluster--psdm-dev                         vcluster--psdm-dev-node-sdfk8sc020                                ClusterIP      10.103.156.235   <none>                                       10250/TCP                                                                          
+1544a1531
+> vcluster--psdm-dev                         vcluster--psdm-dev-node-sdfk8sc028                                ClusterIP      10.96.236.191    <none>                                       10250/TCP                                                                          
+1545a1533
+> vcluster--psdm-dev                         vcluster--psdm-dev-node-sdfk8sc030                                ClusterIP      10.109.31.57     <none>                                       10250/TCP                                                                          
+1553a1542
+> vcluster--psdm-dev                         vcluster--psdm-dev-node-sdfk8sc042                                ClusterIP      10.105.107.101   <none>                                       10250/TCP                                                                          
+1558a1548
+> vcluster--psdm-dev                         vcluster--psdm-dev-node-sdfk8sc051                                ClusterIP      10.110.184.238   <none>                                       10250/TCP                                                                          
+1577c1567
+< vcluster--psdm-kafka                       psdm-kafka-external-bootstrap-x-kafka-x-vcluster--psdm-kafka      LoadBalancer   10.111.30.247    172.24.5.240                                 9094:30403/TCP                                                                     
+---
+> vcluster--psdm-kafka                       psdm-kafka-external-bootstrap-x-kafka-x-vcluster--psdm-kafka      LoadBalancer   10.106.24.216    172.24.5.240                                 9094/TCP                                                                           
+1637a1628
+> vcluster--psdm-rucio                       vcluster--psdm-rucio-node-sdfk8sc020                              ClusterIP      10.109.187.233   <none>                                       10250/TCP                                                                          
+1642a1634
+> vcluster--psdm-rucio                       vcluster--psdm-rucio-node-sdfk8sc030                              ClusterIP      10.106.45.139    <none>                                       10250/TCP                                                                          
+1648a1641
+> vcluster--psdm-rucio                       vcluster--psdm-rucio-node-sdfk8sc042                              ClusterIP      10.105.41.68     <none>                                       10250/TCP                                                                          
+1659d1651
+< vcluster--rubin-jenkins-control            dev-jenkins-agent-x-jenkins-test-3-x-vcluster--rubin-40df904740   LoadBalancer   10.100.253.197   134.79.23.201                                20000:32741/TCP                                                                    
+1665d1656
+< vcluster--rubin-jenkins-control            prod-jenkins-agent-x-jenkins-prod-x-vcluster--rubin--fd6f36a10f   LoadBalancer   10.110.247.233   134.79.23.234                                20000:30787/TCP                                                                    
+1743a1735
+> vcluster--scs-iri                          vcluster--scs-iri-node-sdfk8sc028                                 ClusterIP      10.103.244.37    <none>                                       10250/TCP                                                                          
+1784d1775
+< vcluster--sdf-monitoring                   vcluster--sdf-monitoring-node-sdfk8sc009                          ClusterIP      10.110.212.207   <none>                                       10250/TCP                                                                          
+1817d1807
+< vcluster--slurm-int                        slurmdb-x-prod-x-vcluster--slurm-int                              LoadBalancer   10.104.212.5     172.24.5.214                                 3306:31097/TCP                                                                     
+1829a1820
+> vcluster--slurm                            mariadb-x-prod-x-vcluster--slurm                                  LoadBalancer   10.102.159.248   172.24.5.183                                 3306/TCP                                                                           
+1834d1824
+< vcluster--slurm                            slurmdb-unmanaged-x-prod-x-vcluster--slurm                        LoadBalancer   10.104.98.249    172.24.5.183                                 3306:30638/TCP                                                                     
+1847d1836
+< vcluster--slurm                            vcluster--slurm-node-sdfk8sc050                                   ClusterIP      10.102.47.116    <none>                                       10250/TCP                                                                          
+1867,1868d1855
+< vcluster--srs-groupmanager                 pipeline-x-default-x-vcluster--srs-groupmanager                   LoadBalancer   10.102.17.236    172.24.5.154                                 8096:31055/TCP                                                                     
+< vcluster--srs-groupmanager                 pipeline-x-srs--dev-x-vcluster--srs-groupmanager                  LoadBalancer   10.105.54.89     172.24.5.161                                 8096:31421/TCP                                                                     
+1893,1894d1879
+< vcluster--sshd-gateway                     session-gateway-x-dev-x-vcluster--sshd-gateway                    LoadBalancer   10.103.241.213   172.24.5.189                                 22:32222/TCP                                                                       
+< vcluster--sshd-gateway                     session-gateway-x-prod-x-vcluster--sshd-gateway                   LoadBalancer   10.96.239.175    172.24.5.219                                 22:31111/TCP                                                                       
+2043d2027
+< vcluster--supercdms                        hwmon-mysql-x-db-hwmon-x-vcluster--supercdms                      LoadBalancer   10.106.118.217   172.24.5.224                                 3306:31620/TCP                                                                     
+2049d2032
+< vcluster--supercdms                        scdms-mysql-x-db-scdms-x-vcluster--supercdms                      LoadBalancer   10.108.125.33    172.24.5.142                                 3306:30715/TCP                                                                     
+2070a2054
+> vcluster--supercdms                        vcluster--supercdms-node-sdfk8sc051                               ClusterIP      10.101.36.120    <none>                                       10250/TCP                                                                          
+2096,2102c2080,2086
+< vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-10-x-alert-stream-broker-x-vclust-f027255254   LoadBalancer   10.108.207.210   134.79.23.217                                9094:31234/TCP                                                                     
+< vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-11-x-alert-stream-broker-x-vclust-4038302df6   LoadBalancer   10.97.120.2      134.79.23.219                                9094:31858/TCP                                                                     
+< vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-6-x-alert-stream-broker-x-vcluste-4f2dc681c6   LoadBalancer   10.96.28.225     134.79.23.214                                9094:30302/TCP                                                                     
+< vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-7-x-alert-stream-broker-x-vcluste-0722bcd231   LoadBalancer   10.108.145.98    134.79.23.216                                9094:30747/TCP                                                                     
+< vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-8-x-alert-stream-broker-x-vcluste-4119d3aca3   LoadBalancer   10.108.169.180   134.79.23.218                                9094:31850/TCP                                                                     
+< vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-9-x-alert-stream-broker-x-vcluste-4f3a1e7b8d   LoadBalancer   10.101.139.74    134.79.23.220                                9094:32476/TCP                                                                     
+< vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-bootstrap-x-alert-stream-broker-x-c8081a2e68   ClusterIP      10.99.56.206     <none>                                       9091/TCP,9092/TCP,9093/TCP                                                         
+---
+> vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-10-x-alert-stream-broker-x-vclust-f027255254   LoadBalancer   10.106.155.191   134.79.23.217                                9094/TCP                                                                           
+> vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-11-x-alert-stream-broker-x-vclust-4038302df6   LoadBalancer   10.99.247.180    134.79.23.219                                9094/TCP                                                                           
+> vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-6-x-alert-stream-broker-x-vcluste-4f2dc681c6   LoadBalancer   10.105.114.128   134.79.23.214                                9094/TCP                                                                           
+> vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-7-x-alert-stream-broker-x-vcluste-0722bcd231   LoadBalancer   10.107.103.1     134.79.23.216                                9094/TCP                                                                           
+> vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-8-x-alert-stream-broker-x-vcluste-4119d3aca3   LoadBalancer   10.103.194.84    134.79.23.218                                9094/TCP                                                                           
+> vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-9-x-alert-stream-broker-x-vcluste-4f3a1e7b8d   LoadBalancer   10.109.172.221   134.79.23.220                                9094/TCP                                                                           
+> vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-bootstrap-x-alert-stream-broker-x-c8081a2e68   ClusterIP      10.109.96.210    <none>                                       9091/TCP,9092/TCP,9093/TCP                                                         
+2104c2088
+< vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-external-bootstrap-x-alert-stream-d209769021   LoadBalancer   10.111.167.245   134.79.23.185                                9094:30280/TCP                                                                     
+---
+> vcluster--usdf-alert-stream-broker-dev     alert-broker-kafka-external-bootstrap-x-alert-stream-d209769021   LoadBalancer   10.99.239.43     <pending>                                    9094/TCP                                                                           
+2145a2130
+> vcluster--usdf-alert-stream-broker-dev     vcluster--usdf-alert-stream-broker-dev-node-sdfk8sc030            ClusterIP      10.99.219.170    <none>                                       10250/TCP                                                                          
+2239,2240d2223
+< vcluster--usdf-butler-dev                  usdf-butler-misc-pooler-session-rw-x-misc-dev-x-vclu-5454993cdc   LoadBalancer   10.99.24.114     172.24.5.235                                 5432:31395/TCP                                                                     
+< vcluster--usdf-butler-dev                  usdf-butler-misc-pooler-transaction-rw-x-misc-dev-x--1300bc23b9   LoadBalancer   10.105.149.46    172.24.5.237                                 5432:31016/TCP                                                                     
+2244d2226
+< vcluster--usdf-butler-dev                  usdf-butler-misc-svc-x-misc-dev-x-vcluster--usdf-butler-dev       LoadBalancer   10.101.249.5     172.24.5.244                                 5432:31001/TCP                                                                     
+2247d2228
+< vcluster--usdf-butler-dev                  usdf-butler-postgres-direct-x-dev-x-vcluster--usdf-butler-dev     LoadBalancer   10.104.152.90    172.24.5.215                                 5432:32187/TCP                                                                     
+2452a2434
+> vcluster--usdf-butler-prompt               vcluster--usdf-butler-prompt-node-sdfk8sc028                      ClusterIP      10.102.252.72    <none>                                       10250/TCP                                                                          
+2457d2438
+< vcluster--usdf-butler-prompt               vcluster--usdf-butler-prompt-node-sdfk8sc049                      ClusterIP      10.103.23.68     <none>                                       10250/TCP                                                                          
+2501d2481
+< vcluster--usdf-cm-dev                      cm-pg-lb-x-cm-service-x-vcluster--usdf-cm-dev                     LoadBalancer   10.104.123.19    172.24.5.208                                 5432:31477/TCP                                                                     
+2521d2500
+< vcluster--usdf-cm-dev                      vcluster--usdf-cm-dev-node-sdfk8sc009                             ClusterIP      10.102.108.140   <none>                                       10250/TCP                                                                          
+2525a2505
+> vcluster--usdf-cm-dev                      vcluster--usdf-cm-dev-node-sdfk8sc020                             ClusterIP      10.107.107.52    <none>                                       10250/TCP                                                                          
+2528a2509
+> vcluster--usdf-cm-dev                      vcluster--usdf-cm-dev-node-sdfk8sc030                             ClusterIP      10.110.100.246   <none>                                       10250/TCP                                                                          
+2568a2550
+> vcluster--usdf-cm                          vcluster--usdf-cm-node-sdfk8sc028                                 ClusterIP      10.107.143.244   <none>                                       10250/TCP                                                                          
+2569a2552
+> vcluster--usdf-cm                          vcluster--usdf-cm-node-sdfk8sc030                                 ClusterIP      10.106.98.51     <none>                                       10250/TCP                                                                          
+2582d2564
+< vcluster--usdf-consdb-dev                  usdf-consdb-efd-lb-x-dev-latiss-x-vcluster--usdf-consdb-dev       LoadBalancer   10.106.99.226    172.24.10.41                                 5432:30655/TCP                                                                     
+2586d2567
+< vcluster--usdf-consdb-dev                  usdf-consdb-lb-x-dev-lsstcomcamsim-x-vcluster--usdf-consdb-dev    LoadBalancer   10.107.122.177   172.24.10.34                                 5432:32025/TCP                                                                     
+2609a2591,2592
+> vcluster--usdf-consdb                      vcluster--usdf-consdb-node-sdfk8sc028                             ClusterIP      10.103.249.19    <none>                                       10250/TCP                                                                          
+> vcluster--usdf-consdb                      vcluster--usdf-consdb-node-sdfk8sc030                             ClusterIP      10.110.118.157   <none>                                       10250/TCP                                                                          
+2612a2596
+> vcluster--usdf-consdb                      vcluster--usdf-consdb-node-sdfk8sc051                             ClusterIP      10.110.63.215    <none>                                       10250/TCP                                                                          
+2624,2627d2607
+< vcluster--usdf-embargo-dmz                 bts-butler-enqueue-x-bts-x-vcluster--usdf-embargo-dmz             LoadBalancer   10.97.232.27     172.24.5.178                                 8080:31577/TCP                                                                     
+< vcluster--usdf-embargo-dmz                 embargo-butler-enqueue-x-lfa-x-vcluster--usdf-embargo-dmz         LoadBalancer   10.101.188.161   172.24.5.152                                 8080:31916/TCP                                                                     
+< vcluster--usdf-embargo-dmz                 embargo-butler-enqueue-x-summit-new-x-vcluster--usdf-804711ef6f   LoadBalancer   10.105.68.171    172.24.5.156                                 8080:31175/TCP                                                                     
+< vcluster--usdf-embargo-dmz                 embargo-butler-presence-x-summit-new-x-vcluster--usd-afcbedf804   LoadBalancer   10.104.100.154   172.24.5.158                                 8080:30862/TCP                                                                     
+2638,2639d2617
+< vcluster--usdf-embargo-dmz                 sts-butler-enqueue-x-sts-x-vcluster--usdf-embargo-dmz             LoadBalancer   10.110.131.70    172.24.5.180                                 8080:31407/TCP                                                                     
+< vcluster--usdf-embargo-dmz                 tts-butler-enqueue-x-tts-x-vcluster--usdf-embargo-dmz             LoadBalancer   10.103.60.159    172.24.5.179                                 8080:30063/TCP                                                                     
+2648d2625
+< vcluster--usdf-embargo-dmz                 vcluster--usdf-embargo-dmz-node-sdfk8sc022                        ClusterIP      10.108.58.182    <none>                                       10250/TCP                                                                          
+2654a2632
+> vcluster--usdf-embargo-dmz                 vcluster--usdf-embargo-dmz-node-sdfk8sc042                        ClusterIP      10.103.226.84    <none>                                       10250/TCP                                                                          
+2664d2641
+< vcluster--usdf-fts3-dev                    fts3-x-fts3-x-vcluster--usdf-fts3-dev                             LoadBalancer   10.104.14.48     134.79.23.186                                8446:32129/TCP,8449:31098/TCP                                                      
+2679a2657
+> vcluster--usdf-fts3-dev                    vcluster--usdf-fts3-dev-node-sdfk8sc051                           ClusterIP      10.100.102.25    <none>                                       10250/TCP                                                                          
+2684d2661
+< vcluster--usdf-fts3                        fts3-x-fts3-x-vcluster--usdf-fts3                                 LoadBalancer   10.103.140.183   134.79.23.193                                8446:31382/TCP,8449:30891/TCP                                                      
+2694a2672
+> vcluster--usdf-fts3                        vcluster--usdf-fts3-node-sdfk8sc020                               ClusterIP      10.101.194.31    <none>                                       10250/TCP                                                                          
+2789d2766
+< vcluster--usdf-maf                         usdf-maf-x-maf-x-vcluster--usdf-maf                               LoadBalancer   10.107.195.120   172.24.5.60                                  80:32747/TCP                                                                       
+2806,2807d2782
+< vcluster--usdf-minor-planet-survey         cnpg-load-balancer-gcp-access-x-mpcorb-replica-x-vcl-b23f084d9d   LoadBalancer   10.96.170.147    134.79.23.225                                5432:31209/TCP                                                                     
+< vcluster--usdf-minor-planet-survey         cnpg-loadbalancer-x-mpcorb-replica-x-vcluster--usdf--4cf0a55c9e   LoadBalancer   10.103.115.70    172.24.5.226                                 5432:30976/TCP                                                                     
+2831d2805
+< vcluster--usdf-minor-planet-survey         vcluster--usdf-minor-planet-survey-node-sdfk8sc009                ClusterIP      10.96.192.246    <none>                                       10250/TCP                                                                          
+2837a2812
+> vcluster--usdf-minor-planet-survey         vcluster--usdf-minor-planet-survey-node-sdfk8sc028                ClusterIP      10.110.163.18    <none>                                       10250/TCP                                                                          
+2843d2817
+< vcluster--usdf-opensearch                  dashboard-loadbalancer-x-opensearch-system-x-vcluste-a64fe7a7e4   LoadBalancer   10.108.191.165   172.24.5.88                                  5601:32246/TCP                                                                     
+2898a2873
+> vcluster--usdf-panda-dev                   vcluster--usdf-panda-dev-node-sdfk8sc028                          ClusterIP      10.99.150.64     <none>                                       10250/TCP                                                                          
+2904,2905d2878
+< vcluster--usdf-panda-dev                   vcluster--usdf-panda-dev-node-sdfk8sc049                          ClusterIP      10.100.254.21    <none>                                       10250/TCP                                                                          
+< vcluster--usdf-panda-dev                   vcluster--usdf-panda-dev-node-sdfk8sc050                          ClusterIP      10.102.20.217    <none>                                       10250/TCP                                                                          
+2940a2914
+> vcluster--usdf-panda                       vcluster--usdf-panda-node-sdfk8sc009                              ClusterIP      10.104.28.246    <none>                                       10250/TCP                                                                          
+2999d2972
+< vcluster--usdf-ppdb-dev                    metallb-rubin-ingest-x-cnpg-ppdb-dev-x-vcluster--usdf-ppdb-dev    LoadBalancer   10.105.46.177    172.24.10.13                                 80:30733/TCP                                                                       
+3021,3022d2993
+< vcluster--usdf-prompt-processing-dev       embargo-butler-enqueue-x-autoingest-x-vcluster--usdf-50e4e48c71   LoadBalancer   10.111.232.112   172.24.10.33                                 8080:31376/TCP                                                                     
+< vcluster--usdf-prompt-processing-dev       embargo-butler-presence-x-autoingest-x-vcluster--usd-5a727f51a7   LoadBalancer   10.101.245.154   172.24.10.31                                 8080:32266/TCP                                                                     
+3063d3033
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sc009              ClusterIP      10.106.215.213   <none>                                       10250/TCP                                                                          
+3068a3039
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sc020              ClusterIP      10.99.59.70      <none>                                       10250/TCP                                                                          
+3073a3045
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sc028              ClusterIP      10.99.112.230    <none>                                       10250/TCP                                                                          
+3074a3047
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sc030              ClusterIP      10.108.136.70    <none>                                       10250/TCP                                                                          
+3077d3049
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sc033              ClusterIP      10.108.190.207   <none>                                       10250/TCP                                                                          
+3092c3064
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd002              ClusterIP      10.111.122.13    <none>                                       10250/TCP                                                                          
+---
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd003              ClusterIP      10.108.17.23     <none>                                       10250/TCP                                                                          
+3094,3095c3066
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd005              ClusterIP      10.102.253.229   <none>                                       10250/TCP                                                                          
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd006              ClusterIP      10.102.134.64    <none>                                       10250/TCP                                                                          
+---
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd005              ClusterIP      10.106.47.12     <none>                                       10250/TCP                                                                          
+3097c3068,3069
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd009              ClusterIP      10.106.46.29     <none>                                       10250/TCP                                                                          
+---
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd009              ClusterIP      10.111.206.139   <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd010              ClusterIP      10.104.1.101     <none>                                       10250/TCP                                                                          
+3100,3102c3072,3076
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd021              ClusterIP      10.96.253.52     <none>                                       10250/TCP                                                                          
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd026              ClusterIP      10.99.254.165    <none>                                       10250/TCP                                                                          
+< vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd030              ClusterIP      10.109.45.60     <none>                                       10250/TCP                                                                          
+---
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd017              ClusterIP      10.104.26.133    <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd021              ClusterIP      10.97.78.232     <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd027              ClusterIP      10.108.185.221   <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd030              ClusterIP      10.103.189.106   <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing-dev       vcluster--usdf-prompt-processing-dev-node-sdfk8sd033              ClusterIP      10.110.47.251    <none>                                       10250/TCP                                                                          
+3125d3098
+< vcluster--usdf-prompt-processing           pp-influxdb-metallb-x-prompt-influxdb-x-vcluster--us-1d369d39cd   LoadBalancer   10.96.39.204     172.24.10.19                                 8086:31037/TCP                                                                     
+3131d3103
+< vcluster--usdf-prompt-processing           prompt-processing-pooler-rw-x-database-x-vcluster--u-3813480ce0   LoadBalancer   10.106.74.144    172.24.5.172                                 5432:30796/TCP                                                                     
+3173,3177c3145,3152
+< vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd008                  ClusterIP      10.103.195.232   <none>                                       10250/TCP                                                                          
+< vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd015                  ClusterIP      10.105.161.172   <none>                                       10250/TCP                                                                          
+< vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd017                  ClusterIP      10.104.186.173   <none>                                       10250/TCP                                                                          
+< vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd022                  ClusterIP      10.108.33.50     <none>                                       10250/TCP                                                                          
+< vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd025                  ClusterIP      10.102.133.216   <none>                                       10250/TCP                                                                          
+---
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd001                  ClusterIP      10.97.107.76     <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd005                  ClusterIP      10.96.161.37     <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd014                  ClusterIP      10.108.148.38    <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd016                  ClusterIP      10.103.107.156   <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd022                  ClusterIP      10.102.138.36    <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd023                  ClusterIP      10.107.208.41    <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd025                  ClusterIP      10.97.89.222     <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd026                  ClusterIP      10.99.255.200    <none>                                       10250/TCP                                                                          
+3178a3154,3155
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd031                  ClusterIP      10.107.166.96    <none>                                       10250/TCP                                                                          
+> vcluster--usdf-prompt-processing           vcluster--usdf-prompt-processing-node-sdfk8sd033                  ClusterIP      10.103.131.141   <none>                                       10250/TCP                                                                          
+3285,3286d3261
+< vcluster--usdf-rapid-analysis-dev          nginx-ingress-ingress-nginx-controller-x-ingress-ngi-a250f5138d   LoadBalancer   10.98.154.122    172.24.5.83                                  80:31212/TCP,443:31814/TCP                                                         
+< vcluster--usdf-rapid-analysis-dev          redis-service-x-rapid-analysis-x-vcluster--usdf-rapi-d35c13d681   LoadBalancer   10.100.30.50     172.24.5.216                                 6379:32233/TCP                                                                     
+3299d3273
+< vcluster--usdf-rapid-analysis-dev          weaviate-x-astrochat-x-vcluster--usdf-rapid-analysis-dev          LoadBalancer   10.107.18.120    172.24.5.82                                  80:31370/TCP                                                                       
+3314d3287
+< vcluster--usdf-rapid-analysis              redis-service-x-rapid-analysis-x-vcluster--usdf-rapid-analysis    LoadBalancer   10.101.195.145   172.24.5.223                                 6379:30914/TCP                                                                     
+3389c3362
+< vcluster--usdf-rsp-dev                     lab-x-nublado-bot-mobu01-x-vcluster--usdf-rsp-dev                 ClusterIP      10.109.22.166    <none>                                       8888/TCP                                                                           
+---
+> vcluster--usdf-rsp-dev                     lab-x-nublado-bot-mobu01-x-vcluster--usdf-rsp-dev                 ClusterIP      10.102.83.133    <none>                                       8888/TCP                                                                           
+3395d3367
+< vcluster--usdf-rsp-dev                     lab-x-nublado-smart-x-vcluster--usdf-rsp-dev                      ClusterIP      10.99.222.39     <none>                                       8888/TCP                                                                           
+3397d3368
+< vcluster--usdf-rsp-dev                     lab-x-nublado-vbecker-x-vcluster--usdf-rsp-dev                    ClusterIP      10.102.152.201   <none>                                       8888/TCP                                                                           
+3400d3370
+< vcluster--usdf-rsp-dev                     mpsky-x-mpsky-x-vcluster--usdf-rsp-dev                            LoadBalancer   10.100.103.94    172.24.5.145                                 80:31442/TCP                                                                       
+3429,3431d3398
+< vcluster--usdf-rsp-dev                     sasquatch-kafka-0-x-sasquatch-x-vcluster--usdf-rsp-dev            LoadBalancer   10.105.217.188   172.24.10.25                                 9094:31678/TCP                                                                     
+< vcluster--usdf-rsp-dev                     sasquatch-kafka-1-x-sasquatch-x-vcluster--usdf-rsp-dev            LoadBalancer   10.111.75.52     172.24.10.26                                 9094:31995/TCP                                                                     
+< vcluster--usdf-rsp-dev                     sasquatch-kafka-2-x-sasquatch-x-vcluster--usdf-rsp-dev            LoadBalancer   10.98.152.202    172.24.10.27                                 9094:32411/TCP                                                                     
+3434d3400
+< vcluster--usdf-rsp-dev                     sasquatch-kafka-external-bootstrap-x-sasquatch-x-vcl-ceb927b7e9   LoadBalancer   10.108.166.145   172.24.10.24                                 9094:30306/TCP                                                                     
+3462a3429
+> vcluster--usdf-rsp-dev                     vcluster--usdf-rsp-dev-node-sdfk8sc020                            ClusterIP      10.108.155.163   <none>                                       10250/TCP                                                                          
+3468a3436
+> vcluster--usdf-rsp-dev                     vcluster--usdf-rsp-dev-node-sdfk8sc028                            ClusterIP      10.97.22.234     <none>                                       10250/TCP                                                                          
+3469a3438
+> vcluster--usdf-rsp-dev                     vcluster--usdf-rsp-dev-node-sdfk8sc030                            ClusterIP      10.111.234.199   <none>                                       10250/TCP                                                                          
+3477a3447
+> vcluster--usdf-rsp-dev                     vcluster--usdf-rsp-dev-node-sdfk8sc042                            ClusterIP      10.107.252.53    <none>                                       10250/TCP                                                                          
+3487c3457
+< vcluster--usdf-rsp-dev                     vcluster--usdf-rsp-dev-node-sdfk8so003                            ClusterIP      10.111.197.91    <none>                                       10250/TCP                                                                          
+---
+> vcluster--usdf-rsp-dev                     vcluster--usdf-rsp-dev-node-sdfk8so003                            ClusterIP      10.100.1.8       <none>                                       10250/TCP                                                                          
+3491d3460
+< vcluster--usdf-rsp-dev                     weaviate-grpc-x-rubin-rag-x-vcluster--usdf-rsp-dev                LoadBalancer   10.107.117.47    134.79.22.163                                50051:30883/TCP                                                                    
+3493d3461
+< vcluster--usdf-rsp-dev                     weaviate-x-rubin-rag-x-vcluster--usdf-rsp-dev                     LoadBalancer   10.103.80.152    134.79.22.164                                80:32067/TCP                                                                       
+3563,3565d3530
+< vcluster--usdf-rsp-int                     sasquatch-kafka-0-x-sasquatch-x-vcluster--usdf-rsp-int            LoadBalancer   10.101.155.147   172.24.10.42                                 9094:32164/TCP                                                                     
+< vcluster--usdf-rsp-int                     sasquatch-kafka-1-x-sasquatch-x-vcluster--usdf-rsp-int            LoadBalancer   10.102.229.188   172.24.10.43                                 9094:32165/TCP                                                                     
+< vcluster--usdf-rsp-int                     sasquatch-kafka-2-x-sasquatch-x-vcluster--usdf-rsp-int            LoadBalancer   10.104.201.139   172.24.10.44                                 9094:32763/TCP                                                                     
+3568d3532
+< vcluster--usdf-rsp-int                     sasquatch-kafka-external-bootstrap-x-sasquatch-x-vcl-2af70c11d3   LoadBalancer   10.103.50.159    172.24.10.15                                 9094:30522/TCP                                                                     
+3598a3563,3564
+> vcluster--usdf-rsp-int                     vcluster--usdf-rsp-int-node-sdfk8sc028                            ClusterIP      10.96.36.46      <none>                                       10250/TCP                                                                          
+> vcluster--usdf-rsp-int                     vcluster--usdf-rsp-int-node-sdfk8sc030                            ClusterIP      10.109.132.142   <none>                                       10250/TCP                                                                          
+3604a3571
+> vcluster--usdf-rsp-int                     vcluster--usdf-rsp-int-node-sdfk8sc042                            ClusterIP      10.106.89.50     <none>                                       10250/TCP                                                                          
+3669c3636
+< vcluster--usdf-rsp                         lab-x-nublado-bot-mobu04-x-vcluster--usdf-rsp                     ClusterIP      10.100.86.247    <none>                                       8888/TCP                                                                           
+---
+> vcluster--usdf-rsp                         lab-x-nublado-bot-mobu04-x-vcluster--usdf-rsp                     ClusterIP      10.98.145.27     <none>                                       8888/TCP                                                                           
+3680d3646
+< vcluster--usdf-rsp                         lab-x-nublado-dgmonet-x-vcluster--usdf-rsp                        ClusterIP      10.111.215.75    <none>                                       8888/TCP                                                                           
+3688d3653
+< vcluster--usdf-rsp                         lab-x-nublado-hchiang2-x-vcluster--usdf-rsp                       ClusterIP      10.107.110.165   <none>                                       8888/TCP                                                                           
+3698d3662
+< vcluster--usdf-rsp                         lab-x-nublado-lynnej-x-vcluster--usdf-rsp                         ClusterIP      10.97.172.64     <none>                                       8888/TCP                                                                           
+3708a3673
+> vcluster--usdf-rsp                         lab-x-nublado-pav-x-vcluster--usdf-rsp                            ClusterIP      10.111.152.24    <none>                                       8888/TCP                                                                           
+3715a3681
+> vcluster--usdf-rsp                         lab-x-nublado-smart-x-vcluster--usdf-rsp                          ClusterIP      10.98.136.124    <none>                                       8888/TCP                                                                           
+3717d3682
+< vcluster--usdf-rsp                         lab-x-nublado-vbecker-x-vcluster--usdf-rsp                        ClusterIP      10.98.134.48     <none>                                       8888/TCP                                                                           
+3751,3752d3715
+< vcluster--usdf-rsp                         sasquatch-influxdb-enterprise-standby-meta-x-sasquat-017091da5c   LoadBalancer   10.107.106.26    172.24.5.233                                 8089:31699/TCP,8091:30875/TCP                                                      
+< vcluster--usdf-rsp                         sasquatch-influxdb-rpc-x-sasquatch-x-vcluster--usdf-rsp           LoadBalancer   10.99.41.90      172.24.5.176                                 8088:30110/TCP                                                                     
+3755,3757d3717
+< vcluster--usdf-rsp                         sasquatch-kafka-0-x-sasquatch-x-vcluster--usdf-rsp                LoadBalancer   10.111.201.253   172.24.10.28                                 9094:30551/TCP                                                                     
+< vcluster--usdf-rsp                         sasquatch-kafka-1-x-sasquatch-x-vcluster--usdf-rsp                LoadBalancer   10.99.178.238    172.24.10.29                                 9094:31350/TCP                                                                     
+< vcluster--usdf-rsp                         sasquatch-kafka-2-x-sasquatch-x-vcluster--usdf-rsp                LoadBalancer   10.109.37.10     172.24.10.30                                 9094:32703/TCP                                                                     
+3760d3719
+< vcluster--usdf-rsp                         sasquatch-kafka-external-bootstrap-x-sasquatch-x-vcl-9ce6fcf9ce   LoadBalancer   10.97.96.186     172.24.10.20                                 9094:30524/TCP                                                                     
+3766d3724
+< vcluster--usdf-rsp                         sasquatch-source-influxdb-rpc-x-sasquatch-x-vcluster--usdf-rsp    LoadBalancer   10.100.153.126   172.24.5.181                                 8088:32748/TCP                                                                     
+3771d3728
+< vcluster--usdf-rsp                         traceroute-x-sasquatch-x-vcluster--usdf-rsp                       LoadBalancer   10.102.198.116   134.79.23.213                                80:30973/TCP                                                                       
+3795a3753
+> vcluster--usdf-rsp                         vcluster--usdf-rsp-node-sdfk8sc030                                ClusterIP      10.98.62.83      <none>                                       10250/TCP                                                                          
+3836,3839c3794,3796
+< vcluster--usdf-rucio-dev                   rucio-kafka-kafka-external-bootstrap-x-kafka-x-vclus-e452e3c00e   LoadBalancer   10.105.32.95     134.79.23.202                                9094:32495/TCP                                                                     
+< vcluster--usdf-rucio-dev                   rucio-kafka-rucio-kafka-broker-pool-0-x-kafka-x-vclu-fecd109ff4   LoadBalancer   10.104.77.41     134.79.23.196                                9094:30965/TCP                                                                     
+< vcluster--usdf-rucio-dev                   rucio-kafka-rucio-kafka-broker-pool-1-x-kafka-x-vclu-b362e8b8af   LoadBalancer   10.99.86.113     134.79.23.198                                9094:30580/TCP                                                                     
+< vcluster--usdf-rucio-dev                   rucio-kafka-rucio-kafka-broker-pool-2-x-kafka-x-vclu-c2993231ea   LoadBalancer   10.101.169.248   134.79.23.204                                9094:32684/TCP                                                                     
+---
+> vcluster--usdf-rucio-dev                   rucio-kafka-kafka-external-bootstrap-x-kafka-x-vclus-e452e3c00e   LoadBalancer   10.107.231.28    134.79.23.202                                9094/TCP                                                                           
+> vcluster--usdf-rucio-dev                   rucio-kafka-rucio-kafka-broker-pool-1-x-kafka-x-vclu-b362e8b8af   LoadBalancer   10.108.185.203   134.79.23.186                                9094/TCP                                                                           
+> vcluster--usdf-rucio-dev                   rucio-kafka-rucio-kafka-broker-pool-2-x-kafka-x-vclu-c2993231ea   LoadBalancer   10.111.187.169   134.79.23.196                                9094/TCP                                                                           
+3850d3806
+< vcluster--usdf-rucio-dev                   vcluster--usdf-rucio-dev-node-sdfk8sc019                          ClusterIP      10.108.70.193    <none>                                       10250/TCP                                                                          
+3852a3809
+> vcluster--usdf-rucio-dev                   vcluster--usdf-rucio-dev-node-sdfk8sc030                          ClusterIP      10.108.42.191    <none>                                       10250/TCP                                                                          
+3864a3822
+> vcluster--usdf-rucio-dev                   vcluster--usdf-rucio-dev-node-sdfk8sc051                          ClusterIP      10.111.254.161   <none>                                       10250/TCP                                                                          
+3880,3883c3838,3841
+< vcluster--usdf-rucio                       rucio-kafka-kafka-external-bootstrap-x-kafka-x-vclus-255427aa7a   LoadBalancer   10.102.132.90    134.79.23.189                                9094:31973/TCP                                                                     
+< vcluster--usdf-rucio                       rucio-kafka-rucio-kafka-broker-pool-0-x-kafka-x-vclu-eb86248937   LoadBalancer   10.107.26.191    134.79.23.190                                9094:30712/TCP                                                                     
+< vcluster--usdf-rucio                       rucio-kafka-rucio-kafka-broker-pool-1-x-kafka-x-vclu-3cfc3d68bf   LoadBalancer   10.103.103.221   134.79.23.191                                9094:31885/TCP                                                                     
+< vcluster--usdf-rucio                       rucio-kafka-rucio-kafka-broker-pool-2-x-kafka-x-vclu-23db2b9d68   LoadBalancer   10.106.5.160     134.79.23.192                                9094:31866/TCP                                                                     
+---
+> vcluster--usdf-rucio                       rucio-kafka-kafka-external-bootstrap-x-kafka-x-vclus-255427aa7a   LoadBalancer   10.102.58.242    134.79.23.189                                9094/TCP                                                                           
+> vcluster--usdf-rucio                       rucio-kafka-rucio-kafka-broker-pool-0-x-kafka-x-vclu-eb86248937   LoadBalancer   10.111.246.197   134.79.23.190                                9094/TCP                                                                           
+> vcluster--usdf-rucio                       rucio-kafka-rucio-kafka-broker-pool-1-x-kafka-x-vclu-3cfc3d68bf   LoadBalancer   10.96.218.127    134.79.23.191                                9094/TCP                                                                           
+> vcluster--usdf-rucio                       rucio-kafka-rucio-kafka-broker-pool-2-x-kafka-x-vclu-23db2b9d68   LoadBalancer   10.100.120.167   134.79.23.192                                9094/TCP                                                                           
+3918a3877
+> vcluster--usdf-rucio                       vcluster--usdf-rucio-node-sdfk8sc051                              ClusterIP      10.100.27.192    <none>                                       10250/TCP                                                                          
+3944a3904
+> vcluster--usdf-summitdb                    vcluster--usdf-summitdb-node-sdfk8sc028                           ClusterIP      10.108.168.110   <none>                                       10250/TCP                                                                          

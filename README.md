@@ -1,3 +1,5 @@
+# Please don't commit here, this repo has migrated to https://github.com/slaclab/rubin-pg-deploy/tree/main/usdf-summit-db-replica 
+
 # rubin-usdf-summitdb-replica
 
 This is the repository for the deployment of a CNPG replica Postgres cluster in the USDF.   It stores the kubernetes manifests and kubernetes operator configurations.  Deployments are done currently through make files.  The CNPG replica feature is used that is described [here](https://cloudnative-pg.io/documentation/1.18/architecture/#deployments-across-kubernetes-clusters).

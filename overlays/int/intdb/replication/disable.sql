@@ -1,3 +1,5 @@
+
+\c exposurelog
 ALTER SUBSCRIPTION usdf_exposurelog DISABLE;
 ALTER SUBSCRIPTION usdf_exposurelog SET (slot_name=NONE);
 DROP SUBSCRIPTION usdf_exposurelog;

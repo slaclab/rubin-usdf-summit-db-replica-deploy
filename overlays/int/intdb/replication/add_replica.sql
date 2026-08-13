@@ -1,4 +1,4 @@
-\c exposurelog;
+\c exposurelog
 TRUNCATE TABLE public.message;
 TRUNCATE TABLE cdb_latiss.ccdexposure, cdb_latiss.ccdexposure_camera, cdb_latiss.ccdexposure_flexdata, cdb_latiss.ccdexposure_flexdata_schema, cdb_latiss.ccdvisit1_quicklook, cdb_latiss.exposure, cdb_latiss.exposure_flexdata, cdb_latiss.exposure_flexdata_schema, cdb_latiss.exposure_quicklook, cdb_latiss.visit1_quicklook;
 TRUNCATE TABLE cdb_lsstcam.ccdexposure, cdb_lsstcam.ccdexposure_camera, cdb_lsstcam.ccdexposure_flexdata, cdb_lsstcam.ccdexposure_flexdata_schema, cdb_lsstcam.ccdexposure_quicklook, cdb_lsstcam.ccdvisit1_quicklook, cdb_lsstcam.exposure, cdb_lsstcam.exposure_flexdata, cdb_lsstcam.exposure_flexdata_schema, cdb_lsstcam.exposure_quicklook, cdb_lsstcam.visit1_quicklook;
@@ -8,12 +8,12 @@ TRUNCATE TABLE cdb_startrackerfast.exposure, cdb_startrackerfast.exposure_flexda
 TRUNCATE TABLE cdb_startrackernarrow.exposure, cdb_startrackernarrow.exposure_flexdata, cdb_startrackernarrow.exposure_flexdata_schema, cdb_startrackernarrow.exposure_quicklook;
 TRUNCATE TABLE cdb_startrackerwide.exposure, cdb_startrackerwide.exposure_flexdata, cdb_startrackerwide.exposure_flexdata_schema, cdb_startrackerwide.exposure_quicklook;
 
-CREATE SUBSCRIPTION usdf_exposurelog_int CONNECTION 'host=usdf-summitdb-logical-replica-svc.sdf.slac.stanford.edu port=5432 dbname=exposurelog user=replicauser password=xxx' PUBLICATION usdfpub WITH (connect=true);
+CREATE SUBSCRIPTION usdf_exposurelog CONNECTION 'host=usdf-summitdb-logical-replica-svc.sdf.slac.stanford.edu port=5432 dbname=exposurelog user=replicauser password=fogdoxiert2' PUBLICATION usdfpub WITH (connect=true);
 
 \c narrativelog
 TRUNCATE TABLE public.message, jira_fields;
-CREATE SUBSCRIPTION usdf_narrativelog CONNECTION 'host=usdf-summitdb-logical-replica-svc.sdf.slac.stanford.edu port=5432 dbname=narrativelog user=replicauser password=xxx' PUBLICATION usdfpubnarrativelog WITH (connect=true);
+CREATE SUBSCRIPTION usdf_narrativelog CONNECTION 'host=usdf-summitdb-logical-replica-svc.sdf.slac.stanford.edu port=5432 dbname=narrativelog user=replicauser password=fogdoxiert2' PUBLICATION usdfpubnarrativelog WITH (connect=true);
 
 \c nightreport
 TRUNCATE TABLE public.nightreport;
-CREATE SUBSCRIPTION usdf_nightreport CONNECTION 'host=usdf-summitdb-logical-replica-svc.sdf.slac.stanford.edu  port=5432 dbname=nightreport user=replicauser password=xxx' PUBLICATION usdfpubnightreport WITH (connect=true);
+CREATE SUBSCRIPTION usdf_nightreport CONNECTION 'host=usdf-summitdb-logical-replica-svc.sdf.slac.stanford.edu  port=5432 dbname=nightreport user=replicauser password=fogdoxiert2' PUBLICATION usdfpubnightreport WITH (connect=true);
